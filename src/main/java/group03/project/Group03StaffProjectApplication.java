@@ -1,0 +1,13 @@
+package group03.project;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Group03StaffProjectApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Group03StaffProjectApplication.class, args);
+	}
+
+}
