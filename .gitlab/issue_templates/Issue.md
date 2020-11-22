@@ -1,8 +1,5 @@
 ## Feature: 
-### *PROBLEM*
-
-**Background:**
-<br/>
+### *PROBLEM - also state value to user/customer*
 
 
 **Definition of Ready**
