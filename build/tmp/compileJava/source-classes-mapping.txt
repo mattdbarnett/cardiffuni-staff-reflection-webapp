@@ -1,20 +1,20 @@
-group03/project/classes/Objective.java
- group03.project.classes.Objective
-group03/project/classes/Role.java
- group03.project.classes.Role
-group03/project/classes/Tag.java
- group03.project.classes.Tag
-group03/project/Domain/Role.java
- group03.project.Domain.Role
-group03/project/Domain/SiteUser.java
- group03.project.Domain.SiteUser
-group03/project/classes/User.java
- group03.project.user.User
+group03/project/domain/SiteUserRepo.java
+ group03.project.domain.SiteUserRepo
 group03/project/Group03StaffProjectApplication.java
  group03.project.Group03StaffProjectApplication
-group03/project/classes/Activity.java
- group03.project.activity.Activity
-group03/project/classes/Particpation.java
- group03.project.classes.Particpation
-group03/project/classes/Reflection.java
- group03.project.classes.Reflection
+group03/project/jpa/SiteUserRepoJPA.java
+ group03.project.jpa.SiteUserRepoJPA
+group03/project/domain/Role.java
+ group03.project.domain.Role
+group03/project/domain/SiteUserDataImpl.java
+ group03.project.domain.SiteUserDataImpl
+group03/project/domain/SiteUserData.java
+ group03.project.domain.SiteUserData
+group03/project/domain/SiteUserAuditor.java
+ group03.project.domain.SiteUserAuditor
+group03/project/domain/SiteUser.java
+ group03.project.domain.SiteUser
+group03/project/domain/SiteUserCreator.java
+ group03.project.domain.SiteUserCreator
+group03/project/domain/DefaultSiteUserCreator.java
+ group03.project.domain.DefaultSiteUserCreator

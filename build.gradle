@@ -24,6 +24,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'junit:junit:4.12'
+
+	runtime 'com.h2database:h2'
+
+	runtime 'org.mariadb.jdbc:mariadb-java-client:2.7.0'
+
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
