@@ -9,5 +9,5 @@ public interface SiteUserRepository {
 
     List<SiteUser> findAll();
 
-    Optional<SiteUser> findById(Long id);
+//    Optional<SiteUser> findById(Long id);
 }

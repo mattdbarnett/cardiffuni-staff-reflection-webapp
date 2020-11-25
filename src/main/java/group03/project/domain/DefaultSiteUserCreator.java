@@ -1,6 +1,8 @@
 package group03.project.domain;
 
+import group03.project.repositories.SiteUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
@@ -8,14 +10,14 @@ public class DefaultSiteUserCreator implements SiteUserCreator {
 
 
 
-//    private final SiteUserRepo siteUserRepo;
+    private final SiteUserRepository siteUserRepo;
     private final SiteUserAuditor siteUserAuditor;
 
     @Autowired
-    public DefaultSiteUserCreator( SiteUserAuditor aSiteUserAuditor) {
-//    public DefaultSiteUserCreator(SiteUserRepo aSiteUserRepo, SiteUserAuditor aSiteUserAuditor) {
+//    public DefaultSiteUserCreator( SiteUserAuditor aSiteUserAuditor) {
+    public DefaultSiteUserCreator(SiteUserRepository aSiteUserRepo, SiteUserAuditor aSiteUserAuditor) {
         siteUserAuditor = aSiteUserAuditor;
-//        siteUserRepo = aSiteUserRepo;
+        siteUserRepo = aSiteUserRepo;
     }
 
     @Override

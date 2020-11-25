@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //@RunWith(SpringRunner.class)
 @DataJpaTest
-@ActiveProfiles(profiles = "dev")
+//@ActiveProfiles(profiles = "dev")
 public class DatabaseTest {
 
     @Autowired
