@@ -2,8 +2,8 @@
 -- Sun Nov 22 20:59:33 2020
 -- Model: New Model    Version: 1.0
 -- MySQL Workbench Forward Engineering
-SET MODE MYSQL;
-SET IGNORECASE=TRUE;
+SET MODE MYSQL; /*- this throws errors in the Workbench, so temporarily comment out when instantiating DB*/
+SET IGNORECASE=TRUE; /*- this throws errors in the Workbench, so temporarily comment out when instantiating DB*/
 
 -- -----------------------------------------------------
 -- Schema mydb

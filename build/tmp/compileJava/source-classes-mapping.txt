@@ -1,36 +1,36 @@
-group03/project/domain/SiteUserData.java
- group03.project.domain.SiteUserData
-group03/project/Group03StaffProjectApplication.java
- group03.project.Group03StaffProjectApplication
-group03/project/domain/SiteUserAuditor.java
- group03.project.domain.SiteUserAuditor
-group03/project/repositories/RoleRepository.java
- group03.project.repositories.RoleRepository
-group03/project/service/RoleDataImpl.java
- group03.project.service.RoleDataImpl
-group03/project/repositories/SiteUserRepository.java
- group03.project.repositories.SiteUserRepository
-group03/project/domain/RoleData.java
- group03.project.domain.RoleData
-group03/project/domain/Role.java
- group03.project.domain.Role
-group03/project/domain/SiteUser.java
- group03.project.domain.SiteUser
-group03/project/jpa/SiteUserRepoJPA.java
- group03.project.jpa.SiteUserRepoJPA
-group03/project/service/SiteUserDataImpl.java
- group03.project.service.SiteUserDataImpl
-group03/project/component/RoleCreator.java
- group03.project.component.RoleCreator
-group03/project/domain/DefaultSiteUserCreator.java
- group03.project.domain.DefaultSiteUserCreator
-group03/project/domain/RoleAuditor.java
- group03.project.domain.RoleAuditor
-group03/project/component/SiteUserCreator.java
- group03.project.component.SiteUserCreator
-group03/project/web/SiteUserController.java
- group03.project.web.SiteUserController
 group03/project/domain/DefaultRoleCreator.java
  group03.project.domain.DefaultRoleCreator
+group03/project/service/RoleDataImpl.java
+ group03.project.service.RoleDataImpl
+group03/project/repositories/RoleRepository.java
+ group03.project.repositories.RoleRepository
+group03/project/domain/SiteUserAuditor.java
+ group03.project.domain.SiteUserAuditor
+group03/project/component/SiteUserCreator.java
+ group03.project.component.SiteUserCreator
+group03/project/domain/Role.java
+ group03.project.domain.Role
+group03/project/repositories/SiteUserRepository.java
+ group03.project.repositories.SiteUserRepository
+group03/project/domain/SiteUser.java
+ group03.project.domain.SiteUser
+group03/project/component/RoleCreator.java
+ group03.project.component.RoleCreator
+group03/project/service/SiteUserDataImpl.java
+ group03.project.service.SiteUserDataImpl
 group03/project/jpa/RoleRepoJPA.java
  group03.project.jpa.RoleRepoJPA
+group03/project/domain/RoleAuditor.java
+ group03.project.domain.RoleAuditor
+group03/project/domain/DefaultSiteUserCreator.java
+ group03.project.domain.DefaultSiteUserCreator
+group03/project/service/RoleService.java
+ group03.project.service.RoleService
+group03/project/web/SiteUserController.java
+ group03.project.web.SiteUserController
+group03/project/jpa/SiteUserRepoJPA.java
+ group03.project.jpa.SiteUserRepoJPA
+group03/project/Group03StaffProjectApplication.java
+ group03.project.Group03StaffProjectApplication
+group03/project/service/SiteUserService.java
+ group03.project.service.SiteUserService
