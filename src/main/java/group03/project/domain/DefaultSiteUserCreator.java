@@ -3,9 +3,11 @@ package group03.project.domain;
 import group03.project.component.SiteUserCreator;
 import group03.project.repositories.SiteUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+@Component
 public class DefaultSiteUserCreator implements SiteUserCreator {
 
 

@@ -1,4 +1,4 @@
-package group03.project.database;
+package group03.project.jpa;
 
 import group03.project.domain.Role;
 import group03.project.domain.SiteUser;
@@ -7,32 +7,37 @@ import group03.project.repositories.SiteUserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
-public class DatabaseTest {
+public class NewUserTest {
 
     @Autowired
     private SiteUserRepository userRepository;
-    @Autowired
-    private RoleRepository roleRepository;
+//    @Autowired
+//    private RoleRepository roleRepository;
 
     @Test
-    public void shouldReturnTwoUsers() throws Exception {
+    public void shouldAddAUserAndBeViewableInDatabase() throws Exception {
 
-        List<SiteUser> siteUsers = userRepository.findAll();
 
-        assertEquals(3, siteUsers.size());
+        SiteUser newSiteUser = userRepository.findById(4L).get();
+
+        assertEquals("SECRETARY", newSiteUser.getRole().toString().toUpperCase());
+
     }
 
     @Test
-    public void shouldReturnCEODescription() throws Exception {
+    public void shouldReturnFiveUsers() throws Exception {
 
-        Role role = roleRepository.findByRole("CEO").get();
-        assertEquals("Tells secretary what to do etc", role.getDescription());
+        List<SiteUser> allSiteUsers = userRepository.findAll();
+        assertEquals(5, allSiteUsers.size());
+
+
     }
+
 }
