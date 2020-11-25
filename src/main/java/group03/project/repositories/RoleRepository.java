@@ -2,13 +2,15 @@ package group03.project.repositories;
 
 import group03.project.domain.Role;
 import group03.project.domain.SiteUser;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface SiteUserRepository {
+@Repository
+public interface RoleRepository {
 
-    List<SiteUser> findAll();
+    List<Role> findAll();
 
-    Optional<SiteUser> findByRole(String role);
+    Optional<Role> findByRole(String role);
 }
