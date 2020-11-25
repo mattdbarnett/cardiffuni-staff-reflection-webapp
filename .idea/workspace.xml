@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="93ade39d-3f09-4b28-80d7-20c5774c6e5e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/Custom_Activity.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/Structured_Activity.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1kjZkwJ9Ne9R0VEXs4pqOsQSOo3" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/build.gradle" />
+    <property name="show.unlinked.gradle.project.popup" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Group03StaffProjectApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="group-03-staff-project_.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="group03.project.Group03StaffProjectApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="93ade39d-3f09-4b28-80d7-20c5774c6e5e" name="Default Changelist" comment="" />
+      <created>1606216107686</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1606216107686</updated>
+      <workItem from="1606216111570" duration="7286000" />
+    </task>
+    <task id="LOCAL-00001" summary="Added static directory, and basic html pages within">
+      <created>1606236801910</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1606236801910</updated>
+    </task>
+    <task id="LOCAL-00002" summary="added to basic structure of static pages">
+      <created>1606239279606</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1606239279606</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added static directory, and basic html pages within" />
+    <MESSAGE value="added to basic structure of static pages" />
+    <option name="LAST_COMMIT_MESSAGE" value="added to basic structure of static pages" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="99" y="0" key="CommitChangelistDialog2" timestamp="1606239279085">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="99" y="0" key="CommitChangelistDialog2/0.0.1280.680@0.0.1280.680" timestamp="1606239279085" />
+    <state x="233" y="61" key="Vcs.Push.Dialog.v2" timestamp="1606239290724">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="233" y="61" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1606239290724" />
+    <state x="93" y="93" width="1095" height="495" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1606217557524">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="93" y="93" width="1095" height="495" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1280.680@0.0.1280.680" timestamp="1606217557524" />
+    <state x="450" y="255" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1606240060931">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="450" y="255" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.680@0.0.1280.680" timestamp="1606240060931" />
+  </component>
+</project>

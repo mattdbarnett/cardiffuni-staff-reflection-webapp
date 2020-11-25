@@ -22,12 +22,13 @@
 
 | Stage | Date |
 | ------ | ------ |
-| Entered Open at | 0000-00-00 00:00:00 |
-| Entered Ready at | 0000-00-00 00:00:00 |
-| Entered Dev at | 0000-00-00 00:00:00 |
-| Entered Test at | 0000-00-00 00:00:00 |
-| Entered Done at | 0000-00-00 00:00:00 |
-| Entered Closed at | 0000-00-00 00:00:00 |
+| Entered Open at | 2020-00-00 00:00:00 |
+| Entered Ready at | 2020-00-00 00:00:00 |
+| Entered Dev at | 2020-00-00 00:00:00 |
+| Entered Ready for Test at | 2020-00-00 00:00:00 |
+| Entered Testing at | 2020-00-00 00:00:00 |
+| Entered Done Check at | 2020-00-00 00:00:00 |
+| Entered Closed at | 2020-00-00 00:00:00 |
 
 
 **Definition of Done**
