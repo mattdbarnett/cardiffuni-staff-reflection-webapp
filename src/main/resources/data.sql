@@ -11,3 +11,5 @@ VALUES('Karen', '1 the road', 'k@aren.com', 'slave', '132312', 'Secretary');
 
 INSERT INTO `staffdevelopment`.`siteUser`(name, homeAddress, emailAddress, position, phoneNo, Role_role)
 VALUES('Dave', 'The office', 'big@ceo.org.uk', 'Top', '111223', 'CEO');
+
+select * from `staffdevelopment`.`siteUser`;
