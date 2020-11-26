@@ -1,9 +1,14 @@
 package group03.project.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Activity {
 
-    private int activityID;
-    private int userID;
+    @Id
+    private Integer activityID;
+    private Integer userID;
     private String name;
     private String file;
     private String desc;
