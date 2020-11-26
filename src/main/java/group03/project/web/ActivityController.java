@@ -26,10 +26,10 @@ public class ActivityController {
 
     //Submit the activity to the database
     @PostMapping("/add_official_activity")
-    public String submitOfficialActiviity(@ModelAttribute("activity") Activity activity) {
+    public String submitOfficialActivity(@ModelAttribute("activity") Activity activity) {
         activity.setActivityID(activityService.getActivityListSize());
         activity.setUserID(1); //No login system yet - placeholder userID
-        activityService.addActivity(activity);
+        activityService.save(activity);
         return "Add_OActivity";
     }
 }

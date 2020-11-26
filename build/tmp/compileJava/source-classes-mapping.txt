@@ -1,12 +1,16 @@
+group03/project/repositories/ActivityRepository.java
+ group03.project.repositories.ActivityRepository
+group03/project/service/ActivityRead.java
+ group03.project.service.ActivityRead
 group03/project/Group03StaffProjectApplication.java
  group03.project.Group03StaffProjectApplication
-group03/project/jpa/ActivityRepo.java
- group03.project.jpa.ActivityRepo
+group03/project/repositories/ActivityRepoJPA.java
+ group03.project.repositories.ActivityRepoJPA
 group03/project/domain/Activity.java
  group03.project.domain.Activity
-group03/project/web/ActivityRestController.java
- group03.project.web.ActivityRestController
-group03/project/service/ActivityService.java
- group03.project.service.ActivityService
 group03/project/web/ActivityController.java
  group03.project.web.ActivityController
+group03/project/service/ActivityService.java
+ group03.project.service.ActivityService
+group03/project/web/ActivityRestController.java
+ group03.project.web.ActivityRestController
