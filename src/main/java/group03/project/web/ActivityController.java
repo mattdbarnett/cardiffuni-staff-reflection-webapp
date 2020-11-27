@@ -30,6 +30,6 @@ public class ActivityController {
         activity.setActivityID(activityService.getActivityListSize());
         activity.setUserID(1); //No login system yet - placeholder userID
         activityService.save(activity);
-        return "Add_OActivity";
+        return "Add_OActivity_Success";
     }
 }

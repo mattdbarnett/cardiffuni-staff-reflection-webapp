@@ -1,4 +1,4 @@
-group03/project/ActivityTest.java
- group03.project.ActivityTest
 group03/project/Group03StaffProjectApplicationTests.java
  group03.project.Group03StaffProjectApplicationTests
+group03/project/ActivityTest.java
+ group03.project.ActivityTest
