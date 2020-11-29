@@ -1,40 +1,42 @@
 group03/project/domain/DefaultRoleCreator.java
  group03.project.domain.DefaultRoleCreator
-group03/project/repositories/RoleRepository.java
- group03.project.repositories.RoleRepository
 group03/project/domain/SiteUserAuditor.java
  group03.project.domain.SiteUserAuditor
+group03/project/controller/UserRegistrationController.java
+ group03.project.controller.UserRegistrationController
 group03/project/component/SiteUserCreator.java
  group03.project.component.SiteUserCreator
 group03/project/domain/Role.java
  group03.project.domain.Role
+group03/project/controller/forms/AccountForm.java
+ group03.project.controller.forms.AccountForm
+group03/project/repository/RoleRepository.java
+ group03.project.repository.RoleRepository
+group03/project/domain/SiteRole.java
+ group03.project.domain.SiteRole
 group03/project/web/NewUserForm.java
  group03.project.web.NewUserForm
-group03/project/repositories/SiteUserRepository.java
- group03.project.repositories.SiteUserRepository
 group03/project/domain/SiteUser.java
  group03.project.domain.SiteUser
-group03/project/service/implementation/SiteUserService.java
- group03.project.service.implementation.SiteUserService
-group03/project/service/implementation/RoleDataImpl.java
- group03.project.service.implementation.RoleDataImpl
+group03/project/service/offered/SiteUserRead.java
+ group03.project.service.offered.SiteUserRead
 group03/project/component/RoleCreator.java
  group03.project.component.RoleCreator
 group03/project/service/implementation/RoleService.java
  group03.project.service.implementation.RoleService
+group03/project/repository/SiteUserRepository.java
+ group03.project.repository.SiteUserRepository
 group03/project/jpa/RoleRepoJPA.java
  group03.project.jpa.RoleRepoJPA
 group03/project/domain/RoleAuditor.java
  group03.project.domain.RoleAuditor
-group03/project/domain/DefaultSiteUserCreator.java
- group03.project.domain.DefaultSiteUserCreator
 group03/project/jpa/SiteUserRepoJPA.java
  group03.project.jpa.SiteUserRepoJPA
-group03/project/Group03StaffProjectApplication.java
- group03.project.Group03StaffProjectApplication
+group03/project/service/implementation/SiteUserAccountService.java
+ group03.project.service.implementation.SiteUserAccountService
 group03/project/service/implementation/SiteUserDataImpl.java
  group03.project.service.implementation.SiteUserDataImpl
-group03/project/controllers/SiteUserController.java
- group03.project.controllers.SiteUserController
-group03/project/service/offered/SiteUserRead.java
- group03.project.service.offered.SiteUserRead
+group03/project/service/implementation/RoleDataImpl.java
+ group03.project.service.implementation.RoleDataImpl
+group03/project/Group03StaffProjectApplication.java
+ group03.project.Group03StaffProjectApplication

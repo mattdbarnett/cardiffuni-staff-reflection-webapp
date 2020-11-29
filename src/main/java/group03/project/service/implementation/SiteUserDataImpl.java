@@ -1,7 +1,7 @@
 package group03.project.service.implementation;
 
 import group03.project.domain.SiteUser;
-import group03.project.repositories.SiteUserRepository;
+import group03.project.repository.SiteUserRepository;
 import group03.project.service.offered.SiteUserRead;
 import org.springframework.beans.factory.annotation.Autowired;
 

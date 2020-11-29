@@ -1,7 +1,7 @@
 package group03.project.domain;
 
 import group03.project.component.RoleCreator;
-import group03.project.repositories.RoleRepository;
+import group03.project.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;

@@ -10,10 +10,8 @@ import java.util.Optional;
 public interface SiteUserCreator {
 
     Optional<SiteUser> createUser(Long id,
-                                  String Name,
-                                  String HomeAddress,
+
                                   String nEmailAddress,
-                                  String Position,
-                                  Integer PhoneNo,
-                                  Role Role);
+                                  String password,
+                                  String Name);
 }
