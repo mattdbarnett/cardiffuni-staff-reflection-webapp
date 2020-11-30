@@ -9,10 +9,7 @@ public class StaticRouter implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        /*
-        if /streamer is in urlpath after 8080, direct to streamer webpage.
-         */
-//        registry.addViewController("streamer").setViewName("forward:/streamer.html");
+
         /*
         If invalid entry in url, redirect user to 404 error (no page found).
          */
@@ -20,10 +17,8 @@ public class StaticRouter implements WebMvcConfigurer {
         /*
         if /test is in urlpath after 8080, direct to test webpage.
          */
-//        registry.addViewController("test").setViewName("forward:/test.html");
 
         registry.addViewController("registration").setViewName("forward:/registration.html");
 
-//        registry.addViewController("/streamer-add").setViewName("forward:/streamer-add.html");
     }
 }
