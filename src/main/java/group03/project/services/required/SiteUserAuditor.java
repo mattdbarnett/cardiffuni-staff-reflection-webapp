@@ -10,6 +10,8 @@ public interface SiteUserAuditor {
 
     public void createUser(SiteUser aSiteuser);
 
+    public void updateUser(SiteUser user);
+
     public Optional<SiteUser> findUserById(Long id);
 
     public List<SiteUser> findAllUsers();
@@ -17,4 +19,6 @@ public interface SiteUserAuditor {
     public Optional<SiteUser> findUserByEmail(String email);
 
     public Optional<SiteUser> findUserByName(String name);
+
+
 }

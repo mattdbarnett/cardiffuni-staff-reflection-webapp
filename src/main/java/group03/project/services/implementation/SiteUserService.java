@@ -32,8 +32,26 @@ public class SiteUserService implements SiteUserAuditor {
     public Optional<SiteUser> findUserByName(String name) { return userRepoJPA.findByName(name); }
 
     @Override
+    public void updateUser(SiteUser user) {
+
+        Optional<SiteUser> userToAmend = userRepoJPA.findById(user.getUserID());
+
+//        SiteUser userAmend = new SiteUser(user.)
+
+        userToAmend.ifPresent(currentUser -> {
+                    currentUser.setEmailAddress(user.getEmailAddress());
+                    currentUser.setPassword(user.getPassword());
+                    currentUser.setName(user.getName());
+                });
+
+
+        userRepoJPA.save(userToAmend.get());
+    }
+
+    @Override
     public void createUser(SiteUser aSiteuser) {
         userRepoJPA.save(aSiteuser);
     }
+
 
 }
