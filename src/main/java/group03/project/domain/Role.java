@@ -19,5 +19,6 @@ public class Role {
     @Id
     @Column(name="role")
     private String role;
+    @Column(name="description")
     private String description;
 }

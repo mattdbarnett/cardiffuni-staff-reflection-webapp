@@ -6,12 +6,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-@Component
 public interface SiteUserCreator {
 
     Optional<SiteUser> createUser(Long id,
 
-                                  String nEmailAddress,
+                                  String emailAddress,
                                   String password,
                                   String Name);
 }

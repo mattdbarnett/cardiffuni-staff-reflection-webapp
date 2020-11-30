@@ -29,8 +29,8 @@ public class SiteUser {
 //    @JoinColumn(name = "Role_role")
 //    private Role role;
 
-    public SiteUser(String anEmailAddress, String aPassword) {
-        this(null,  anEmailAddress , aPassword, null);
+    public SiteUser(String anEmailAddress, String aPassword, String aName) {
+        this(null,  anEmailAddress , aPassword, aName);
     }
 
 

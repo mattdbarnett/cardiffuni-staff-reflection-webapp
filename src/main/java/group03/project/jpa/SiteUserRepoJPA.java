@@ -1,8 +1,9 @@
 package group03.project.jpa;
 
 import group03.project.domain.SiteUser;
-import group03.project.repository.SiteUserRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface SiteUserRepoJPA extends JpaRepository<SiteUser, Long>, SiteUserRepository {
+@Repository
+public interface SiteUserRepoJPA extends JpaRepository<SiteUser, Long>, SiteUserServiceJPA {
 }

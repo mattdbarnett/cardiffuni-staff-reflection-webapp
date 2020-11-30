@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `staffdevelopment`.`participation` (
   `date` DATETIME NULL DEFAULT NULL,
   `siteUser_userID` INT(11) NOT NULL,
   `Activity_activityID` INT(11) NOT NULL,
-  `Role_roleID` INT(11) NOT NULL,
+  `Role_roleID` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`participationID`),
     FOREIGN KEY (`Activity_activityID`)
     REFERENCES `staffdevelopment`.`activity` (`activityID`)

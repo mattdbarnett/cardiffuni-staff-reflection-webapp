@@ -1,15 +1,39 @@
 package group03.project.repository;
 
 import group03.project.domain.SiteUser;
-import org.springframework.stereotype.Repository;
+import group03.project.domain.SiteUserAuditor;
+import group03.project.jpa.SiteUserServiceJPA;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
-public interface SiteUserRepository {
+@Service
+public class SiteUserRepository implements SiteUserAuditor {
 
-    List<SiteUser> findAll();
+    final SiteUserServiceJPA userRepoJPA;
 
-    Optional<SiteUser> findById(Long id);
+    @Autowired
+    public SiteUserRepository(SiteUserServiceJPA aUserRepoJPA) {userRepoJPA = aUserRepoJPA; };
+
+    @Override
+    public List<SiteUser> findAllUsers() { return userRepoJPA.findAll(); }
+
+    @Override
+    public Optional<SiteUser> findUserById(Long id) {
+        return userRepoJPA.findById(id);
+    }
+
+    @Override
+    public Optional<SiteUser> findUserByEmail(String email) { return userRepoJPA.findByEmailAddress(email); }
+
+    @Override
+    public Optional<SiteUser> findUserByName(String name) { return userRepoJPA.findByName(name); }
+
+    @Override
+    public void createUser(SiteUser aSiteuser) {
+        userRepoJPA.save(aSiteuser);
+    }
+
 }
