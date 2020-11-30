@@ -44,7 +44,7 @@
                     <br>
                     <div>
                         <label for = "name"> Please enter your preferred name: </label>
-                        <input type = "password" th:field = "*{name}">
+                        <input th:field = "*{name}">
 
                         <p th:if = "${#fields.hasErrors('password')}" th:errors = "*{name}">
                             Placeholder text for error>
