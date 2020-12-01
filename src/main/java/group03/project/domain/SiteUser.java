@@ -18,21 +18,19 @@ public class SiteUser {
     @Column(name="userID")
     private Long userID;
 
-    private String name;
-    @Column(name="homeAddress")
-    private String homeAddress;
     @Column(name="emailAddress")
     private String emailAddress;
-    private String position;
-    @Column(name="phoneNo")
-    private Integer phoneNo;
+    @Column(name="password")
+    private String password;
+    @Column(name="name")
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "Role_role")
-    private Role role;
+//    @ManyToOne
+//    @JoinColumn(name = "Role_role")
+//    private Role role;
 
-    public SiteUser(String aName, String aHomeAddress, String anEmailAddress, String aPosition, Integer aPhoneNo, Role aRole) {
-        this(null, aName, aHomeAddress,anEmailAddress , aPosition, aPhoneNo, aRole);
+    public SiteUser(String anEmailAddress, String aPassword, String aName) {
+        this(null,  anEmailAddress , aPassword, aName);
     }
 
 

@@ -77,17 +77,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `staffdevelopment`.`siteUser` (
   `userID` INT(11) NOT NULL AUTO_INCREMENT,
+  `emailAddress` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45)NOT NULL,
   `name` VARCHAR(45) NULL DEFAULT NULL,
-  `homeAddress` VARCHAR(45) NULL DEFAULT NULL,
-  `emailAddress` VARCHAR(45) NULL DEFAULT NULL,
-  `position` VARCHAR(45) NULL DEFAULT NULL,
-  `phoneNo` VARCHAR(13) NULL DEFAULT NULL,
-  `Role_role` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`userID`),
-    FOREIGN KEY (`Role_role`)
-    REFERENCES `staffdevelopment`.`role` (`role`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`userID`))
 ENGINE = InnoDB;
 
 
@@ -99,6 +92,7 @@ CREATE TABLE IF NOT EXISTS `staffdevelopment`.`participation` (
   `date` DATETIME NULL DEFAULT NULL,
   `siteUser_userID` INT(11) NOT NULL,
   `Activity_activityID` INT(11) NOT NULL,
+  `Role_roleID` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`participationID`),
     FOREIGN KEY (`Activity_activityID`)
     REFERENCES `staffdevelopment`.`activity` (`activityID`)
@@ -106,6 +100,10 @@ CREATE TABLE IF NOT EXISTS `staffdevelopment`.`participation` (
     ON UPDATE NO ACTION,
     FOREIGN KEY (`siteUser_userID`)
     REFERENCES `staffdevelopment`.`siteUser` (`userID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+    FOREIGN KEY (`Role_roleID`)
+    REFERENCES `staffdevelopment`.`role` (`role`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
