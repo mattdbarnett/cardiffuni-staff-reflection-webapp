@@ -19,7 +19,7 @@ public class ActivityController {
     @GetMapping("/add_official_activity")
     public String addOfficialActivity(Model model) {
         Activity activity = new Activity();
-        activity.setUserID(1);
+//        activity.setUserID(1);
         model.addAttribute("activity", activity);
         return "Add_OActivity";
     }
@@ -28,7 +28,7 @@ public class ActivityController {
     @PostMapping("/add_official_activity")
     public String submitOfficialActivity(@ModelAttribute("activity") Activity activity) {
         activity.setActivityID(activityService.getActivityListSize());
-        activity.setUserID(1); //No login system yet - placeholder userID
+//        activity.setUserID(1); //No login system yet - placeholder userID
         activityService.save(activity);
         return "Add_OActivity_Success";
     }

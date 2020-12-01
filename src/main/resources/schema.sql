@@ -23,6 +23,7 @@ USE `staffdevelopment` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `staffdevelopment`.`activity` (
   `activityID` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
   `file` VARCHAR(45) NULL DEFAULT NULL,
   `description` VARCHAR(250) NULL DEFAULT NULL,
   PRIMARY KEY (`activityID`))

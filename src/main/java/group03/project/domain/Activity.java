@@ -16,11 +16,12 @@ public class Activity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="activityID")
     private Integer activityID;
-    private Integer userID;
+//    private Integer userID;
+    @Column(name = "name")
     private String name;
     @Column(name="file")
     private String file;
-    @Column(name="desc")
+    @Column(name="description")
     private String desc;
 
 
