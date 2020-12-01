@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 @Data
 @AllArgsConstructor
@@ -19,15 +20,13 @@ public class SiteUser {
     private Long userID;
 
     @Column(name="emailAddress")
+    @Email
     private String emailAddress;
     @Column(name="password")
     private String password;
     @Column(name="name")
     private String name;
 
-//    @ManyToOne
-//    @JoinColumn(name = "Role_role")
-//    private Role role;
 
     public SiteUser(String anEmailAddress, String aPassword, String aName) {
         this(null,  anEmailAddress , aPassword, aName);

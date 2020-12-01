@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -16,6 +17,7 @@ public class UserCreationForm {
 
     @NotNull
     @NotBlank(message = "Please enter an email address")
+    @Email
     private String emailAddress;
 
     @NotNull
