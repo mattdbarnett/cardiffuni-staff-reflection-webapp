@@ -4,8 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @AllArgsConstructor
@@ -14,10 +13,14 @@ import javax.persistence.Id;
 public class Activity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="activityID")
     private Integer activityID;
     private Integer userID;
     private String name;
+    @Column(name="file")
     private String file;
+    @Column(name="desc")
     private String desc;
 
 

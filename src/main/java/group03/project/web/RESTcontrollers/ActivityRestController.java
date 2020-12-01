@@ -1,4 +1,4 @@
-package group03.project.web;
+package group03.project.web.RESTcontrollers;
 
 import group03.project.service.ActivityService;
 import group03.project.domain.Activity;

@@ -2,17 +2,15 @@ package group03.project;
 
 import group03.project.domain.Activity;
 import group03.project.service.ActivityService;
-import group03.project.web.ActivityController;
-import org.apache.tomcat.jni.Address;
+import group03.project.web.controllers.ActivityController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
 import static org.junit.Assert.assertEquals;
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.when;
@@ -27,7 +25,6 @@ import org.springframework.test.web.servlet.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Mock environment
