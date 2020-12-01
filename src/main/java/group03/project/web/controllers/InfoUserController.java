@@ -7,10 +7,12 @@ import group03.project.services.required.SiteUserAuditor;
 import group03.project.web.forms.UserEditForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.util.*;
 
@@ -19,15 +21,14 @@ public class InfoUserController {
 
     private SiteUserUpdateService userUpdateService;
     private SiteUserAuditor userAuditor;
-    private SiteUserService userService;
+//    private SiteUserService userService;
     String adminField = "/";
     String accountUserPage;
 
     @Autowired
-    public InfoUserController(SiteUserUpdateService anUpdateService, SiteUserAuditor theAuditor, SiteUserService aService) {
+    public InfoUserController(SiteUserUpdateService anUpdateService, SiteUserAuditor theAuditor) {
         userUpdateService = anUpdateService;
         userAuditor = theAuditor;
-        userService = aService;
         accountUserPage = "selected-account-user";
     }
 
@@ -41,7 +42,6 @@ public class InfoUserController {
             SiteUser selectedUser = aSiteUser.get();
             model.addAttribute("siteuser", selectedUser);
             model.addAttribute("editForm", editForm);
-            System.out.println(accountUserPage);
             return accountUserPage;
         } else {
             return "redirect:/";
@@ -51,7 +51,6 @@ public class InfoUserController {
     @PostMapping("/change-name")
     public String changeAccountName(@ModelAttribute("editForm") @Valid UserEditForm nameForm,
                                     BindingResult result) {
-        System.out.println("test");
 
         if(!result.hasErrors()) {
             SiteUser selectedUser = userAuditor.findUserById(Long.parseLong(nameForm.getId())).get();
@@ -68,10 +67,14 @@ public class InfoUserController {
                                      BindingResult result) {
 
         if(!result.hasErrors()) {
-            SiteUser selectedUser = userAuditor.findUserById(Long.parseLong(nameForm.getId())).get();
-            selectedUser.setName(nameForm.getEdit());
-            userUpdateService.updateUser(selectedUser);
-            return "redirect:" + adminField + "account/" + nameForm.getId();
+            try {
+                SiteUser selectedUser = userAuditor.findUserById(Long.parseLong(nameForm.getId())).get();
+                selectedUser.setEmailAddress(nameForm.getEdit());
+                userUpdateService.updateUser(selectedUser);
+                return "redirect:" + adminField + "account/" + nameForm.getId();
+            } catch (TransactionSystemException  e)  {
+                return "redirect:" + adminField + "account/" + nameForm.getId();
+            }
         } else {
             return "redirect:" + adminField + "account/" + nameForm.getId();
         }
@@ -83,8 +86,9 @@ public class InfoUserController {
                                  BindingResult result) {
 
         if(!result.hasErrors()) {
+
             SiteUser selectedUser = userAuditor.findUserById(Long.parseLong(nameForm.getId())).get();
-            selectedUser.setName(nameForm.getEdit());
+            selectedUser.setPassword(nameForm.getEdit());
             userUpdateService.updateUser(selectedUser);
             System.out.println("Success! account/" + nameForm.getId());
             return "redirect:" + adminField + "account/" + nameForm.getId();
@@ -92,23 +96,5 @@ public class InfoUserController {
             System.out.println("Failure. account/" + nameForm.getId());
             return "redirect:" + adminField + "account/" + nameForm.getId();
         }
-
     }
-
-
-
-
-
-//    @PutMapping("/change-name")
-//    public String changeAccountName(@ModelAttribute("nameForm") @Valid UserCreationForm nameForm, BindingResult result) {
-//
-//
-//    }
-
-//    @PutMapping("/change-name")
-//    public String changeAccountName(@ModelAttribute("nameForm") @Valid UserCreationForm nameForm, BindingResult result) {
-//
-//
-//    }
-
 }

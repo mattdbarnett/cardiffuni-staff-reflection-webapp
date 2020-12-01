@@ -15,17 +15,17 @@ import java.util.List;
 @RequestMapping("admin")
 public class InfoAdminController extends InfoUserController {
 
-    private final SiteUserUpdateService userUpdateService;
-    private final SiteUserAuditor userAuditor;
+//    private final SiteUserUpdateService userUpdateService;
+//    private final SiteUserAuditor userAuditor;
     private final SiteUserService userService;
 
     @Autowired
     public InfoAdminController(SiteUserUpdateService anUpdateService, SiteUserAuditor theAuditor, SiteUserService aService) {
-        super(anUpdateService, theAuditor, aService);
+        super(anUpdateService, theAuditor);
 
-        userUpdateService = anUpdateService;
-        userAuditor = theAuditor;
         userService = aService;
+//        userUpdateService = anUpdateService;
+//        userAuditor = theAuditor;
         accountUserPage = "selected-account-admin";
         adminField = "/admin/";
     }
