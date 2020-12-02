@@ -1,8 +1,7 @@
 package group03.project.web.controllers;
 
 import group03.project.domain.SiteUser;
-import group03.project.services.implementation.SiteUserService;
-import group03.project.services.offered.SiteUserUpdateService;
+import group03.project.services.offered.SiteUserService;
 import group03.project.services.required.SiteUserAuditor;
 import group03.project.web.forms.UserEditForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,21 +11,20 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.util.*;
 
 @Controller
 public class InfoUserController {
 
-    private SiteUserUpdateService userUpdateService;
+    private SiteUserService userUpdateService;
     private SiteUserAuditor userAuditor;
 //    private SiteUserService userService;
     String adminField = "/";
     String accountUserPage;
 
     @Autowired
-    public InfoUserController(SiteUserUpdateService anUpdateService, SiteUserAuditor theAuditor) {
+    public InfoUserController(SiteUserService anUpdateService, SiteUserAuditor theAuditor) {
         userUpdateService = anUpdateService;
         userAuditor = theAuditor;
         accountUserPage = "selected-account-user";

@@ -29,15 +29,13 @@ public interface TagAuditor {
 
     /**
      * finds all tags marked as official.
-     * @param status - true or false.
      * @return all official tags in database.
      */
-    public Optional<Tag> findTagsIfOfficial(Boolean status);
+    public Optional<Tag> findTagsIfOfficial();
 
     /**
      * finds all tags marked as unofficial.
-     * @param status - true or false
      * @return all custom tags on database.
      */
-    public Optional<Tag> findTagsIfCustom(Boolean status);
+    public Optional<Tag> findTagsIfCustom();
 }

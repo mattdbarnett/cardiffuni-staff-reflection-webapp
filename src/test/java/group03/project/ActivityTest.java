@@ -8,11 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.Assert.assertEquals;
 import static org.hamcrest.Matchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -47,6 +48,7 @@ public class ActivityTest {
     private MockMvc mvc;
 
     @Test
+    @WithMockUser(username="user")
     public void shouldLoadAddOfficialActivityPage() throws Exception {
 
         this.mvc
@@ -57,11 +59,12 @@ public class ActivityTest {
     }
 
     @Test
+    @WithMockUser(username="user")
     public void shouldAddActivity() throws Exception {
 
         List<Activity> activities = new ArrayList<>(Arrays.asList(
-                new Activity(0, 1, "Example Name 1", "Example File", "Example Desc"),
-                new Activity(1, 1, "Example Name 2", "Example File", "Example Desc")
+                new Activity(0, "Example Name 1", "Example File", "Example Desc"),
+                new Activity(1, "Example Name 2", "Example File", "Example Desc")
         ));
 
         when(activityService.getActivityListSize())

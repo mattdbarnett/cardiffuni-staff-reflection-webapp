@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class SiteUserService implements SiteUserAuditor {
+public class SiteUserJPAService implements SiteUserAuditor {
 
     final SiteUserServiceJPA userRepoJPA;
 
     @Autowired
-    public SiteUserService(SiteUserServiceJPA aUserRepoJPA) {userRepoJPA = aUserRepoJPA; };
+    public SiteUserJPAService(SiteUserServiceJPA aUserRepoJPA) {userRepoJPA = aUserRepoJPA; };
 
     @Override
     public List<SiteUser> findAllUsers() { return userRepoJPA.findAll(); }

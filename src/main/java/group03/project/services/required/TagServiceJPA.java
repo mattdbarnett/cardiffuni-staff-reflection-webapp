@@ -11,7 +11,7 @@ public interface TagServiceJPA {
 
     public Optional<Tag> findById(String id);
 
-    public Optional<Tag> findByIsOfficial(Boolean isOfficial);
+    public Optional<Tag> findByIsOfficial(Boolean status);
 
     public Tag save (Tag theTag);
 }

@@ -1,7 +1,7 @@
 package group03.project.web.controllers;
 
 import group03.project.domain.SiteUser;
-import group03.project.services.offered.SiteUserCreationService;
+import group03.project.services.offered.SiteUserService;
 import group03.project.web.forms.UserCreationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,10 +15,10 @@ import javax.validation.Valid;
 public class UserRegistrationController {
 
 
-    private SiteUserCreationService accountService;
+    private SiteUserService accountService;
 
     @Autowired
-    public UserRegistrationController(SiteUserCreationService aService) {
+    public UserRegistrationController(SiteUserService aService) {
 
         accountService = aService;
 
