@@ -35,14 +35,26 @@ public class UserRegistrationController {
     @PostMapping("/register")
     public String createNewUser(@ModelAttribute("newUser") @Valid UserCreationForm accountForm, BindingResult result) {
 
-        SiteUser newUser = new SiteUser();
+
         if(!result.hasErrors()) {
+
+            SiteUser newUser;
+
             newUser = createAccount(accountForm, result);
+
+            accountService.createUser(newUser);
+
+            return "redirect:/";
+        } else {
+
+            return "redirect:registration";
+
+
         }
 
-        accountService.createUser(newUser);
 
-        return "redirect:/";
+
+
     }
 
 
