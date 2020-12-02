@@ -1,64 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8">
 <head>
     <meta charset="UTF-8">
     <title>Create new user</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500&display=swap" rel="stylesheet">
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link th:rel="stylesheet" th:href="@{/css/loginStyling.css} "/>
 </head>
     <body>
-        <main>
-            <div id = "newUser">
+    <div th:replace="navbar-login.html :: header" style=""></div>
 
-                <h2>New User</h2>
-                <!--connects to newUserForm class and creates object based upon entries-->
-                <form th:action="@{/register}" enctype="multipart/form-data" method="post" th:object="${newUser}">
-                    <!--Covers input of naming field-->
-                    <br>
-                    <div>
-                        <label for = "emailAddress">Email Address</label>
-                        <input th:field = "*{emailAddress}" type = "text">
-
-                        <p th:if = "${#fields.hasErrors('emailAddress')}" th:errors = "*{emailAddress}">
-                            Placeholder text for error
-                        </p>
-
-                    </div>
-                    <br>
-                    <div>
-                        <label for = "password">Password</label>
-                        <input type = "password" th:field = "*{password}">
-
-                        <p th:if = "${#fields.hasErrors('password')}" th:errors = "*{password}">
-                            Placeholder text for error>
-                        </p>
-
-                    </div>
-                    <br>
-                    <div>
-                        <label for = "passwordConfirm"> Confirm Password </label>
-                        <input type = "password" th:field = "*{matchingPassword}">
-
-                        <p th:if = "${#fields.hasErrors('password')}" th:errors = "*{matchingPassword}">
-                            Placeholder text for error>
-                        </p>
-                    </div>
-                    <br>
-                    <div>
-                        <label for = "name"> Please enter your preferred name: </label>
-                        <input th:field = "*{name}">
-
-                        <p th:if = "${#fields.hasErrors('password')}" th:errors = "*{name}">
-                            Placeholder text for error>
-                        </p>
-                    </div>
-                    <br>
-
-
-                    <button type = "submit" id = "submit">Submit</button>
-                </form>
-
+    <main>
+        <div class="sidenav">
+            <div class="login-main-text">
+                <h2>Progress<br>Tracker</h2>
+                <p>Welcome! Login to continue or sign up for an account.</p>
             </div>
+        </div>
 
-        </main>
+        <div class="main">
+            <div class="col-md-6 col-sm-12">
+                <form class = "login-form" th:action="@{/register}" enctype="multipart/form-data" method="post" th:object="${newUser}">
+                    <!--Covers input of naming field-->
+                    <div class="form-group">
+                            <label>Email Address</label>
+                            <input class="form-control" th:field = "*{emailAddress}" type = "text">
+                            <p th:if = "${#fields.hasErrors('emailAddress')}" th:errors = "*{emailAddress}">
+                                Placeholder text for error
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input class="form-control" type = "password" th:field = "*{password}">
+                            <p th:if = "${#fields.hasErrors('password')}" th:errors = "*{password}">
+                                Placeholder text for error>
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input class="form-control" type = "password" th:field = "*{matchingPassword}">
+                            <p th:if = "${#fields.hasErrors('password')}" th:errors = "*{matchingPassword}">
+                            Placeholder text for error>
+                        </p>
+                        </div>
+                        <div class="form-group">
+                            <label>Please enter your preferred name:</label>
+                            <input class="form-control" th:field = "*{name}">
+                            <p th:if = "${#fields.hasErrors('password')}" th:errors = "*{name}">
+                                Placeholder text for error>
+                            </p>
+                        </div>
+                    <button class="btn btn-dark" type = "submit" id = "submit">Register</button>
+                </form>
+            </div>
+        </div>
 
+    </main>
     </body>
 </html>
