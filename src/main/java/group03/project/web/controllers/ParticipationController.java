@@ -44,4 +44,11 @@ public class ParticipationController {
         participationService.save(participation);
         return "index";
     }
+
+    @GetMapping("/all_participations")
+    public String listParticipations(Model model) {
+        List<Participation> participations = participationService.findall();
+        model.addAttribute("participations", participations);
+        return "all-participations";
+    }
 }

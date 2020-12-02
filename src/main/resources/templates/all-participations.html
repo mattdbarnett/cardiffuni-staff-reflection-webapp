@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>All activities</title>
+</head>
+<body>
+<h1>All activities</h1>
+<div>
+    <ul>
+        <li th:each="participation : ${participations}">
+            <label> Part. ID: </label>
+            <p th:text = "${participation.participationID}"></p>
+            <label> Part. Date: </label>
+            <p th:text = "${participation.date}"></p>
+            <label> Activity ID:  </label>
+            <p th:text = "${participation.activityID}"></p>
+            <label> User ID: </label>
+            <p th:text = "${participation.userID}"></p>
+            <label> Role ID: </label>
+            <p th:text = "${participation.roleID}"></p>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

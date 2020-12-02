@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>All activities</title>
+</head>
+<body>
+<h1>All activities</h1>
+    <div>
+        <ul>
+            <li th:each="activity : ${activities}">
+                <p th:text = "${activity.activityID}"></p>
+                <p th:text = "${activity.name}"></p>
+                <p th:text = "${activity.file}"></p>
+                <p th:text = "${activity.desc}"></p>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

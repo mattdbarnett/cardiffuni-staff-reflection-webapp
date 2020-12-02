@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 public class ActivityController {
 
@@ -51,5 +53,12 @@ public class ActivityController {
         activity.setName("[Custom] " + inputName);
         activityService.save(activity);
         return "index";
+    }
+
+    @GetMapping("/all_activities")
+    public String listActivities(Model model) {
+        List<Activity> activities = activityService.findall();
+        model.addAttribute("activities", activities);
+        return "all-activities";
     }
 }
