@@ -1,9 +1,11 @@
-package group03.project.jpa;
+package group03.project.repositories;
 
 import group03.project.domain.Activity;
-import group03.project.repositories.ActivityRepository;
+import group03.project.domain.Participation;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ActivityRepoJPA extends JpaRepository<Activity, Integer>, ActivityRepository {
+public interface ParticipationRepoJPA extends JpaRepository<Participation, Integer>, ParticipationRepository {
 
 }

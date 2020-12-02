@@ -1,13 +1,13 @@
 package group03.project.repositories;
 
 import group03.project.domain.Activity;
+import group03.project.domain.Participation;
 
 import java.util.List;
-import java.util.Set;
 
-public interface ActivityRepository {
+public interface ParticipationRepository {
 
-    List<Activity> findAll();
+    List<Participation> findAll();
 
-    Activity save(Activity theActivity);
+    Participation save(Participation theParticipation);
 }

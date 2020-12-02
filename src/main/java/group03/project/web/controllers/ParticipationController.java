@@ -1,7 +1,10 @@
 package group03.project.web.controllers;
 
-import group03.project.services.implementation.ActivityService;
 import group03.project.domain.Activity;
+import group03.project.domain.Participation;
+import group03.project.services.implementation.ActivityService;
+import group03.project.services.implementation.ParticipationService;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,47 +12,36 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
-public class ActivityController {
+public class ParticipationController {
+
+    @Autowired
+    private ParticipationService participationService;
 
     @Autowired
     private ActivityService activityService;
 
-    //Page for adding an official activity as an administrator
-    @GetMapping("/add_official_activity")
-    public String addOfficialActivity(Model model) {
-        Activity activity = new Activity();
-        //activity.setUserID(1);
-        model.addAttribute("activity", activity);
-        return "Add_OActivity";
+    //Page for adding a participation entry
+    @GetMapping("/add_participation")
+    public String addParticipation(Model model, Model activityModel) {
+        Participation participation = new Participation();
+        List<Activity> activities = activityService.findall();
+        model.addAttribute("participation", participation);
+        activityModel.addAttribute("activities", activities);
+        return "Add_Participation";
     }
 
-    //Submit the activity to the database
-    @PostMapping("/add_official_activity")
-    public String submitOfficialActivity(@ModelAttribute("activity") Activity activity) {
-        //activity.setActivityID(activityService.getActivityListSize());
-        //activity.setUserID(1); //No login system yet - placeholder userID
-        activityService.save(activity);
-        return "index";
-    }
-
-    //Page for adding a custom activity as a user
-    @GetMapping("/add_custom_activity")
-    public String addCustomActivity(Model model) {
-        Activity activity = new Activity();
-        //activity.setUserID(1);
-        model.addAttribute("activity", activity);
-        return "Add_CActivity";
-    }
-
-    //Submit the activity to the database
-    @PostMapping("/add_custom_activity")
-    public String submitCustomActivity(@ModelAttribute("activity") Activity activity) {
-        //activity.setActivityID(activityService.getActivityListSize());
-        //activity.setUserID(1); //No login system yet - placeholder userID
-        String inputName = activity.getName();
-        activity.setName("[Custom] " + inputName);
-        activityService.save(activity);
+    //Submit the entry to the database
+    @PostMapping("/add_participation")
+    public String submitParticipation(@ModelAttribute("participation") Participation participation) {
+        //Will only work with data added!!
+        participation.setRoleID("0");
+        participation.setUserID("1");
+        java.util.Date date = new java.util.Date();
+        participation.setDate(date);
+        participationService.save(participation);
         return "index";
     }
 }

@@ -53,7 +53,7 @@ public class ActivityTest {
                 .perform(get("/add_official_activity"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Official Activity Registration")));
+                .andExpect(content().string(containsString("Add an activity")));
     }
 
     @Test
