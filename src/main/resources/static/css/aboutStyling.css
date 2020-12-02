@@ -1,4 +1,6 @@
 body{
+    font-family: "Karla", sans-serif;
+
     background: rgb(54,105,158);
     background: -moz-linear-gradient(180deg, rgba(54,105,158,1) 0%, rgba(70,147,252,1) 100%);
     background: -webkit-linear-gradient(180deg, rgba(54,105,158,1) 0%, rgba(70,147,252,1) 100%);
@@ -6,8 +8,10 @@ body{
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#36699e",endColorstr="#4693fc",GradientType=1);
     background-repeat:no-repeat;
     background-attachment: fixed;
+
 }
 
 .card{
     margin-top:10%;
+    background-color:ghostwhite;
 }
