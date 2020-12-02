@@ -42,7 +42,7 @@ public class ParticipationController {
         java.util.Date date = new java.util.Date();
         participation.setDate(date);
         participationService.save(participation);
-        return "index";
+        return "redirect:/";
     }
 
     @GetMapping("/all_participations")

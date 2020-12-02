@@ -2,24 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
+    <link rel = "stylesheet" type = "text/css" href = "/css/account-edit.css">
     <meta charset="ISO-8859-1">
-    <title>All activities</title>
+    <title>All participations</title>
 </head>
 <body>
-<h1>All activities</h1>
+<h1>All current participations</h1>
 <div>
     <ul>
         <li th:each="participation : ${participations}">
-            <label> Part. ID: </label>
-            <p th:text = "${participation.participationID}"></p>
-            <label> Part. Date: </label>
-            <p th:text = "${participation.date}"></p>
-            <label> Activity ID:  </label>
-            <p th:text = "${participation.activityID}"></p>
-            <label> User ID: </label>
-            <p th:text = "${participation.userID}"></p>
-            <label> Tag ID: </label>
-            <p th:text = "${participation.roleID}"></p>
+            <div id = "boldDiv" th:text = "'Participation ID: ' + ${participation.participationID}"></div>
+            <div th:text = "'Participation Date: ' + ${participation.date}"></div>
+            <div th:text = "'Activity ID: ' + ${participation.activityID}"></div>
+            <div th:text = "'current user: ' + ${participation.userID}"></div>
+            <div th:text = "'user role: ' + ${participation.roleID}"></div>
+            <br>
         </li>
     </ul>
 </div>

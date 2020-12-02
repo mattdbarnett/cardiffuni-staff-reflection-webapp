@@ -17,3 +17,7 @@
 head {
     font-family: Arial, serif;
 }
+
+#boldDiv {
+    font-weight: bold;
+}
