@@ -1,4 +1,0 @@
-group03/project/LoginPageController.java
- group03.project.LoginPageController
-group03/project/Group03StaffProjectApplication.java
- group03.project.Group03StaffProjectApplication
