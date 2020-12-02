@@ -2,8 +2,10 @@
 -- Sun Nov 22 20:59:33 2020
 -- Model: New Model    Version: 1.0
 -- MySQL Workbench Forward Engineering
-SET MODE MYSQL;
-SET IGNORECASE=TRUE;
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
 -- Schema mydb
@@ -15,19 +17,19 @@ SET IGNORECASE=TRUE;
 -- -----------------------------------------------------
 -- Schema staffdevelopment
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS staffdevelopment;
+CREATE SCHEMA IF NOT EXISTS `staffdevelopment` DEFAULT CHARACTER SET utf8 ;
 USE `staffdevelopment` ;
 
 -- -----------------------------------------------------
 -- Table `staffdevelopment`.`activity`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `staffdevelopment`.`activity` (
-  `activityID` INT NOT NULL AUTO_INCREMENT,
+  `activityID` INT(11) NOT NULL AUTO_INCREMENT,
   `file` VARCHAR(45) NULL DEFAULT NULL,
-  `description` VARCHAR(250) NULL DEFAULT NULL,
+  `description` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`activityID`))
-ENGINE = InnoDB;
-
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -38,7 +40,8 @@ CREATE TABLE IF NOT EXISTS `staffdevelopment`.`tag` (
   `description` VARCHAR(45) NULL DEFAULT NULL,
   `isOfficial` TINYINT(4) NULL DEFAULT NULL,
   PRIMARY KEY (`tagID`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -48,40 +51,53 @@ CREATE TABLE IF NOT EXISTS `staffdevelopment`.`objective` (
   `objectiveID` INT(11) NOT NULL,
   `Activity_activityID` INT(11) NOT NULL,
   `Tag_tagID` INT(11) NOT NULL,
-  PRIMARY KEY (`objectiveID`),
+  PRIMARY KEY (`objectiveID`, `Activity_activityID`, `Tag_tagID`),
+  INDEX `fk_Objective_Activity1_idx` (`Activity_activityID` ASC) VISIBLE,
+  INDEX `fk_Objective_Tag1_idx` (`Tag_tagID` ASC) VISIBLE,
+  CONSTRAINT `fk_Objective_Activity1`
     FOREIGN KEY (`Activity_activityID`)
     REFERENCES `staffdevelopment`.`activity` (`activityID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Objective_Tag1`
     FOREIGN KEY (`Tag_tagID`)
     REFERENCES `staffdevelopment`.`tag` (`tagID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
 -- Table `staffdevelopment`.`role`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `staffdevelopment`.`role` (
---  `roleID` INT(11) NOT NULL AUTO_INCREMENT,
---   `type` VARCHAR(45) NOT NULL DEFAULT NULL,
-  `role` VARCHAR(45) NOT NULL,
-  `description` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`role`))
-ENGINE = InnoDB;
+  `roleID` INT(11) NOT NULL AUTO_INCREMENT,
+  `type` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`roleID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
 -- Table `staffdevelopment`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `staffdevelopment`.`siteUser` (
+CREATE TABLE IF NOT EXISTS `staffdevelopment`.`user` (
   `userID` INT(11) NOT NULL AUTO_INCREMENT,
-  `emailAddress` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45)NOT NULL,
   `name` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`userID`))
-ENGINE = InnoDB;
+  `address` VARCHAR(45) NULL DEFAULT NULL,
+  `position` VARCHAR(45) NULL DEFAULT NULL,
+  `phoneNo` VARCHAR(45) NULL DEFAULT NULL,
+  `Role_roleID` INT(11) NOT NULL,
+  PRIMARY KEY (`userID`, `Role_roleID`),
+  INDEX `fk_User_Role_idx` (`Role_roleID` ASC) VISIBLE,
+  CONSTRAINT `fk_User_Role`
+    FOREIGN KEY (`Role_roleID`)
+    REFERENCES `staffdevelopment`.`role` (`roleID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -90,23 +106,23 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `staffdevelopment`.`participation` (
   `participationID` INT(11) NOT NULL AUTO_INCREMENT,
   `date` DATETIME NULL DEFAULT NULL,
-  `siteUser_userID` INT(11) NOT NULL,
+  `User_userID` INT(11) NOT NULL,
   `Activity_activityID` INT(11) NOT NULL,
-  `Role_roleID` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`participationID`),
+  PRIMARY KEY (`participationID`, `User_userID`, `Activity_activityID`),
+  INDEX `fk_Participation_User1_idx` (`User_userID` ASC) VISIBLE,
+  INDEX `fk_Participation_Activity1_idx` (`Activity_activityID` ASC) VISIBLE,
+  CONSTRAINT `fk_Participation_Activity1`
     FOREIGN KEY (`Activity_activityID`)
     REFERENCES `staffdevelopment`.`activity` (`activityID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    FOREIGN KEY (`siteUser_userID`)
-    REFERENCES `staffdevelopment`.`siteUser` (`userID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-    FOREIGN KEY (`Role_roleID`)
-    REFERENCES `staffdevelopment`.`role` (`role`)
+  CONSTRAINT `fk_Participation_User1`
+    FOREIGN KEY (`User_userID`)
+    REFERENCES `staffdevelopment`.`user` (`userID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -117,13 +133,23 @@ CREATE TABLE IF NOT EXISTS `staffdevelopment`.`reflection` (
   `reflection` VARCHAR(45) NULL DEFAULT NULL,
   `Participation_participationID` INT(11) NOT NULL,
   `Tag_tagID` INT(11) NOT NULL,
-  PRIMARY KEY (`reflectionID`),
+  PRIMARY KEY (`reflectionID`, `Participation_participationID`, `Tag_tagID`),
+  INDEX `fk_Reflection_Participation1_idx` (`Participation_participationID` ASC) VISIBLE,
+  INDEX `fk_Reflection_Tag1_idx` (`Tag_tagID` ASC) VISIBLE,
+  CONSTRAINT `fk_Reflection_Participation1`
     FOREIGN KEY (`Participation_participationID`)
     REFERENCES `staffdevelopment`.`participation` (`participationID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Reflection_Tag1`
     FOREIGN KEY (`Tag_tagID`)
     REFERENCES `staffdevelopment`.`tag` (`tagID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
