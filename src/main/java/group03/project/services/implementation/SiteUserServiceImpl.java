@@ -1,24 +1,22 @@
 package group03.project.services.implementation;
 
 import group03.project.domain.SiteUser;
-import group03.project.services.offered.SiteUserCreationService;
-import group03.project.services.required.SiteUserAuditor;
+import group03.project.services.offered.SiteUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
 
 @Component
-public class SiteUserCreationServiceImpl implements SiteUserCreationService {
+public class SiteUserServiceImpl implements SiteUserService {
 
     @Autowired
-    private final SiteUserService siteUserRepo;
+    private final SiteUserJPAService siteUserRepo;
 
 
 
     @Autowired
-    public SiteUserCreationServiceImpl(SiteUserService aSiteUserRepo) {
+    public SiteUserServiceImpl(SiteUserJPAService aSiteUserRepo) {
         siteUserRepo = aSiteUserRepo;
     }
 
@@ -33,4 +31,10 @@ public class SiteUserCreationServiceImpl implements SiteUserCreationService {
         siteUserRepo.createUser(newUser);
 
     }
+
+    @Override
+    public void updateUser(SiteUser aSiteUser) {
+        siteUserRepo.updateUser(aSiteUser);
+    }
+
 }

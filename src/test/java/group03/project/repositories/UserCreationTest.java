@@ -12,7 +12,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
-public class NewUserCreationTest {
+public class UserCreationTest {
 
     @Autowired
     public SiteUserServiceJPA siteUserRepository;

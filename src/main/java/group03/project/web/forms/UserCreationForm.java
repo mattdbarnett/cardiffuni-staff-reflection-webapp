@@ -9,8 +9,17 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Automatically builds getters/setters
+ */
 @Data
+/**
+ * Creates constructor with all field arguments inside
+ */
 @AllArgsConstructor
+/**
+ * Creates constructor option where object fields will be null.
+ */
 @NoArgsConstructor
 @EqualsAndHashCode
 public class UserCreationForm {

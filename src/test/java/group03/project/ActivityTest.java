@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.junit.Assert.assertEquals;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -47,6 +49,7 @@ public class ActivityTest {
     private MockMvc mvc;
 
     @Test
+    @WithMockUser(username="user")
     public void shouldLoadAddOfficialActivityPage() throws Exception {
 
         this.mvc
@@ -57,6 +60,7 @@ public class ActivityTest {
     }
 
     @Test
+    @WithMockUser(username="user")
     public void shouldAddActivity() throws Exception {
 
         List<Activity> activities = new ArrayList<>(Arrays.asList(
