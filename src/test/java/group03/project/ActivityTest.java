@@ -1,7 +1,7 @@
 package group03.project;
 
 import group03.project.domain.Activity;
-import group03.project.service.ActivityService;
+import group03.project.services.implementation.ActivityService;
 import group03.project.web.controllers.ActivityController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,8 +60,8 @@ public class ActivityTest {
     public void shouldAddActivity() throws Exception {
 
         List<Activity> activities = new ArrayList<>(Arrays.asList(
-                new Activity(0, 1, "Example Name 1", "Example File", "Example Desc"),
-                new Activity(1, 1, "Example Name 2", "Example File", "Example Desc")
+                new Activity(0, "Example Name 1", "Example File", "Example Desc"),
+                new Activity(1, "Example Name 2", "Example File", "Example Desc")
         ));
 
         when(activityService.getActivityListSize())
@@ -79,6 +79,25 @@ public class ActivityTest {
         activityService.save(activities.get(1));
 
         assertEquals(2, activityService.getActivityListSize());
+    }
+
+    @Test
+    public void shouldAddCustomActivity() throws Exception {
+
+        List<Activity> activities = new ArrayList<>(Arrays.asList(new Activity(0, "Example Name 1", "Example File", "Example Desc")));
+
+        when(activityService.getActivityListSize())
+                .thenReturn(activities.size());
+
+        //Adding via custom activity post request without errors
+        MvcResult result = mvc.perform(post("/add_custom_activity")
+                .contentType(APPLICATION_FORM_URLENCODED) //from MediaType
+                .param("name", activities.get(0).getName())
+                .param("file", activities.get(0).getFile())
+                .param("desc", activities.get(0).getDesc()))
+                .andReturn();
+
+        assertEquals(1, activityService.getActivityListSize());
     }
 
 }

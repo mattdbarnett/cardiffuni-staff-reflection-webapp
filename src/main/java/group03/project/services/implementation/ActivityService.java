@@ -1,7 +1,8 @@
-package group03.project.service;
+package group03.project.services.implementation;
 
 import group03.project.domain.Activity;
 import group03.project.repositories.ActivityRepository;
+import group03.project.services.required.ActivityRead;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
