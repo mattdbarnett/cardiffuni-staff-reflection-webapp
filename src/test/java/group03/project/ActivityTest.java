@@ -60,8 +60,8 @@ public class ActivityTest {
     public void shouldAddActivity() throws Exception {
 
         List<Activity> activities = new ArrayList<>(Arrays.asList(
-                new Activity(0, "Example Name 1", "Example File", "Example Desc"),
-                new Activity(1, "Example Name 2", "Example File", "Example Desc")
+                new Activity(null, "Example Name 1", "Example File", "Example Desc"),
+                new Activity(null, "Example Name 2", "Example File", "Example Desc")
         ));
 
         when(activityService.getActivityListSize())
@@ -84,7 +84,7 @@ public class ActivityTest {
     @Test
     public void shouldAddCustomActivity() throws Exception {
 
-        List<Activity> activities = new ArrayList<>(Arrays.asList(new Activity(0, "Example Name 1", "Example File", "Example Desc")));
+        List<Activity> activities = new ArrayList<>(Arrays.asList(new Activity(null, "Example Name 1", "Example File", "Example Desc")));
 
         when(activityService.getActivityListSize())
                 .thenReturn(activities.size());

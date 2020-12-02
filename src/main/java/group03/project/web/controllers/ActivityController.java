@@ -27,7 +27,7 @@ public class ActivityController {
     //Submit the activity to the database
     @PostMapping("/add_official_activity")
     public String submitOfficialActivity(@ModelAttribute("activity") Activity activity) {
-        activity.setActivityID(activityService.getActivityListSize());
+        //activity.setActivityID(activityService.getActivityListSize());
         //activity.setUserID(1); //No login system yet - placeholder userID
         activityService.save(activity);
         return "index";
@@ -45,7 +45,7 @@ public class ActivityController {
     //Submit the activity to the database
     @PostMapping("/add_custom_activity")
     public String submitCustomActivity(@ModelAttribute("activity") Activity activity) {
-        activity.setActivityID(activityService.getActivityListSize());
+        //activity.setActivityID(activityService.getActivityListSize());
         //activity.setUserID(1); //No login system yet - placeholder userID
         String inputName = activity.getName();
         activity.setName("[Custom] " + inputName);
