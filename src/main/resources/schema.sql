@@ -128,3 +128,10 @@ CREATE TABLE IF NOT EXISTS `staffdevelopment`.`reflection` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Dummy data for participation (temp)
+-- -----------------------------------------------------
+INSERT INTO siteUser VALUES (null, 'testaddress@gmail.com', 'passwordtest', 'nametest');
+INSERT INTO role VALUES ('0', 'placeholder');
