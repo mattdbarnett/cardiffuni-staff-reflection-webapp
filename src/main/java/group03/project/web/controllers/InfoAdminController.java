@@ -26,7 +26,7 @@ public class InfoAdminController extends InfoController {
         userService = aService;
 //        userUpdateService = anUpdateService;
 //        userAuditor = theAuditor;
-        accountUserPage = "selected-account-admin";
+        accountUserPage = "admin";
         adminField = "/admin/";
     }
 

@@ -2,6 +2,7 @@ package group03.project.services.required;
 
 import group03.project.domain.Tag;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -31,11 +32,11 @@ public interface TagAuditor {
      * finds all tags marked as official.
      * @return all official tags in database.
      */
-    public Optional<Tag> findTagsIfOfficial();
+    public List<Tag> findTagsIfOfficial();
 
     /**
      * finds all tags marked as unofficial.
      * @return all custom tags on database.
      */
-    public Optional<Tag> findTagsIfCustom();
+    public List<Tag> findTagsIfCustom();
 }

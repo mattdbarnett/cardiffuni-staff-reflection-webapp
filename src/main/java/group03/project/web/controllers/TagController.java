@@ -31,7 +31,7 @@ public class TagController {
     @Autowired
     public TagController(TagService aService) {
         tagService = aService;
-        pageChoice = "-user";
+        pageChoice = "user";
     }
 
     /**
@@ -44,7 +44,7 @@ public class TagController {
     public String showTagCreationForm(Model model) {
         TagCreationForm tagForm = new TagCreationForm();
         model.addAttribute("tag", tagForm);
-        return "create-tag" + pageChoice;
+        return pageChoice + "-create-tag";
     }
 
     /**

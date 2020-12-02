@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @DataJpaTest
-public class EditUserTest {
+public class UserUpdateTest {
 
 
 //    @Autowired
@@ -45,25 +45,6 @@ public class EditUserTest {
 
         assertEquals("ryan", ryan.getName());
         assertEquals("ryan@emailaddress.com", ryan.getEmailAddress());
-
-    }
-
-    @Test
-    public void shouldNotUpdateEmailAddressWithInvalidEntry() throws Exception {
-
-        SiteUser daisy = new SiteUser(1L, "daisy", "password", "daisy");
-
-//        Assertions.assert
-
-        daisy.setEmailAddress("daisyDaisy");
-        siteUserRepository.save(daisy);
-//
-//        updateService.updateUser(ryan);
-//
-//        assertEquals("ryan", ryan.getName());
-//        assertEquals("ryan@emailaddress.com", ryan.getEmailAddress());
-
-
 
     }
 

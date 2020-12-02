@@ -17,8 +17,6 @@ public class TagAdminController extends TagController{
 
         adminAttribute = "/admin/";
 
-        pageChoice = "-admin";
-
-        System.out.println("test: page choice = " + pageChoice);
+        pageChoice = "admin";
     }
 }

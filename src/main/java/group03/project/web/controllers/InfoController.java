@@ -27,7 +27,7 @@ public class InfoController {
     public InfoController(SiteUserService anUpdateService, SiteUserAuditor theAuditor) {
         userUpdateService = anUpdateService;
         userAuditor = theAuditor;
-        accountUserPage = "selected-account-user";
+        accountUserPage = "user";
     }
 
     @GetMapping("/account/{id}")
@@ -40,7 +40,7 @@ public class InfoController {
             SiteUser selectedUser = aSiteUser.get();
             model.addAttribute("siteuser", selectedUser);
             model.addAttribute("editForm", editForm);
-            return accountUserPage;
+            return accountUserPage + "-selected-account";
         } else {
             return "redirect:/";
         }

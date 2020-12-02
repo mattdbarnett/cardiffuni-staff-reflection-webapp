@@ -6,6 +6,7 @@ import group03.project.services.required.TagServiceJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,12 +36,12 @@ public class TagJPAService implements TagAuditor {
     public Optional<Tag> findATagByID(String id) { return tagJPAConnector.findById(id); }
 
     @Override
-    public Optional<Tag> findTagsIfOfficial() {
+    public List<Tag> findTagsIfOfficial() {
         return tagJPAConnector.findByIsOfficial(true);
     }
 
     @Override
-    public Optional<Tag> findTagsIfCustom() {
+    public List<Tag> findTagsIfCustom() {
         return tagJPAConnector.findByIsOfficial(false);
     }
 
