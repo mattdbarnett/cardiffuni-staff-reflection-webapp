@@ -1,0 +1,15 @@
+#nameForm {
+    display: none;
+}
+
+#emailForm {
+    display: none;
+}
+
+#passwordForm {
+    display: none;
+}
+
+head {
+    font-family: calibri;
+}
