@@ -1,22 +1,28 @@
 package group03.project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Map;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 @RestController
 
-public class LoginPageController {
+public class PageController {
 
     private String appMode;
 
     @Autowired
     public void WebAppController(Environment environment){
         appMode = environment.getProperty("app-mode");
+    }
+
+    @GetMapping("/dashboard")
+    public ModelAndView home(){
+        ModelAndView model = new ModelAndView();
+        model.setViewName("dashboard");
+        return model;
     }
 
     @RequestMapping("/login")
@@ -28,4 +34,23 @@ public class LoginPageController {
         return model;
     }
 
+    @GetMapping("/")
+    public ModelAndView getRedirect() {
+        ModelAndView model = new ModelAndView();
+        model.setViewName("dashboard");
+        return model;
+    }
+
+    @GetMapping("/about")
+    public ModelAndView about(){
+        ModelAndView model = new ModelAndView();
+        model.setViewName("about");
+        return model;
+    }
+
+
+    /*@RequestMapping(value="/login",method= RequestMethod.POST)
+    public void loginUser(LoginRequest  ){
+
+    }*/
 }
