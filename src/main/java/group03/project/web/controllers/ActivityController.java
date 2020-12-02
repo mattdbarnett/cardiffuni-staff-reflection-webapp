@@ -30,7 +30,7 @@ public class ActivityController {
         activity.setActivityID(activityService.getActivityListSize());
         //activity.setUserID(1); //No login system yet - placeholder userID
         activityService.save(activity);
-        return "Add_OActivity_Success";
+        return "index";
     }
 
     //Page for adding a custom activity as a user
@@ -50,6 +50,6 @@ public class ActivityController {
         String inputName = activity.getName();
         activity.setName("[Custom] " + inputName);
         activityService.save(activity);
-        return "Add_CActivity_Success";
+        return "index";
     }
 }
