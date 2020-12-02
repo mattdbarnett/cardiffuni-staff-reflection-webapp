@@ -1,3 +1,7 @@
+
+* {
+    font-family: Calibri, serif;
+}
 #nameForm {
     display: none;
 }
@@ -11,5 +15,5 @@
 }
 
 head {
-    font-family: calibri;
+    font-family: Arial, serif;
 }

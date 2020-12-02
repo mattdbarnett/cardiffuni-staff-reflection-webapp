@@ -15,7 +15,7 @@ import javax.validation.Valid;
 import java.util.*;
 
 @Controller
-public class InfoUserController {
+public class InfoController {
 
     private SiteUserService userUpdateService;
     private SiteUserAuditor userAuditor;
@@ -24,7 +24,7 @@ public class InfoUserController {
     String accountUserPage;
 
     @Autowired
-    public InfoUserController(SiteUserService anUpdateService, SiteUserAuditor theAuditor) {
+    public InfoController(SiteUserService anUpdateService, SiteUserAuditor theAuditor) {
         userUpdateService = anUpdateService;
         userAuditor = theAuditor;
         accountUserPage = "selected-account-user";

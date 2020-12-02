@@ -33,7 +33,8 @@ public class UserRegistrationController {
     }
 
     @PostMapping("/register")
-    public String createNewUser(@ModelAttribute("newUser") @Valid UserCreationForm accountForm, BindingResult result) {
+    public String createNewUser(@ModelAttribute("newUser") @Valid UserCreationForm accountForm,
+                                BindingResult result) {
 
 
         if(!result.hasErrors()) {
@@ -58,7 +59,8 @@ public class UserRegistrationController {
     }
 
 
-    private SiteUser createAccount(UserCreationForm accountForm, BindingResult result) {
+    private SiteUser createAccount(UserCreationForm accountForm,
+                                   BindingResult result) {
         SiteUser newUser;
 
         try {

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create a tag</title>
+</head>
+<body>
+<main>
+    <div id = "newTag">
+
+        <h2>Create a new tag</h2>
+        <!--connects to newUserForm class and creates object based upon entries-->
+        <form th:action="@{/tag-build}" enctype="multipart/form-data" method="post" th:object="${tag}">
+            <!--Covers input of naming field-->
+            <br>
+            <div>
+                <label for = "tagID">Tag Identification</label>
+                <input th:field = "*{tagID}" type = "text">
+
+                <p th:if = "${#fields.hasErrors('tagID')}" th:errors = "*{tagID}">
+                    Placeholder text for error
+                </p>
+
+            </div>
+            <br>
+            <div>
+                <label for = "description">Tag description</label>
+                <input th:field = "*{description}" type = "text">
+
+                <p th:if = "${#fields.hasErrors('description')}" th:errors = "*{description}">
+                    Placeholder text for error>
+                </p>
+
+            </div>
+            <br>
+            <button type = "submit" id = "submit">Submit</button>
+        </form>
+
+    </div>
+
+</main>
+</body>
+</html>

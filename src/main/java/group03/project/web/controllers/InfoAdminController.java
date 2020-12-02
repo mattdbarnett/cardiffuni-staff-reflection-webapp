@@ -13,7 +13,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("admin")
-public class InfoAdminController extends InfoUserController {
+public class InfoAdminController extends InfoController {
 
 //    private final SiteUserUpdateService userUpdateService;
 //    private final SiteUserAuditor userAuditor;
