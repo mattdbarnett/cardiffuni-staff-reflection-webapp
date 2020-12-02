@@ -6,37 +6,47 @@
 </head>
 <body>
 <main>
-<!--    <div id = "newTag">-->
+    <div id = "newTag">
 
-<!--        <h2>Create a new tag</h2>-->
-<!--        &lt;!&ndash;connects to newUserForm class and creates object based upon entries&ndash;&gt;-->
-<!--        <form th:action="@{/tag-build}" enctype="multipart/form-data" method="post" th:object="${tag}">-->
-<!--            &lt;!&ndash;Covers input of naming field&ndash;&gt;-->
-<!--            <br>-->
-<!--            <div>-->
-<!--                <label for = "tagID">Tag Identification</label>-->
-<!--                <input th:field = "*{tagID}" type = "text">-->
+        <h2>Create a new tag</h2>
+        <!--connects to newUserForm class and creates object based upon entries-->
+        <form th:action="@{/tag-build}" enctype="multipart/form-data" method="post" th:object="${tag}">
+            <!--Covers input of naming field-->
+            <br>
+            <div>
+                <label for = "tagID">Tag Identification</label>
+                <input th:field = "*{tagID}" type = "text">
 
-<!--                <p th:if = "${#fields.hasErrors('tagID')}" th:errors = "*{tagID}">-->
-<!--                    Placeholder text for error-->
-<!--                </p>-->
+                <p th:if = "${#fields.hasErrors('tagID')}" th:errors = "*{tagID}">
+                    Placeholder text for error
+                </p>
 
-<!--            </div>-->
-<!--            <br>-->
-<!--            <div>-->
-<!--                <label for = "description">Tag description</label>-->
-<!--                <input th:field = "*{description}" type = "text">-->
+            </div>
+            <br>
+            <div>
+                <label for = "description">Tag description</label>
+                <input th:field = "*{description}" type = "text">
 
-<!--                <p th:if = "${#fields.hasErrors('description')}" th:errors = "*{description}">-->
-<!--                    Placeholder text for error>-->
-<!--                </p>-->
+                <p th:if = "${#fields.hasErrors('description')}" th:errors = "*{description}">
+                    Placeholder text for error>
+                </p>
 
-<!--            </div>-->
-<!--            <br>-->
-<!--            <button type = "submit" id = "submit">Submit</button>-->
-<!--        </form>-->
+            </div>
+            <br>
+            <div>
+                <label for = "official">Official or custom?</label>
+                <select th:field = "*{isOfficial}">
+                    <option th:value = "true" th:text = "Official"></option>
+                    <option th:value = "false" th:text = "custom"></option>
+                </select>
 
-<!--    </div>-->
+
+            </div>
+            <br>
+            <button type = "submit" id = "submit">Submit</button>
+        </form>
+
+    </div>
 
     <p>Test</p>
 

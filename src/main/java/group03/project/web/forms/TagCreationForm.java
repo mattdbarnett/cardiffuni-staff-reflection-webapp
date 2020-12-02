@@ -28,4 +28,12 @@ public class TagCreationForm {
     @NotNull
     @NotBlank(message = "Please enter the tag's description")
     private String description;
+
+    private String isOfficial;
+
+
+    public TagCreationForm(String tagID, String description) {
+        this(tagID, description, "false");
+
+    }
 }

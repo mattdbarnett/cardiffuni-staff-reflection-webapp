@@ -58,11 +58,24 @@ public class TagController {
                                BindingResult result) {
 
         if(!result.hasErrors()) {
+
+
             Tag newTag = createTag(tagForm);
 
-            tagService.createUnofficialTag(newTag);
+            try {
+                if (newTag.getIsOfficial()) {
+                    tagService.createOfficialTag(newTag);
+                } else {
 
-            return "redirect:/";
+                    tagService.createUnofficialTag(newTag);
+                }
+
+                return "redirect:/";
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                System.out.println("failed to create tag");
+                return "redirect:create-tag";
+            }
         } else {
             return "redirect:create-tag";
         }
@@ -75,10 +88,13 @@ public class TagController {
         try {
             newTag = new Tag(
                     tagForm.getTagID(),
-                    tagForm.getDescription());
+                    tagForm.getDescription(),
+                    Boolean.parseBoolean(tagForm.getIsOfficial()));
+
         } catch (Exception ex) {
             return null;
         }
         return newTag;
     }
+    
 }
