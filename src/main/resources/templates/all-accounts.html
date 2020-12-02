@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>All users</title>
+    <link th:rel="stylesheet" th:href="@{/css/dashPageStyle.css}">
 </head>
 <body>
+<div th:replace="navbar-login.html :: header"></div>
+<div id="content-pane">
     <h1>All users on record</h1>
     <div>
         <ul>
@@ -21,5 +24,6 @@
             </li>
         </ul>
     </div>
+</div>
 </body>
 </html>

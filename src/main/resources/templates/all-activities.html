@@ -4,10 +4,14 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>All activities</title>
+
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link th:rel="stylesheet" th:href="@{/css/dashPageStyle.css}">
 </head>
 <body>
+<div th:replace="navbar-login.html :: header"></div>
+<div id="content-pane">
 <h1>All activities</h1>
-    <div>
         <ul>
             <li th:each="activity : ${activities}">
                 <p th:text = "${activity.activityID}"></p>

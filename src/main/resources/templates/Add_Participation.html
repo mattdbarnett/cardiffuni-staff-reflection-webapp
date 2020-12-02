@@ -3,8 +3,12 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>Participation Registration</title>
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.css}">
+
 </head>
 <body>
+<div th:replace="navbar.html :: header"></div>
+<div th:replace="snackbar.html :: body"></div>
 <div align="center">
     <h1>Participation Registration</h1>
     <form action="#" th:action="@{/add_participation}" method="post" th:object="${participation}">

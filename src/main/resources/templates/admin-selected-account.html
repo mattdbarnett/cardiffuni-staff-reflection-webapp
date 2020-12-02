@@ -11,6 +11,8 @@
 <!--    <title th:text = "${siteuser.name} +  's account"></title>-->
 </head>
 <body>
+<div th:replace="navbar.html :: header"></div>
+<div th:replace="snackbar.html :: body"></div>
 <main>
     <div id = "editUser" th:if = "${siteuser}">
 

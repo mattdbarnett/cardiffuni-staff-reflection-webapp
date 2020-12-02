@@ -5,14 +5,17 @@
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.css}">
 
     <title th:text = "${siteuser.name} + '&rsquo;' + 's account'"></title>
 
 <!--    <title th:text = "${siteuser.name} +  's account"></title>-->
 </head>
 <body>
+<div th:replace="navbar.html :: header"></div>
+<div th:replace="snackbar.html :: body"></div>
 <main>
-    <div id = "editUser" th:if = "${siteuser}">
+    <div id = "editUser" th:if = "${siteuser}" style="margin-top:3%">
 
         <h2 th:text = "'current user: '+ ${siteuser.name}"></h2>
 
