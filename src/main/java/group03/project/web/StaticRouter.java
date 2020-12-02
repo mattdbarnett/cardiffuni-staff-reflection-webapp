@@ -14,11 +14,13 @@ public class StaticRouter implements WebMvcConfigurer {
         If invalid entry in url, redirect user to 404 error (no page found).
          */
         registry.addViewController("404").setViewName("forward:/404.html");
+
+        registry.addViewController("").setViewName("forward:/dashboard.html");
         /*
         if /test is in urlpath after 8080, direct to test webpage.
          */
 
-        registry.addViewController("registration").setViewName("forward:/registration.html");
+//        registry.addViewController("registration").setViewName("forward:/registration.html");
 
     }
 }
