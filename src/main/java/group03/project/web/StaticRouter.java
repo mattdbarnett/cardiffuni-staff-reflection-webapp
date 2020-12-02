@@ -15,7 +15,7 @@ public class StaticRouter implements WebMvcConfigurer {
          */
         registry.addViewController("404").setViewName("forward:/404.html");
 
-        registry.addViewController("").setViewName("forward:/dashboard.html");
+        registry.addViewController("").setViewName("forward:/index.html");
         /*
         if /test is in urlpath after 8080, direct to test webpage.
          */
