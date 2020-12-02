@@ -35,7 +35,7 @@ ENGINE = InnoDB;
 -- Table `staffdevelopment`.`tag`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `staffdevelopment`.`tag` (
-  `tagID` INT(11) NOT NULL,
+  `tagID` VARCHAR(45) NOT NULL,
   `description` VARCHAR(45) NULL DEFAULT NULL,
   `isOfficial` TINYINT(4) NULL DEFAULT NULL,
   PRIMARY KEY (`tagID`))
