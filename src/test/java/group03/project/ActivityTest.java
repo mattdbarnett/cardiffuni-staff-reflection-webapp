@@ -1,7 +1,7 @@
 package group03.project;
 
 import group03.project.domain.Activity;
-import group03.project.service.ActivityService;
+import group03.project.services.implementation.ActivityService;
 import group03.project.web.controllers.ActivityController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

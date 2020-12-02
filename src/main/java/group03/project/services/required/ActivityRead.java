@@ -1,4 +1,4 @@
-package group03.project.service;
+package group03.project.services.required;
 
 import group03.project.domain.Activity;
 
