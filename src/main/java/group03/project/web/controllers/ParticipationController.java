@@ -38,7 +38,7 @@ public class ParticipationController {
     public String submitParticipation(@ModelAttribute("participation") Participation participation) {
         //Will only work with data added!!
         participation.setRoleID("0");
-        participation.setUserID("1");
+        participation. setUserID(1);
         java.util.Date date = new java.util.Date();
         participation.setDate(date);
         participationService.save(participation);

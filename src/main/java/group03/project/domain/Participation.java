@@ -24,7 +24,7 @@ public class Participation {
     @Column(name="Activity_activityID")
     private Integer activityID;
     @Column(name="siteUser_userID")
-    private String userID;
+    private Integer userID;
     @Column(name="Role_roleID")
     private String roleID;
 }
