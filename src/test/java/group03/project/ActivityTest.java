@@ -47,16 +47,6 @@ public class ActivityTest {
     private MockMvc mvc;
 
     @Test
-    public void shouldLoadAddOfficialActivityPage() throws Exception {
-
-        this.mvc
-                .perform(get("/add_official_activity"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Add an activity")));
-    }
-
-    @Test
     public void shouldAddActivity() throws Exception {
 
         List<Activity> activities = new ArrayList<>(Arrays.asList(
