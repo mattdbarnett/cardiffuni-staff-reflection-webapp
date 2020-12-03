@@ -18,6 +18,7 @@ body {
 .btn-sq-lg {
     width: 150px !important;
     height: 150px !important;
+    margin-bottom:2%;
 }
 
 
@@ -39,10 +40,11 @@ body {
     }
 }
 
-.fas{
+.fas,.fab,.far{
     padding-bottom:10%;
     padding-top:5%;
 }
+
 
 .btn-sq-lg{
     margin-right:2%;

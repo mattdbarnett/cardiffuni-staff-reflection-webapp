@@ -45,7 +45,7 @@ public class UserRegistrationController {
 
             accountService.createUser(newUser);
 
-            return "redirect:/";
+            return "redirect:";
         } else {
 
             return "redirect:registration";
