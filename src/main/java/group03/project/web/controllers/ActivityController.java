@@ -32,7 +32,7 @@ public class ActivityController {
         //activity.setActivityID(activityService.getActivityListSize());
         //activity.setUserID(1); //No login system yet - placeholder userID
         activityService.save(activity);
-        return "redirect:/";
+        return "redirect:";
     }
 
     //Page for adding a custom activity as a user
@@ -52,7 +52,7 @@ public class ActivityController {
         String inputName = activity.getName();
         activity.setName("[Custom] " + inputName);
         activityService.save(activity);
-        return "index";
+        return "redirect:";
     }
 
     @GetMapping("/all_activities")

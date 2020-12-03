@@ -70,7 +70,7 @@ public class TagController {
                     tagService.createUnofficialTag(newTag);
                 }
 
-                return "redirect:/";
+                return "redirect:";
             } catch (NullPointerException e) {
                 e.printStackTrace();
                 System.out.println("failed to create tag");
