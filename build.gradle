@@ -4,7 +4,7 @@ plugins {
 	id 'java'
 }
 
-group = 'group03.project'
+group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
@@ -19,10 +19,30 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.security:spring-security-test'
+
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'junit:junit:4.12'
+	testImplementation("org.junit.jupiter:junit-jupiter-api:5.4.2")
+	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.4.2")
+
+
+	runtime 'com.h2database:h2'
+
+	runtime 'org.mariadb.jdbc:mariadb-java-client:2.7.0'
+
+
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compile('javax.servlet:jstl')
+	compile('org.apache.tomcat.embed:tomcat-embed-jasper')
 }
 
 test {

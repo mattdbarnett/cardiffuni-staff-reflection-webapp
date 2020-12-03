@@ -1,0 +1,52 @@
+body {
+    font-family: "Karla", sans-serif;
+    background: rgb(54,105,158);
+    background: -moz-linear-gradient(180deg, rgba(54,105,158,1) 0%, rgba(70,147,252,1) 100%);
+    background: -webkit-linear-gradient(180deg, rgba(54,105,158,1) 0%, rgba(70,147,252,1) 100%);
+    background: linear-gradient(180deg, rgba(54,105,158,1) 0%, rgba(70,147,252,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#36699e",endColorstr="#4693fc",GradientType=1);
+    background-repeat:no-repeat;
+    background-attachment: fixed;
+}
+
+.main-head{
+    height: 150px;
+    background: #FFF;
+
+}
+
+.btn-sq-lg {
+    width: 150px !important;
+    height: 150px !important;
+    margin-bottom:2%;
+}
+
+
+@media screen and (max-width: 767px) {
+    #buttons-container{
+        margin-top: 30%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    #buttons-container {
+        margin-top: 8%;
+    }
+}
+
+@media screen and (max-width: 485px){
+    #buttons-container {
+        margin-top: 40%;
+    }
+}
+
+.fas,.fab,.far{
+    padding-bottom:10%;
+    padding-top:5%;
+}
+
+
+.btn-sq-lg{
+    margin-right:2%;
+    background-color:#2b354c;!important;
+}

@@ -1,5 +1,0 @@
-
-#Ignores .gradle folder for local dependencies
-*.gradle
-*.idea
-

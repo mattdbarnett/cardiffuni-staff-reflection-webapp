@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All users</title>
+    <link th:rel="stylesheet" th:href="@{/css/dashPageStyle.css}">
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <style>
+        font-family: "Karla", sans-serif;
+    </style>
+</head>
+<body>
+<div th:replace="navbar-login.html :: header"></div>
+<div id="content-pane">
+    <h1>All users on record</h1>
+    <div>
+        <ul>
+            <li th:each = "user : ${users}">
+
+            <a th:id = "userLink + ${user.emailAddress}"
+               th:href = "@{/admin/account/{id} (id = ${user.userID})}">
+
+                <p  th:text = "${user.emailAddress}">CONTENT MISSING</p>
+            </a>
+                <p th:text = "${user.name}"></p>
+
+                <button name = 'delete_user' type = "deleteUser"> delete account</button>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><head>
+    <meta charset="UTF-8">
+    <title>Professional Development Tracker</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link th:rel="stylesheet" th:href="@{/css/aboutStyling.css} "/>
+    <link th:rel="stylesheet" th:href="@{/css/snackbarStyling.css} "/>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/d312da903a.js" crossorigin="anonymous"></script>
+    <script th:src="@{/static/js/snackbar.js}"></script>
+</head>
+<body>
+<div th:replace="navbar.html :: header"></div>
+<div th:replace="snackbar.html :: body"></div>
+<main>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Professional Development Tracker</h4>
+            <p class="card-text">This website records your professional development against the UK Professional Standards Framework.</p>
+        </div>
+    </div>
+</main>
+<script>
+    const pathname = window.location.pathname,
+        pages = ['about', 'dashboard','login'];
+    $('.nav-item').each(function(i) {
+        if (pathname.includes(pages[i]))
+            $(this).addClass('active');
+        else if (this.className.includes('active'))
+            $(this).removeClass('active');
+    });
+</script>
+</body>
+</html>
