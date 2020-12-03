@@ -35,5 +35,5 @@
 - [ ] Every scenario outcome in the acceptance criteria must be achieved 
 - [ ] All automated tests pass (if applicable)
 - [ ] Any code must be reviewed by another team member
-- [ ] Code to be merged locally on the tester's machine after review, only after successful local merge code can be pushed to remote master (may not be applicable to some stories in first sprint) 
+- [ ] Code to be merged locally on the tester's machine after review, only after successful local merge code can be pushed to remote development (may not be applicable to some stories in first sprint) 
 
