@@ -1,8 +1,10 @@
 package group03.project.web.controllers;
 
+import group03.project.domain.Permission;
 import group03.project.domain.SiteUser;
 import group03.project.services.offered.SiteUserService;
 import group03.project.web.forms.UserCreationForm;
+import org.springframework.aop.interceptor.PerformanceMonitorInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +26,7 @@ public class UserRegistrationController {
 
     }
 
-    @GetMapping("/registration")
+    @GetMapping("/register")
     public String ShowAccountCreationForm(Model model) {
         UserCreationForm newAccountForm = new UserCreationForm();
         model.addAttribute("newUser", newAccountForm);
@@ -32,7 +34,7 @@ public class UserRegistrationController {
 
     }
 
-    @PostMapping("/register")
+    @PostMapping("/register-user")
     public String createNewUser(@ModelAttribute("newUser") @Valid UserCreationForm accountForm,
                                 BindingResult result) {
 

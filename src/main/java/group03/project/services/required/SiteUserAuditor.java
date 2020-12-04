@@ -1,6 +1,8 @@
 package group03.project.services.required;
 
+import group03.project.domain.Permission;
 import group03.project.domain.SiteUser;
+import group03.project.services.offered.SiteUserService;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,7 +17,7 @@ public interface SiteUserAuditor {
      * Creates a user
      * @param aSiteuser - parsed site user.
      */
-    public void createUser(SiteUser aSiteuser);
+    public void createAUser(SiteUser aSiteuser);
 
     /**
      * updates site user.
@@ -48,7 +50,6 @@ public interface SiteUserAuditor {
      * @param name - user's saved name
      * @return optional list containing user(s) if matching database entry.
      */
-    public Optional<SiteUser> findUserByName(String name);
-
+    public Optional<SiteUser> findUserByUsername(String name);
 
 }

@@ -15,6 +15,16 @@
 -- -----------------------------------------------------
 -- Schema staffdevelopment
 -- -----------------------------------------------------
+
+DROP TABLE `staffdevelopment`.`reflection`;
+DROP TABLE `staffdevelopment`.`participation`;
+DROP TABLE `staffdevelopment`.`objective`;
+DROP TABLE `staffdevelopment`.`activity`;
+DROP TABLE `staffdevelopment`.`siteUser`;
+DROP TABLE `staffdevelopment`.`tag`;
+DROP TABLE `staffdevelopment`.`role`;
+DROP TABLE `staffdevelopment`.`permission`;
+
 CREATE SCHEMA IF NOT EXISTS staffdevelopment;
 USE `staffdevelopment` ;
 
@@ -79,8 +89,9 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `staffdevelopment`.`siteUser` (
   `userID` INT(11) NOT NULL AUTO_INCREMENT,
   `emailAddress` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45)NOT NULL,
-  `name` VARCHAR(45) NULL DEFAULT NULL,
+  `password` VARCHAR(100)NOT NULL,
+  `username` VARCHAR(20) NULL DEFAULT NULL,
+  `permissions` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`userID`))
 ENGINE = InnoDB;
 
@@ -133,5 +144,3 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Dummy data for participation (temp)
 -- -----------------------------------------------------
-INSERT INTO siteUser VALUES (null, 'testaddress@gmail.com', 'passwordtest', 'nametest');
-INSERT INTO role VALUES ('0', 'placeholder');

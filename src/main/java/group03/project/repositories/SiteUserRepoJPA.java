@@ -5,4 +5,6 @@ import group03.project.services.required.SiteUserServiceJPA;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SiteUserRepoJPA extends JpaRepository<SiteUser, Long>, SiteUserServiceJPA {
+
+
 }

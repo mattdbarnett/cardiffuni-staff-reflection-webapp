@@ -15,7 +15,9 @@ public class SiteUserJPAService implements SiteUserAuditor {
     final SiteUserServiceJPA userRepoJPA;
 
     @Autowired
-    public SiteUserJPAService(SiteUserServiceJPA aUserRepoJPA) {userRepoJPA = aUserRepoJPA; };
+    public SiteUserJPAService(SiteUserServiceJPA aUserRepoJPA) {
+        userRepoJPA = aUserRepoJPA;
+    };
 
     @Override
     public List<SiteUser> findAllUsers() { return userRepoJPA.findAll(); }
@@ -29,7 +31,10 @@ public class SiteUserJPAService implements SiteUserAuditor {
     public Optional<SiteUser> findUserByEmail(String email) { return userRepoJPA.findByEmailAddress(email); }
 
     @Override
-    public Optional<SiteUser> findUserByName(String name) { return userRepoJPA.findByName(name); }
+    public Optional<SiteUser> findUserByUsername(String userName) { return userRepoJPA.findByUsername(userName); }
+
+
+
 
     @Override
     public void updateUser(SiteUser user) {
@@ -41,7 +46,7 @@ public class SiteUserJPAService implements SiteUserAuditor {
         userToAmend.ifPresent(currentUser -> {
                     currentUser.setEmailAddress(user.getEmailAddress());
                     currentUser.setPassword(user.getPassword());
-                    currentUser.setName(user.getName());
+                    currentUser.setUsername(user.getUsername());
                 });
 
 
@@ -49,9 +54,7 @@ public class SiteUserJPAService implements SiteUserAuditor {
     }
 
     @Override
-    public void createUser(SiteUser aSiteuser) {
-        userRepoJPA.save(aSiteuser);
-    }
+    public void createAUser(SiteUser aSiteuser) { userRepoJPA.save(aSiteuser); }
 
 
 }

@@ -25,11 +25,13 @@ public class SiteUser {
     @Column(name="password")
     private String password;
     @Column(name="name")
-    private String name;
+    private String username;
+    @Column
+    private String permissions;
 
 
-    public SiteUser(String anEmailAddress, String aPassword, String aName) {
-        this(null,  anEmailAddress , aPassword, aName);
+    public SiteUser(String anEmailAddress, String aPassword, String aUsername) {
+        this(null,  anEmailAddress , aPassword, aUsername, null);
     }
 
 

@@ -13,9 +13,12 @@ public interface SiteUserServiceJPA {
 
     public Optional<SiteUser> findByEmailAddress(String email);
 
-    public Optional<SiteUser> findByName(String name);
+    public Optional<SiteUser> findByUsername(String name);
+
+    public Optional<SiteUser> findByPermissions(String permissions);
 
     public SiteUser save(SiteUser aSiteUser);
+
 
 
 }
