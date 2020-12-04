@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import java.util.*;
 
 @Controller
+@RequestMapping("user")
 public class InfoController {
 
     private SiteUserService userUpdateService;
