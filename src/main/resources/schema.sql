@@ -35,8 +35,8 @@ ENGINE = InnoDB;
 -- Table `staffdevelopment`.`tag`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `staffdevelopment`.`tag` (
-  `tagID` INT(11) NOT NULL,
-  `description` VARCHAR(45) NULL DEFAULT NULL,
+  `tagID` VARCHAR(11) NOT NULL,
+  `description` VARCHAR(200) NULL DEFAULT NULL,
   `isOfficial` TINYINT(4) NULL DEFAULT NULL,
   PRIMARY KEY (`tagID`))
 ENGINE = InnoDB;
@@ -48,7 +48,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `staffdevelopment`.`objective` (
   `objectiveID` INT(11) NOT NULL,
   `Activity_activityID` INT(11) NOT NULL,
-  `Tag_tagID` INT(11) NOT NULL,
+  `Tag_tagID` VARCHAR(11) NOT NULL,
   PRIMARY KEY (`objectiveID`),
     FOREIGN KEY (`Activity_activityID`)
     REFERENCES `staffdevelopment`.`activity` (`activityID`)
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `staffdevelopment`.`reflection` (
   `reflectionID` INT(11) NOT NULL AUTO_INCREMENT,
   `reflection` VARCHAR(45) NULL DEFAULT NULL,
   `Participation_participationID` INT(11) NOT NULL,
-  `Tag_tagID` INT(11) NOT NULL,
+  `Tag_tagID` VARCHAR(11) NOT NULL,
   PRIMARY KEY (`reflectionID`),
     FOREIGN KEY (`Participation_participationID`)
     REFERENCES `staffdevelopment`.`participation` (`participationID`)
@@ -128,3 +128,10 @@ CREATE TABLE IF NOT EXISTS `staffdevelopment`.`reflection` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Dummy data for participation (temp)
+-- -----------------------------------------------------
+INSERT INTO siteUser VALUES (null, 'testaddress@gmail.com', 'passwordtest', 'nametest');
+INSERT INTO role VALUES ('0', 'placeholder');

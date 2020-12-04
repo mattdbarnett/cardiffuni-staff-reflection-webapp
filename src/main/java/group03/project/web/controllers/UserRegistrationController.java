@@ -1,7 +1,7 @@
 package group03.project.web.controllers;
 
 import group03.project.domain.SiteUser;
-import group03.project.services.offered.SiteUserCreationService;
+import group03.project.services.offered.SiteUserService;
 import group03.project.web.forms.UserCreationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,10 +15,10 @@ import javax.validation.Valid;
 public class UserRegistrationController {
 
 
-    private SiteUserCreationService accountService;
+    private SiteUserService accountService;
 
     @Autowired
-    public UserRegistrationController(SiteUserCreationService aService) {
+    public UserRegistrationController(SiteUserService aService) {
 
         accountService = aService;
 
@@ -33,7 +33,8 @@ public class UserRegistrationController {
     }
 
     @PostMapping("/register")
-    public String createNewUser(@ModelAttribute("newUser") @Valid UserCreationForm accountForm, BindingResult result) {
+    public String createNewUser(@ModelAttribute("newUser") @Valid UserCreationForm accountForm,
+                                BindingResult result) {
 
 
         if(!result.hasErrors()) {
@@ -44,7 +45,7 @@ public class UserRegistrationController {
 
             accountService.createUser(newUser);
 
-            return "redirect:/";
+            return "redirect:";
         } else {
 
             return "redirect:registration";
@@ -58,7 +59,8 @@ public class UserRegistrationController {
     }
 
 
-    private SiteUser createAccount(UserCreationForm accountForm, BindingResult result) {
+    private SiteUser createAccount(UserCreationForm accountForm,
+                                   BindingResult result) {
         SiteUser newUser;
 
         try {

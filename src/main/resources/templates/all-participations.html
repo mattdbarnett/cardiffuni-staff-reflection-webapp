@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <link rel = "stylesheet" type = "text/css" href = "/css/account-edit.css">
+    <meta charset="ISO-8859-1">
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <style>
+        font-family: "Karla", sans-serif;
+    </style>
+    <title>All participations</title>
+</head>
+<body>
+<div th:replace="navbar.html :: header"></div>
+<div th:replace="snackbar.html :: body"></div>
+<div style="margin-top:2%;">
+<h1>All current participations</h1>
+<div>
+    <ul>
+        <li th:each="participation : ${participations}">
+            <div id = "boldDiv" th:text = "'Participation ID: ' + ${participation.participationID}"></div>
+            <div th:text = "'Participation Date: ' + ${participation.date}"></div>
+            <div th:text = "'Activity ID: ' + ${participation.activityID}"></div>
+            <div th:text = "'current user: ' + ${participation.userID}"></div>
+            <div th:text = "'user role: ' + ${participation.roleID}"></div>
+            <br>
+        </li>
+    </ul>
+</div>
+</div>
+</body>
+</html>

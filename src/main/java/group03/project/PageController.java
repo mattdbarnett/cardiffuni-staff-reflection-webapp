@@ -47,13 +47,6 @@ public class PageController {
         return model;
     }
 
-    @GetMapping("/my_activities")
-    public ModelAndView myactivities(){
-        ModelAndView model = new ModelAndView();
-        model.setViewName("My_activities");
-        return model;
-    }
-
 
     /*@RequestMapping(value="/login",method= RequestMethod.POST)
     public void loginUser(LoginRequest  ){
