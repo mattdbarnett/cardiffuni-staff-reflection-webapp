@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Participation Registration</title>
+    <style>
+        font-family: "Karla", sans-serif;
+    </style>
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.css}">
+
+</head>
+<body>
+<div th:replace="navbar.html :: header"></div>
+<div th:replace="snackbar.html :: body"></div>
+<div align="center">
+    <h1>Participation Registration</h1>
+    <form action="#" th:action="@{/add_participation}" method="post" th:object="${participation}">
+
+        <label> Date: </label> <br/>
+        <script language="javascript">
+            var today = new Date();
+            document.write(today);
+        </script>
+        <br/>
+
+        <label> Activity:</label> <br/>
+        <select class="form-control" th:field="*{activityID}">
+            <option value="0">select ACTIVITY</option>
+            <option th:each="activity : ${activities}" th:value="${activity.activityID}" th:text="${activity.name}"></option>
+        </select>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+</body>
+</html>
