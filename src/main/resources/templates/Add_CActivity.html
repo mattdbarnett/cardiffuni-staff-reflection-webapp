@@ -2,30 +2,39 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Custom Activity Registration</title>
+    <title>Official Activity Registration</title>
     <link th:rel="stylesheet" th:href="@{/css/bootstrap.css}">
-    <style>
-        font-family: "Karla", sans-serif;
-    </style>
+    <link th:rel="stylesheet" th:href="@{/css/dashPageStyle.css}">
+    <link th:rel="stylesheet" th:href="@{/css/contentMargin.css}">
+    <link th:rel="stylesheet" th:href="@{/css/gradientBg.css}">
+
 </head>
 <body>
 <div th:replace="navbar.html :: header"></div>
 <div th:replace="snackbar.html :: body"></div>
-<div align="center">
-    <h1>Custom Activity Registration</h1>
-    <form action="#" th:action="@{/add_custom_activity}" method="post" th:object="${activity}">
-        <label>Activity Name:</label>
-        <input type="text" th:field="*{name}" /><br/>
-
-        <label>File URL:</label>
-        <input type="text" th:field="*{file}" /><br/>
-
-        <label>Description:</label>
-        <textarea rows="5" cols="25" th:field="*{desc}"></textarea>
-        <br/>
-
-        <button type="submit">Submit</button>
-    </form>
+<div id="content-pane">
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+            <div class="well profile" id="container-box">
+                <h1 align="center">Custom Activity Registration</h1><hr style="background-color:#333;">
+                <form action="#" th:action="@{/add_custom_activity}" method="post" th:object="${activity}">
+                    <div class="form-group">
+                        <label for="activity-name">Activity Name</label>
+                        <input th:field = "*{name}" type="text" class="form-control" id="activity-name" name="activity-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="file-url">File URL:</label>
+                        <input th:field = "*{file}" type="text" class="form-control" id="file-url" name="file-url">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <input th:field = "*{desc}" type="text" class="form-control" id="description" name="description">
+                    </div>
+                    <button type="submit" id="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

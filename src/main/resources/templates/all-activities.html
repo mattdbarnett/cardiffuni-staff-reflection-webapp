@@ -19,6 +19,24 @@
     <script th:src="@{/js/bootstrap.js}"></script>
     <link th:rel="stylesheet" th:href="@{/css/bootstrap.css}">
 
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+        h3 {
+            font-family:"Open Sans",sans-serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            margin-left: 38px;
+            top: -15px;
+            transform: rotate(270deg);
+            z-index:99;
+            color:white;
+        }
+    </style>
 </head>
 <body>
 <div th:replace="navbar.html :: header"></div>
@@ -26,14 +44,23 @@
     <div class="row">
         <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
             <div class="well profile" id="container-box">
-    <h1>All activities</h1>
+                <h1 align="center">All Activities</h1><hr style="background-color:#333;height:0.5px;">
     <ul class="list-group">
         <li class = "list-group-item" th:each="activity : ${activities}">
-            <p th:text = "${activity.name}"></p>
             <span class="badge" th:text="${activity.activityID}"></span>
+
+            <h3 id="custom-h3" th:if="${#strings.contains(activity.name,'[Custom]')}" style="z-index:25">Custom</h3>
+            <div th:if="${#strings.contains(activity.name,'[Custom]')}" style="border-width: 0px 0px 0px 25px;border-style:solid;border-color:#F0AD4E;padding-left:20px;">
+            <p th:text = "${#strings.substring(activity.name,8,#strings.length(activity.name))}"></p>
             <p th:text = "${activity.file}"></p>
             <p th:text = "${activity.desc}"></p>
-
+            </div>
+            <h3 id="official-h3" th:if="${!#strings.contains(activity.name,'[Custom]')}" style="z-index:25">Official</h3>
+            <div th:if="${!#strings.contains(activity.name,'[Custom]')}" style="border-width: 0px 0px 0px 25px;border-style:solid;border-color:rgb(54,105,158);padding-left:20px;">
+                <p th:text = "${activity.name}"></p>
+                <p th:text = "${activity.file}"></p>
+                <p th:text = "${activity.desc}"></p>
+            </div>
         </li>
     </ul>
     </ul>
