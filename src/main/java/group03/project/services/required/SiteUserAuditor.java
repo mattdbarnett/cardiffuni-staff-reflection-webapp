@@ -1,9 +1,6 @@
 package group03.project.services.required;
 
-import group03.project.domain.Permission;
 import group03.project.domain.SiteUser;
-import group03.project.services.offered.SiteUserService;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;

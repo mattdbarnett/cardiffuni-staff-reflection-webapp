@@ -90,7 +90,8 @@ CREATE TABLE IF NOT EXISTS `staffdevelopment`.`siteUser` (
   `userID` INT(11) NOT NULL AUTO_INCREMENT,
   `emailAddress` VARCHAR(45) NOT NULL,
   `password` VARCHAR(100)NOT NULL,
-  `username` VARCHAR(20) NULL DEFAULT NULL,
+  `user_name` VARCHAR(20) NULL DEFAULT NULL,
+  `active` BOOLEAN NULL DEFAULT NULL,
   `permissions` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`userID`))
 ENGINE = InnoDB;
