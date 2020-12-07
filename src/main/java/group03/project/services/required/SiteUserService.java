@@ -9,7 +9,7 @@ import java.util.Optional;
  * Interface allowing communication by controllers to service methods connecting to database
  * for site users.
  */
-public interface SiteUserAuditor {
+public interface SiteUserService {
     /**
      * Creates a user
      * @param aSiteuser - parsed site user.
@@ -47,6 +47,6 @@ public interface SiteUserAuditor {
      * @param name - user's saved name
      * @return optional list containing user(s) if matching database entry.
      */
-    public Optional<SiteUser> findUserByUsername(String name);
+    public Optional<SiteUser> findUserByUserName(String name);
 
 }

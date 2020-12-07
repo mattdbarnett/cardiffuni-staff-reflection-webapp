@@ -5,7 +5,7 @@ import group03.project.domain.SiteUser;
 import java.util.List;
 import java.util.Optional;
 
-public interface SiteUserServiceJPA {
+public interface SiteUserRepository {
 
     public List<SiteUser> findAll();
 

@@ -24,11 +24,11 @@ public class SiteUser {
     private String emailAddress;
     @Column(name="password")
     private String password;
-    @Column(name="name")
+    @Column(name="userName")
     private String userName;
-    @Column
+    @Column(name = "isActive")
     private Boolean isActive;
-    @Column
+    @Column(name = "permissions")
     private String permissions;
 
 

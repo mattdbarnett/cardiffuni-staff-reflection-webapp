@@ -2,7 +2,7 @@ package group03.project.repositories;
 
 import group03.project.domain.SiteUser;
 import group03.project.services.offered.SiteUserService;
-import group03.project.services.required.SiteUserServiceJPA;
+import group03.project.services.required.SiteUserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -27,7 +27,7 @@ public class UserUpdateTest {
 //    SiteUserAuditor userAuditor;
 
     @Autowired
-    public SiteUserServiceJPA siteUserRepository;
+    public SiteUserRepository siteUserRepository;
 
 //    @MockBean
 //    public SiteUserServiceJPA userRepository;

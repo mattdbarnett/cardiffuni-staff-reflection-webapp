@@ -1,7 +1,8 @@
 package group03.project.services.implementation;
 
+import group03.project.config.SiteUserPrincipal;
 import group03.project.domain.SiteUser;
-import group03.project.services.required.SiteUserServiceJPA;
+import group03.project.services.required.SiteUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,15 +15,25 @@ import java.util.Optional;
 public class LoginAuthenticatorService implements UserDetailsService {
 
     @Autowired
-    SiteUserServiceJPA siteUserRepo;
+    SiteUserRepository siteUserRepo;
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        Optional<SiteUser> user = siteUserRepo.findByUserName(userName);
+        System.out.println("loadUserByUserName called");
+        try {
+            System.out.println("username to check: " + userName);
+            Optional<SiteUser> user = siteUserRepo.findByUserName(userName);
+            System.out.println(user.get().getUserName());
+            user.orElseThrow(() -> new UsernameNotFoundException(userName + " cannot be found on system"));
+            System.out.println("user created: " + user.get().getUserName());
+            return user.map(SiteUserPrincipal::new).get();
+        } catch (Exception s) {
+            System.out.println("hasn't worked!");
+            return null;
+        }
 
-        user.orElseThrow(() -> new UsernameNotFoundException(userName + " cannot be found on system"));
 
-        return user.map(LoginDetailsService::new).get();
+
 
     }
 }

@@ -37,6 +37,8 @@ dependencies {
 
 	runtime 'org.mariadb.jdbc:mariadb-java-client:2.7.0'
 
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
 
 	compileOnly 'org.projectlombok:lombok'
 	compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5'

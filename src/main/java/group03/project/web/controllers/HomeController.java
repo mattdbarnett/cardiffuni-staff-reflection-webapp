@@ -1,7 +1,12 @@
 package group03.project.web.controllers;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
 
 @Controller
 public class HomeController {
@@ -10,16 +15,16 @@ public class HomeController {
     public String navigateToLogin() {
         return "login";
     }
-
-    @GetMapping("/admin")
-    public String navigateToAdminDashboard() {
-        return "dashboard";
-    }
-
-    @GetMapping("/user")
-    public String navigateToUserDashboard() {
-        return "dashboard";
-    }
+//
+//    @GetMapping("/admin")
+//    public String navigateToAdminDashboard() {
+//        return "dashboard";
+//    }
+//
+//    @GetMapping("/user")
+//    public String navigateToUserDashboard() {
+//        return "dashboard";
+//    }
 
     /**
      * Ronan implementation of adding about page - moved to controller controlling home.
@@ -30,9 +35,15 @@ public class HomeController {
         return "about";
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "dashboard";
+    @GetMapping("/dashboard")
+    public String navigateToDashboard(Authentication authentication) {
+
+        if (authentication.getAuthorities().contains("ADMIN")) {
+            return "dashboard_a";
+        } else {
+            return "dashboard";
+        }
+
     }
 
     @GetMapping("/logout")

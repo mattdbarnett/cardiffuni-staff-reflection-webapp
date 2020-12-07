@@ -16,14 +16,13 @@
 -- Schema staffdevelopment
 -- -----------------------------------------------------
 
-DROP TABLE `staffdevelopment`.`reflection`;
-DROP TABLE `staffdevelopment`.`participation`;
-DROP TABLE `staffdevelopment`.`objective`;
-DROP TABLE `staffdevelopment`.`activity`;
-DROP TABLE `staffdevelopment`.`siteUser`;
-DROP TABLE `staffdevelopment`.`tag`;
-DROP TABLE `staffdevelopment`.`role`;
-DROP TABLE `staffdevelopment`.`permission`;
+DROP TABLE IF EXISTS`staffdevelopment`.`reflection`;
+DROP TABLE IF EXISTS`staffdevelopment`.`participation`;
+DROP TABLE IF EXISTS`staffdevelopment`.`objective`;
+DROP TABLE IF EXISTS`staffdevelopment`.`activity`;
+DROP TABLE IF EXISTS`staffdevelopment`.`siteUser`;
+DROP TABLE IF EXISTS`staffdevelopment`.`tag`;
+DROP TABLE IF EXISTS`staffdevelopment`.`role`;
 
 CREATE SCHEMA IF NOT EXISTS staffdevelopment;
 USE `staffdevelopment` ;
@@ -90,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `staffdevelopment`.`siteUser` (
   `userID` INT(11) NOT NULL AUTO_INCREMENT,
   `emailAddress` VARCHAR(45) NOT NULL,
   `password` VARCHAR(100)NOT NULL,
-  `user_name` VARCHAR(20) NULL DEFAULT NULL,
+  `userName` VARCHAR(20) NULL DEFAULT NULL,
   `active` BOOLEAN NULL DEFAULT NULL,
   `permissions` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`userID`))

@@ -9,7 +9,7 @@ import java.util.Optional;
  * Interface allowing communication by controllers to service methods connecting to database
  * for site users.
  */
-public interface TagAuditor {
+public interface TagService {
     /**
      * Method that creates official tag inside database
      * @param theTag - created tag object from controller.

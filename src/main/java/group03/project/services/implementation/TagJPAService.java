@@ -1,8 +1,8 @@
 package group03.project.services.implementation;
 
 import group03.project.domain.Tag;
-import group03.project.services.required.TagAuditor;
-import group03.project.services.required.TagServiceJPA;
+import group03.project.services.required.TagService;
+import group03.project.services.required.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class TagJPAService implements TagAuditor {
+public class TagJPAService implements TagService {
 
-    final TagServiceJPA tagJPAConnector;
+    final TagRepository tagJPAConnector;
 
     @Autowired
-    public TagJPAService(TagServiceJPA theJPATagConnector) {
+    public TagJPAService(TagRepository theJPATagConnector) {
         tagJPAConnector = theJPATagConnector; };
 
     @Override
