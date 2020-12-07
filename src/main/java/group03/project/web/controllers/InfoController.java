@@ -30,10 +30,10 @@ public class InfoController {
         accountUserPage = "user";
     }
 
-    @GetMapping("/account/{id}")
-    public String userAccountDetails(@PathVariable("id") Long id, Model model) {
+    @GetMapping("/account/{userName}")
+    public String userAccountDetails(@PathVariable("userName") String name, Model model) {
 
-        Optional<SiteUser> aSiteUser = userAuditor.findUserById(id);
+        Optional<SiteUser> aSiteUser = userAuditor.findUserByUserName(name);
         if (aSiteUser.isPresent()) {
             UserEditForm editForm = new UserEditForm();
 

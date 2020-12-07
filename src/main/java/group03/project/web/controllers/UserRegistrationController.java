@@ -35,9 +35,11 @@ public class UserRegistrationController {
     @PostMapping("/register-user")
     public String createNewUser(@ModelAttribute("newUser") @Valid UserCreationForm accountForm,
                                 BindingResult result) {
+        System.out.println("navigated to create user");
 
 
         if(!result.hasErrors()) {
+            System.out.println("result has no errors");
 
             SiteUser newUser;
 
@@ -45,8 +47,9 @@ public class UserRegistrationController {
 
             accountService.createAUser(newUser);
 
-            return "redirect:";
+            return "login";
         } else {
+            System.out.println("Result has errors");
 
             return "redirect:registration";
 

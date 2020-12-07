@@ -69,5 +69,5 @@ public class UserAccountTest {
     private Matcher<String> doesNotContainString(String s) {
         return CoreMatchers.not(containsString(s));
     }
-    
+
 }
