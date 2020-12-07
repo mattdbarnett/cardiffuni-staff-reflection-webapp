@@ -32,7 +32,6 @@ public class SiteUserServiceImpl implements SiteUserService {
 
     @Override
     public Optional<SiteUser> findUserByUserName(String userName) {
-        System.out.println("In SiteUserServiceJPA");
 
         System.out.println("Username=" + userName);
         return userRepoJPA.findByUserName(userName); }

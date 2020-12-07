@@ -5,11 +5,15 @@ import org.hamcrest.Matcher;
 import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -31,19 +35,25 @@ public class UserAccountTest {
     @DisplayName("302 redirect occurs when entering account without authentication")
     @WithMockUser(username="user", password = "password1", roles = "USER")
     public void shouldAllowUserWhenAttemptingAccessToProfile() throws Exception {
-        mvc.perform(get("/user/account/2")).andExpect(status().is(200));
+        mvc.perform(get("/user/account/user")).andExpect(status().is(200));
     }
 
     @Test
     @DisplayName("302 redirect occurs when entering account without authentication")
     public void shouldNotAllowUserWhenAttemptingAccessToProfile() throws Exception {
-        mvc.perform(get("/account/2")).andExpect(status().is(401));
+        mvc.perform(get("/user/account/2")).andExpect(status().is(302));
     }
 
     @Test
     @DisplayName("user has access to dashboard page on login")
     @WithMockUser(username = "user", password = "password1", roles = "USER")
     public void shouldSeeDashboardPageOnLogin() throws Exception {
+
+        Authentication a = SecurityContextHolder.getContext().getAuthentication();
+        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+        Mockito.when(securityContext.getAuthentication()).thenReturn(a);
+        SecurityContextHolder.setContext(securityContext);
+
         mvc.perform(get("/dashboard"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("View my")));
@@ -68,6 +78,17 @@ public class UserAccountTest {
 
     private Matcher<String> doesNotContainString(String s) {
         return CoreMatchers.not(containsString(s));
+    }
+
+    @Test
+    @DisplayName("Admin user can see admin 'view all' page on dashboard")
+    @WithMockUser(username = "admin", password = "password1", roles = "ADMIN")
+    public void shouldSeeAdminPageDetailsOnLogin() throws Exception {
+
+        mvc.perform(get("/dashboard"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Tag (admin)")));
+
     }
 
 }

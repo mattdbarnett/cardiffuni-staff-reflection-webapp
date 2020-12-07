@@ -18,7 +18,7 @@
             <li th:each = "user : ${users}">
 
             <a th:id = "userLink + ${user.emailAddress}"
-               th:href = "@{/admin/account/{id} (id = ${user.userID})}">
+               th:href = "@{/admin/account/{user} (user = ${user.userName})}">
 
                 <p  th:text = "${user.emailAddress}">CONTENT MISSING</p>
             </a>
