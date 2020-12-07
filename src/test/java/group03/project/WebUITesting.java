@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -28,6 +29,7 @@ public class WebUITesting {
     private MockMvc mvc;
 
     @Test
+    @WithMockUser(username="user", password = "password1", roles = "USER")
     public void shouldLoadLoginPage() throws Exception {
 
         this.mvc
@@ -37,7 +39,7 @@ public class WebUITesting {
                 .andExpect(content().string(containsString("Login")));
     }
     @Test
-
+    @WithMockUser(username="user", password = "password1", roles = "USER")
     public void shouldLoadAboutPage() throws Exception {
         this.mvc
                 .perform(get("/about"))
@@ -47,6 +49,7 @@ public class WebUITesting {
     }
 
     @Test
+    @WithMockUser(username="user", password = "password1", roles = "USER")
     public void shouldLoadDashboardPage() throws Exception {
         this.mvc
                 .perform(get("/dashboard"))

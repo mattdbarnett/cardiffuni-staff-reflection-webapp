@@ -7,6 +7,8 @@ import group03.project.services.required.SiteUserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
+@ContextConfiguration
 public class DatabaseTest {
 
     @Autowired
@@ -26,7 +29,7 @@ public class DatabaseTest {
 
         List<SiteUser> siteUsers = userRepository.findAll();
 
-        assertEquals(3, siteUsers.size());
+        assertEquals(4, siteUsers.size());
     }
 
     @Test

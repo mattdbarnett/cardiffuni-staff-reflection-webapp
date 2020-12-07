@@ -16,16 +16,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //@RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ViewAnAccountTest {
+public class UserAccountTest {
 
     @Autowired
     private MockMvc mvc;
 
     @Test
     @DisplayName("302 redirect occurs when entering account without authentication")
-    @WithMockUser(username="user")
+    @WithMockUser(username="user", password = "password1", roles = "USER")
     public void shouldAllowUserWhenAttemptingAccessToProfile() throws Exception {
-        mvc.perform(get("/account/2")).andExpect(status().is(200));
+        mvc.perform(get("/user/account/2")).andExpect(status().is(200));
     }
 
     @Test

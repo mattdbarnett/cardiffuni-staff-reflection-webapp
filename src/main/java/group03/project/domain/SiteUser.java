@@ -34,7 +34,10 @@ public class SiteUser {
 
     public SiteUser(String anEmailAddress, String aPassword, String aUsername) {
         this(null,  anEmailAddress , aPassword, aUsername, null, null);
+        this.permissions = "ROLE_USER";
     }
+
+
 
 
 }
