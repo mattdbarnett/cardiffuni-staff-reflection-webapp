@@ -40,7 +40,6 @@ public class HomeController {
 
     @GetMapping("/dashboard")
     public String navigateToDashboard(Authentication authentication) {
-        System.out.println("am i here?");
         return "dashboard";
 
 //        if (authentication.getAuthorities().contains("ADMIN")) {
