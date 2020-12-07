@@ -16,21 +16,21 @@
 -- Schema staffdevelopment
 -- -----------------------------------------------------
 
-DROP TABLE IF EXISTS`staffdevelopment`.`reflection`;
-DROP TABLE IF EXISTS`staffdevelopment`.`participation`;
-DROP TABLE IF EXISTS`staffdevelopment`.`objective`;
-DROP TABLE IF EXISTS`staffdevelopment`.`activity`;
-DROP TABLE IF EXISTS`staffdevelopment`.`siteUser`;
-DROP TABLE IF EXISTS`staffdevelopment`.`tag`;
-DROP TABLE IF EXISTS`staffdevelopment`.`role`;
+DROP TABLE IF EXISTS develomenttoolkit.`participation`;
+DROP TABLE IF EXISTS develomenttoolkit.`reflection`;
+DROP TABLE IF EXISTS develomenttoolkit.`objective`;
+DROP TABLE IF EXISTS develomenttoolkit.`activity`;
+DROP TABLE IF EXISTS develomenttoolkit.`siteUser`;
+DROP TABLE IF EXISTS develomenttoolkit.`tag`;
+DROP TABLE IF EXISTS develomenttoolkit.`role`;
 
-CREATE SCHEMA IF NOT EXISTS staffdevelopment;
-USE `staffdevelopment` ;
+CREATE SCHEMA IF NOT EXISTS develomenttoolkit;
+USE develomenttoolkit ;
 
 -- -----------------------------------------------------
 -- Table `staffdevelopment`.`activity`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `staffdevelopment`.`activity` (
+CREATE TABLE IF NOT EXISTS develomenttoolkit.`activity` (
   `activityID` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `file` VARCHAR(45) NULL DEFAULT NULL,
@@ -43,7 +43,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `staffdevelopment`.`tag`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `staffdevelopment`.`tag` (
+CREATE TABLE IF NOT EXISTS develomenttoolkit.`tag` (
   `tagID` VARCHAR(11) NOT NULL,
   `description` VARCHAR(200) NULL DEFAULT NULL,
   `isOfficial` TINYINT(4) NULL DEFAULT NULL,
@@ -54,17 +54,17 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `staffdevelopment`.`objective`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `staffdevelopment`.`objective` (
+CREATE TABLE IF NOT EXISTS develomenttoolkit.`objective` (
   `objectiveID` INT(11) NOT NULL,
   `Activity_activityID` INT(11) NOT NULL,
   `Tag_tagID` VARCHAR(11) NOT NULL,
   PRIMARY KEY (`objectiveID`),
     FOREIGN KEY (`Activity_activityID`)
-    REFERENCES `staffdevelopment`.`activity` (`activityID`)
+    REFERENCES develomenttoolkit.`activity` (`activityID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
     FOREIGN KEY (`Tag_tagID`)
-    REFERENCES `staffdevelopment`.`tag` (`tagID`)
+    REFERENCES develomenttoolkit.`tag` (`tagID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -73,7 +73,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `staffdevelopment`.`role`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `staffdevelopment`.`role` (
+CREATE TABLE IF NOT EXISTS develomenttoolkit.`role` (
 --  `roleID` INT(11) NOT NULL AUTO_INCREMENT,
 --   `type` VARCHAR(45) NOT NULL DEFAULT NULL,
   `role` VARCHAR(45) NOT NULL,
@@ -85,7 +85,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `staffdevelopment`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `staffdevelopment`.`siteUser` (
+CREATE TABLE IF NOT EXISTS develomenttoolkit.`siteUser` (
   `userID` INT(11) NOT NULL AUTO_INCREMENT,
   `emailAddress` VARCHAR(45) NOT NULL,
   `password` VARCHAR(100)NOT NULL,
@@ -95,50 +95,53 @@ CREATE TABLE IF NOT EXISTS `staffdevelopment`.`siteUser` (
   PRIMARY KEY (`userID`))
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `staffdevelopment`.`reflection`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS develomenttoolkit.`reflection` (
+   `reflectionID` INT(11) NOT NULL AUTO_INCREMENT,
+   `reflection` VARCHAR(45) NULL DEFAULT NULL,
+   `Participation_participationID` INT(11) NOT NULL,
+   `Tag_tagID` VARCHAR(11) NOT NULL,
+   PRIMARY KEY (`reflectionID`),
+   FOREIGN KEY (`Tag_tagID`)
+       REFERENCES develomenttoolkit.`tag` (`tagID`)
+       ON DELETE NO ACTION
+       ON UPDATE NO ACTION)
+    ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `staffdevelopment`.`participation`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `staffdevelopment`.`participation` (
+CREATE TABLE IF NOT EXISTS develomenttoolkit.`participation` (
   `participationID` INT(11) NOT NULL AUTO_INCREMENT,
   `date` DATETIME NULL DEFAULT NULL,
   `siteUser_userID` INT(11) NOT NULL,
   `Activity_activityID` INT(11) NOT NULL,
   `Role_roleID` VARCHAR(45) NOT NULL,
+  `Reflection_reflectionID` INT(45) NOT NULL,
   PRIMARY KEY (`participationID`),
     FOREIGN KEY (`Activity_activityID`)
-    REFERENCES `staffdevelopment`.`activity` (`activityID`)
+    REFERENCES develomenttoolkit.`activity` (`activityID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
     FOREIGN KEY (`siteUser_userID`)
-    REFERENCES `staffdevelopment`.`siteUser` (`userID`)
+    REFERENCES develomenttoolkit.`siteUser` (`userID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
     FOREIGN KEY (`Role_roleID`)
-    REFERENCES `staffdevelopment`.`role` (`role`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `staffdevelopment`.`reflection`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `staffdevelopment`.`reflection` (
-  `reflectionID` INT(11) NOT NULL AUTO_INCREMENT,
-  `reflection` VARCHAR(45) NULL DEFAULT NULL,
-  `Participation_participationID` INT(11) NOT NULL,
-  `Tag_tagID` VARCHAR(11) NOT NULL,
-  PRIMARY KEY (`reflectionID`),
-    FOREIGN KEY (`Participation_participationID`)
-    REFERENCES `staffdevelopment`.`participation` (`participationID`)
+    REFERENCES develomenttoolkit.`role` (`role`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    FOREIGN KEY (`Tag_tagID`)
-    REFERENCES `staffdevelopment`.`tag` (`tagID`)
+    FOREIGN KEY (`Reflection_reflectionID`)
+    REFERENCES develomenttoolkit.`reflection` (`reflectionID`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION
+                                                              )
 ENGINE = InnoDB;
+
+
+
 
 
 -- -----------------------------------------------------
