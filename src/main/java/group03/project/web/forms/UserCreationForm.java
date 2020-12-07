@@ -39,6 +39,6 @@ public class UserCreationForm {
 
     @NotNull
     @NotBlank(message = "Please enter your preferred name")
-    private String name;
+    private String userName;
 
 }

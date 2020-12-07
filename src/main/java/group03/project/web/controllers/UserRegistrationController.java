@@ -67,7 +67,7 @@ public class UserRegistrationController {
          newUser = new SiteUser(
                  accountForm.getEmailAddress(),
                  accountForm.getPassword(),
-                 accountForm.getName());
+                 accountForm.getUserName());
         } catch (Exception ex) {
             return null;
         }

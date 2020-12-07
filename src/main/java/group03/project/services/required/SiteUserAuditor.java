@@ -48,7 +48,7 @@ public interface SiteUserAuditor {
      * @param name - user's saved name
      * @return optional list containing user(s) if matching database entry.
      */
-    public Optional<SiteUser> findUserByName(String name);
+    public Optional<SiteUser> findUserByUserName(String name);
 
 
 }

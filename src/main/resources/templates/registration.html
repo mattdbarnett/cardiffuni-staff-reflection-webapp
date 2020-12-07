@@ -48,8 +48,8 @@
                         </div>
                         <div class="form-group">
                             <label>Please enter your preferred name:</label>
-                            <input class="form-control" th:field = "*{name}">
-                            <p th:if = "${#fields.hasErrors('password')}" th:errors = "*{name}">
+                            <input class="form-control" th:field = "*{userName}">
+                            <p th:if = "${#fields.hasErrors('password')}" th:errors = "*{userName}">
                                 Placeholder text for error>
                             </p>
                         </div>

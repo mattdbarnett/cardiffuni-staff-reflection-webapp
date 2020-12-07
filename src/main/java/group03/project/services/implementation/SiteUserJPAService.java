@@ -28,8 +28,9 @@ public class SiteUserJPAService implements SiteUserAuditor {
     @Override
     public Optional<SiteUser> findUserByEmail(String email) { return userRepoJPA.findByEmailAddress(email); }
 
+
     @Override
-    public Optional<SiteUser> findUserByName(String name) { return userRepoJPA.findByName(name); }
+    public Optional<SiteUser> findUserByUserName(String name) { return userRepoJPA.findByUserName(name); }
 
     @Override
     public void updateUser(SiteUser user) {
@@ -41,7 +42,7 @@ public class SiteUserJPAService implements SiteUserAuditor {
         userToAmend.ifPresent(currentUser -> {
                     currentUser.setEmailAddress(user.getEmailAddress());
                     currentUser.setPassword(user.getPassword());
-                    currentUser.setName(user.getName());
+                    currentUser.setUserName(user.getUserName());
                 });
 
 

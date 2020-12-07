@@ -24,8 +24,8 @@ public class SiteUser {
     private String emailAddress;
     @Column(name="password")
     private String password;
-    @Column(name="name")
-    private String name;
+    @Column(name="userName")
+    private String userName;
 
 
     public SiteUser(String anEmailAddress, String aPassword, String aName) {

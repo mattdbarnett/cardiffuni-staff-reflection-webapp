@@ -52,7 +52,7 @@ public class InfoController {
 
         if(!result.hasErrors()) {
             SiteUser selectedUser = userAuditor.findUserById(Long.parseLong(nameForm.getId())).get();
-            selectedUser.setName(nameForm.getEdit());
+            selectedUser.setUserName(nameForm.getEdit());
             userUpdateService.updateUser(selectedUser);
             return "redirect:" + adminField + "account/" + nameForm.getId();
         } else {
