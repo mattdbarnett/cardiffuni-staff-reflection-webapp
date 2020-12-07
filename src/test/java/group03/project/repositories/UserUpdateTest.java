@@ -36,14 +36,14 @@ public class UserUpdateTest {
     @Test
     public void shouldUpdateAUserNameAndEmailAddress() throws Exception {
 
-        SiteUser ryan = new SiteUser(1L, "email@emailaddress.com", "password", "david");
+        SiteUser ryan = new SiteUser(1L, "email@emailaddress.com", "password", "david", null, null);
 
-        ryan.setName("ryan");
+        ryan.setUserName("ryan");
         ryan.setEmailAddress("ryan@emailaddress.com");
 
         updateService.updateUser(ryan);
 
-        assertEquals("ryan", ryan.getName());
+        assertEquals("ryan", ryan.getUserName());
         assertEquals("ryan@emailaddress.com", ryan.getEmailAddress());
 
     }

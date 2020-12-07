@@ -3,6 +3,7 @@ package group03.project.web.controllers;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,6 +16,8 @@ public class HomeController {
     public String navigateToLogin() {
         return "login";
     }
+
+
 //
 //    @GetMapping("/admin")
 //    public String navigateToAdminDashboard() {
@@ -37,12 +40,14 @@ public class HomeController {
 
     @GetMapping("/dashboard")
     public String navigateToDashboard(Authentication authentication) {
+        System.out.println("am i here?");
+        return "dashboard";
 
-        if (authentication.getAuthorities().contains("ADMIN")) {
-            return "dashboard_a";
-        } else {
-            return "dashboard";
-        }
+//        if (authentication.getAuthorities().contains("ADMIN")) {
+//            return "dashboard_a";
+//        } else {
+//            return "dashboard";
+//        }
 
     }
 

@@ -1,4 +1,4 @@
-package group03.project.services.required;
+package group03.project.services.offered;
 
 import group03.project.domain.Role;
 import org.springframework.stereotype.Component;

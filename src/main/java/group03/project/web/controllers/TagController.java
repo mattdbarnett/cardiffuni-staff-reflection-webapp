@@ -1,8 +1,8 @@
 package group03.project.web.controllers;
 
 import group03.project.domain.Tag;
-import group03.project.services.offered.TagService;
 
+import group03.project.services.offered.TagService;
 import group03.project.web.forms.TagCreationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -70,7 +70,7 @@ public class TagController {
                     tagService.createOfficialTag(newTag);
                 } else {
 
-                    tagService.createUnofficialTag(newTag);
+                    tagService.createCustomTag(newTag);
                 }
 
                 return "redirect:";

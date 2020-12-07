@@ -1,49 +1,64 @@
 package group03.project.services.implementation;
 
-
 import group03.project.domain.SiteUser;
 import group03.project.services.offered.SiteUserService;
+import group03.project.services.required.SiteUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
-@Component
+@Service
 public class SiteUserServiceImpl implements SiteUserService {
 
-    @Autowired
-    private final SiteUserJPAService siteUserRepo;
-
-
-
+    final SiteUserRepository userRepoJPA;
 
     @Autowired
-    public SiteUserServiceImpl(SiteUserJPAService aSiteUserRepo) {
-        siteUserRepo = aSiteUserRepo;
-    }
-
-
-//    private SiteUser validateNewUser(SiteUser newUser) { return siteUserAuditor.createUser(newUser); }
-
+    public SiteUserServiceImpl(SiteUserRepository aUserRepoJPA) {
+        userRepoJPA = aUserRepoJPA;
+    };
 
     @Override
-    @Transactional
-    public void createUser(SiteUser newUser) {
+    public List<SiteUser> findAllUsers() { return userRepoJPA.findAll(); }
 
-        siteUserRepo.createAUser(newUser);
-
+    @Override
+    public Optional<SiteUser> findUserById(Long id) {
+        return userRepoJPA.findById(id);
     }
 
     @Override
-    public void updateUser(SiteUser aSiteUser) {
-        siteUserRepo.updateUser(aSiteUser);
+    public Optional<SiteUser> findUserByEmail(String email) { return userRepoJPA.findByEmailAddress(email); }
+
+    @Override
+    public Optional<SiteUser> findUserByUserName(String userName) {
+        System.out.println("In SiteUserServiceJPA");
+
+        System.out.println("Username=" + userName);
+        return userRepoJPA.findByUserName(userName); }
+
+
+
+
+    @Override
+    public void updateUser(SiteUser user) {
+
+        Optional<SiteUser> userToAmend = userRepoJPA.findById(user.getUserID());
+
+//        SiteUser userAmend = new SiteUser(user.)
+
+        userToAmend.ifPresent(currentUser -> {
+                    currentUser.setEmailAddress(user.getEmailAddress());
+                    currentUser.setPassword(user.getPassword());
+                    currentUser.setUserName(user.getUserName());
+                });
+
+
+        userRepoJPA.save(userToAmend.get());
     }
 
-    }
+    @Override
+    public void createAUser(SiteUser aSiteuser) { userRepoJPA.save(aSiteuser); }
 
 
-
+}

@@ -8,7 +8,7 @@ import java.util.Optional;
 /**
  * Repository used as extension of JPA Role repo .
  */
-public interface RoleRepo {
+public interface RoleRepository {
 
 
     public Optional<Role> findById(String id);

@@ -34,11 +34,15 @@ public class SiteUserPrincipal implements UserDetails {
         System.out.println(user);
         this.active = Boolean.TRUE;
 //        this.active = user.getIsActive();
-        System.out.println("LoginDetailsService 4: isActive" + active);
+        System.out.println("LoginDetailsService 4: isActive = " + active);
         this.authorities = Arrays.stream(user.getPermissions().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
         System.out.println("LoginDetailsService 5: permissions");
+        for (GrantedAuthority permission : authorities) {
+            System.out.println("permission: " + permission);
+        }
+        System.out.println();;
     }
 
     @Override

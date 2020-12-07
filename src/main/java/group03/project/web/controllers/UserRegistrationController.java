@@ -43,7 +43,7 @@ public class UserRegistrationController {
 
             newUser = createAccount(accountForm, result);
 
-            accountService.createUser(newUser);
+            accountService.createAUser(newUser);
 
             return "redirect:";
         } else {

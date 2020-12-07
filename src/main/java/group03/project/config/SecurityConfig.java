@@ -1,6 +1,5 @@
 package group03.project.config;
 
-import group03.project.services.implementation.LoginAuthenticatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -15,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    LoginAuthenticatorService userDetailsService;
+    LoginDetailsAuthenticator userDetailsService;
 
 
     @Override
@@ -35,9 +34,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/register").permitAll()
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/dashboard")
                 .permitAll()
-                .defaultSuccessUrl("/user");
+                .defaultSuccessUrl("/dashboard");
 
 
         super.configure(http);
