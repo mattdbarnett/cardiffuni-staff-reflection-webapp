@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Tags</title>
+    <link th:rel="stylesheet" th:href="@{/css/dashPageStyle.css}">
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <style>
+        font-family: "Karla", sans-serif;
+    </style>
+</head>
+<body>
+<div th:replace="navbar-login.html :: header"></div>
+<div id="content-pane">
+    <h1>All Tags</h1>
+    <div>
+        <ul>
+            <li th:each = "tag : ${tags}">
+<!--                <a th:id = "tag + ${tag.tagID}"-->
+<!--                   th:href = "@{/admin/account/{user} (user = ${user.userName})}">-->
+
+                    <p th:text = "${tag.tagID}">CONTENT MISSING</p>
+<!--                </a>-->
+<!--                <p th:text = "${user.userName}"></p>-->
+
+                <button name = 'delete_user' type = "deleteUser"> delete account</button>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

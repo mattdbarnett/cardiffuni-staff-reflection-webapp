@@ -19,6 +19,11 @@ public class TagServiceImpl implements TagService {
         tagJPAConnector = theJPATagConnector; };
 
     @Override
+    public List<Tag> findAllTags() {
+        return tagJPAConnector.findAll();
+    }
+
+    @Override
     public void createOfficialTag(Tag theTag) {
 
         theTag.setIsOfficial(true);
