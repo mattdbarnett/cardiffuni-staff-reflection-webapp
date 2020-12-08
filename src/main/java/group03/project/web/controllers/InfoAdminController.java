@@ -1,9 +1,8 @@
 package group03.project.web.controllers;
 
 import group03.project.domain.SiteUser;
-import group03.project.services.implementation.SiteUserJPAService;
+import group03.project.services.implementation.SiteUserServiceImpl;
 import group03.project.services.offered.SiteUserService;
-import group03.project.services.required.SiteUserAuditor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +16,10 @@ public class InfoAdminController extends InfoController {
 
 //    private final SiteUserUpdateService userUpdateService;
 //    private final SiteUserAuditor userAuditor;
-    private final SiteUserJPAService userService;
+    private final SiteUserServiceImpl userService;
 
     @Autowired
-    public InfoAdminController(SiteUserService anUpdateService, SiteUserAuditor theAuditor, SiteUserJPAService aService) {
+    public InfoAdminController(group03.project.services.offered.SiteUserService anUpdateService, SiteUserService theAuditor, SiteUserServiceImpl aService) {
         super(anUpdateService, theAuditor);
 
         userService = aService;
@@ -42,8 +41,4 @@ public class InfoAdminController extends InfoController {
         return "all-accounts";
 //
     }
-
-
-
-
 }

@@ -1,19 +1,22 @@
+-- Preset data for database --
 
-INSERT INTO `staffdevelopment`.`role` VALUES ( 'Participant', 'participating in activity');
-INSERT INTO `staffdevelopment`.`role` VALUES ( 'Review', 'Reviewing activity');
-INSERT INTO `staffdevelopment`.`role` VALUES ( 'Lead', 'Leading activity');
+INSERT INTO `developmenttoolkit`.`role` VALUES ( 'Participant', 'participating in activity');
+INSERT INTO `developmenttoolkit`.`role` VALUES ( 'Review', 'Reviewing activity');
+INSERT INTO `developmenttoolkit`.`role` VALUES ( 'Lead', 'Leading activity');
 
--- INSERT INTO `staffdevelopment`.`siteUser`(name, homeAddress, emailAddress, position, phoneNo, Role_roleID)
--- values ( 'Karen', 'Oak Valley Road', 'sillyKaren@hotmail.co.uk', 'A test position', '123', 1);
+-- Dummy data for database --
 
--- INSERT INTO role VALUES(1, 'Secretary', 'Files the documents');
-INSERT INTO `staffdevelopment`.`siteUser`( emailAddress, password, name)
-VALUES('k@aren.com', 'loveMYjob', 'Karen');
 
-INSERT INTO `staffdevelopment`.`siteUser`( emailAddress, password, name)
-VALUES('big@ceo.org.uk', 'BIGboss123', 'Dave');
+INSERT INTO `developmenttoolkit`.`siteUser`( emailAddress, password, userName, permissions, isActive)
+VALUES('k@aren.com', 'loveJOB', 'karen', 'ROLE_USER', 1);
 
-INSERT INTO `staffdevelopment`.`siteUser`(emailAddress, password, name)
-VALUES('bigger@ceo.org.uk', 'password1', 'Aaron');
+INSERT INTO `developmenttoolkit`.`siteUser`( emailAddress, password, userName, permissions,isActive)
+VALUES('big@ceo.org.uk', 'bigboss', 'dave', 'ROLE_USER', 1);
 
-select * from `staffdevelopment`.`siteUser`;
+INSERT INTO `developmenttoolkit`.`siteUser`(emailAddress, password, userName, permissions,isActive)
+VALUES('admin@emailexample.com', 'pass', 'admin', 'ROLE_ADMIN', 1);
+
+INSERT INTO `developmenttoolkit`.`siteUser`(emailAddress, password, userName, permissions, isActive)
+VALUES('user@name', 'passw', 'user', 'ROLE_USER', 1);
+
+

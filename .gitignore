@@ -1,16 +1,11 @@
 
-.gradle
-build/
+
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
 
 ### Ignores .gradle folder for local dependencies
 .gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
 
 ### STS ###
 .apt_generated
@@ -42,8 +37,5 @@ out/
 /.nb-gradle/
 
 ### VS Code ###
-<<<<<<< HEAD
 .vscode/
-=======
-.vscode/
->>>>>>> 16-as-a-site-user-i-would-like-the-ability-to-edit-my-account-details
+

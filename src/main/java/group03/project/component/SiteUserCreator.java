@@ -12,5 +12,5 @@ public interface SiteUserCreator {
 
                                   String emailAddress,
                                   String password,
-                                  String Name);
+                                  String username);
 }

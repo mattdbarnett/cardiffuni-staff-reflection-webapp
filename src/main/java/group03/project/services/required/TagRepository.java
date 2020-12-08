@@ -5,7 +5,7 @@ import group03.project.domain.Tag;
 import java.util.List;
 import java.util.Optional;
 
-public interface TagServiceJPA {
+public interface TagRepository {
 
     public List<Tag> findAll();
 

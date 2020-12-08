@@ -1,6 +1,6 @@
 package group03.project.web.controllers;
 
-import group03.project.services.offered.TagService;
+import group03.project.services.implementation.TagServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,7 +12,7 @@ public class TagAdminController extends TagController{
      *
      * @param aService
      */
-    public TagAdminController(TagService aService) {
+    public TagAdminController(TagServiceImpl aService) {
         super(aService);
 
         adminAttribute = "/admin/";

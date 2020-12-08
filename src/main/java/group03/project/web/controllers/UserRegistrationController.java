@@ -24,7 +24,7 @@ public class UserRegistrationController {
 
     }
 
-    @GetMapping("/registration")
+    @GetMapping("/register")
     public String ShowAccountCreationForm(Model model) {
         UserCreationForm newAccountForm = new UserCreationForm();
         model.addAttribute("newUser", newAccountForm);
@@ -32,7 +32,7 @@ public class UserRegistrationController {
 
     }
 
-    @PostMapping("/register")
+    @PostMapping("/register-user")
     public String createNewUser(@ModelAttribute("newUser") @Valid UserCreationForm accountForm,
                                 BindingResult result) {
 
@@ -43,7 +43,7 @@ public class UserRegistrationController {
 
             newUser = createAccount(accountForm, result);
 
-            accountService.createUser(newUser);
+            accountService.createAUser(newUser);
 
             return "redirect:";
         } else {

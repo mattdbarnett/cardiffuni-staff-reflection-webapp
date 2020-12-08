@@ -1,7 +1,7 @@
 package group03.project.repositories;
 
 import group03.project.domain.SiteUser;
-import group03.project.services.required.SiteUserServiceJPA;
+import group03.project.services.required.SiteUserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class UserCreationTest {
 
     @Autowired
-    public SiteUserServiceJPA siteUserRepository;
+    public SiteUserRepository siteUserRepository;
 
     @Test
     public void addTwoAdditionalTestUsersAndCountTotal() throws Exception {
@@ -28,7 +28,7 @@ public class UserCreationTest {
 
         List<SiteUser> allUsers = siteUserRepository.findAll();
 
-        assertEquals(5, allUsers.size());
+        assertEquals(6, allUsers.size());
     }
 
     @Test
@@ -38,7 +38,7 @@ public class UserCreationTest {
 
         siteUserRepository.save(andrew);
 
-        Optional<SiteUser> userId = siteUserRepository.findById(4L);
+        Optional<SiteUser> userId = siteUserRepository.findById(5L);
         SiteUser convertedAndrew = userId.get();
 
         assertEquals("andrew@gmail.co.uk", convertedAndrew.getEmailAddress());
