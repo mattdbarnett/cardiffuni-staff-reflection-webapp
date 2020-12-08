@@ -27,7 +27,7 @@ public class Tag {
     @Column(name = "isOfficial")
     private Boolean isOfficial;
 
-    public Tag(String name, String theDescription, Boolean isOfficial) {
-        this(null, name, theDescription, isOfficial);
+    public Tag(String tagName, String theDescription, Boolean isOfficial) {
+        this(null, tagName, theDescription, isOfficial);
     }
 }

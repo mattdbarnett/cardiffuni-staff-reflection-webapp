@@ -38,7 +38,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Optional<Tag> findATagByID(String id) { return tagJPAConnector.findById(id); }
+    public Optional<Tag> findATagByID(Long id) { return tagJPAConnector.findByTagID(id); }
 
     @Override
     public List<Tag> findTagsIfOfficial() {

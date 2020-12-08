@@ -17,24 +17,25 @@ public class TagCreationTest {
     public TagRepository tagRepository;
 
     @Test
-    public void addATag() throws Exception {
+    public void AddOneTagToListOfTags() throws Exception {
 
-        Tag tag1 = new Tag("b12", "a new tag", true);
+        Tag tag1 = new Tag(null, "b12", "a new tag", true);
 
 
         tagRepository.save(tag1);
 
-        Optional<Tag> theTag = tagRepository.findById("b12");
+        Optional<Tag> theTag = tagRepository.findByTagName("b12");
+        System.out.println(theTag);
 
-        assertEquals("b12", theTag.get().getTagID());
+        assertEquals("b12", theTag.get().getTagName());
     }
 
     @Test
     public void addThreeTagsAndSearchByOfficialStatus() throws Exception {
 
-        Tag tag1 = new Tag("b12", "a new tag", true);
-        Tag tag2 = new Tag("c8", "a newer tag", false);
-        Tag tag3 = new Tag("A6", "the newest tag", true);
+        Tag tag1 = new Tag(null, "b12", "a new tag", true);
+        Tag tag2 = new Tag(null, "c8", "a newer tag", false);
+        Tag tag3 = new Tag(null, "A6", "the newest tag", true);
 
 
         tagRepository.save(tag1);
@@ -44,7 +45,7 @@ public class TagCreationTest {
         List<Tag> allOfficialTags = tagRepository.findByIsOfficial(true);
         List<Tag> allCustomTags = tagRepository.findByIsOfficial(false);
 
-        assertEquals(2, allOfficialTags.size());
-        assertEquals(1, allCustomTags.size());
+        assertEquals(18, allOfficialTags.size());
+        assertEquals(2, allCustomTags.size());
     }
 }

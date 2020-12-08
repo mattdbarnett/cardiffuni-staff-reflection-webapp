@@ -1,4 +1,5 @@
 -- Preset data for database --
+USE developmenttoolkit;
 
 INSERT INTO `developmenttoolkit`.`role` VALUES ( 'Participant', 'participating in activity');
 INSERT INTO `developmenttoolkit`.`role` VALUES ( 'Review', 'Reviewing activity');
@@ -18,7 +19,7 @@ INSERT INTO tag (tagName, description, isOfficial) VALUES('K3', 'How students le
 INSERT INTO tag (tagName, description, isOfficial) VALUES('K4', 'The use and value of appropriate learning technologies.', true);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('K5', 'Methods for evaluating the effectiveness of teaching.', true);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('K6', 'The implications of quality assurance and quality enhancement for academic and professional practice with a particular focus on teaching.', true);
-INSERT INTO tag (tagName, description, isOfficial) VALUES('V1', 'Respect individual learners and diverse learning communities.', false);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('V1', 'Respect individual learners and diverse learning communities.', true);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('V2', 'Promote participation in higher education and equality of opportunity for learners.', true);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('V3', 'Use evidence-informed approaches and the outcomes from research, scholarship and continuing professional development.', true);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('V4', 'Acknowledge the wider context in which higher education operates recognising the implications for professional practice', true);

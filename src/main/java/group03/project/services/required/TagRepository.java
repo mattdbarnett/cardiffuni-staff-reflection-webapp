@@ -9,7 +9,9 @@ public interface TagRepository {
 
     public List<Tag> findAll();
 
-    public Optional<Tag> findById(String id);
+    public Optional<Tag> findByTagID(Long tagID);
+
+    public Optional<Tag> findByTagName(String tagName);
 
     public List<Tag> findByIsOfficial(Boolean status);
 

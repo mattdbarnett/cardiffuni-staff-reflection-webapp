@@ -29,7 +29,7 @@ public interface TagService {
      * @param id
      * @return tag matching given id.
      */
-    public Optional<Tag> findATagByID(String id);
+    public Optional<Tag> findATagByID(Long id);
 
     /**
      * finds all tags marked as official.
