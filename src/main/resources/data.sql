@@ -5,23 +5,26 @@ INSERT INTO `developmenttoolkit`.`role` VALUES ( 'Review', 'Reviewing activity')
 INSERT INTO `developmenttoolkit`.`role` VALUES ( 'Lead', 'Leading activity');
 
 
-INSERT INTO tag VALUES ('A1', 'Design and plan learning activities and/or programmes of study', 1);
+INSERT INTO tag (tagName, description, isOfficial) VALUES ('A1', 'Design and plan learning activities and/or programmes of study', 1);
 
-INSERT INTO tag VALUES('A2', 'Teach and/or support learning.', 1);
-INSERT INTO tag VALUES('A3', 'Assess and give feedback to learners.', 1);
-INSERT INTO tag VALUES('A4', 'Develop effective learning environments and approaches to student support and guidance.', 1);
-INSERT INTO tag VALUES('A5', 'Engage in continuing professional development in subjects/disciples and their pedagogy, incorporating research, scholarship and the evaluation of professional practices.', 1);
-INSERT INTO tag VALUES('D3.7', 'Supporting colleagues.', 1);
-INSERT INTO tag VALUES('K1', 'The subject material', 1);
-INSERT INTO tag VALUES('K2', 'Appropriate methods for reaching learning and assessing in the subject area and at the level of the academic programme.', 1);
-INSERT INTO tag VALUES('K3', 'How students learn, both generally and within their subject/disciplinary area(s)', 1);
-INSERT INTO tag VALUES('K4', 'The use and value of appropriate learning technologies.', 1);
-INSERT INTO tag VALUES('K5', 'Methods for evaluating the effectiveness of teaching.', 1);
-INSERT INTO tag VALUES('K6', 'The implications of quality assurance and quality enhancement for academic and professional practice with a particular focus on teaching.', 1);
-INSERT INTO tag VALUES('V1', 'Respect individual learners and diverse learning communities.', 1);
-INSERT INTO tag VALUES('V2', 'Promote participation in higher education and equality of opportunity for learners.', 1);
-INSERT INTO tag VALUES('V3', 'Use evidence-informed approaches and the outcomes from research, scholarship and continuing professional development.', 1);
-INSERT INTO tag VALUES('V4', 'Acknowledge the wider context in which higher education operates recognising the implications for professional practice', 1);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('A2', 'Teach and/or support learning.', true);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('A3', 'Assess and give feedback to learners.', true);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('A4', 'Develop effective learning environments and approaches to student support and guidance.', true);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('A5', 'Engage in continuing professional development in subjects/disciples and their pedagogy, incorporating research, scholarship and the evaluation of professional practices.', true);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('D3.7', 'Supporting colleagues.', true);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('K1', 'The subject material', true);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('K2', 'Appropriate methods for reaching learning and assessing in the subject area and at the level of the academic programme.', true);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('K3', 'How students learn, both generally and within their subject/disciplinary area(s)', true);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('K4', 'The use and value of appropriate learning technologies.', true);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('K5', 'Methods for evaluating the effectiveness of teaching.', true);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('K6', 'The implications of quality assurance and quality enhancement for academic and professional practice with a particular focus on teaching.', true);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('V1', 'Respect individual learners and diverse learning communities.', false);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('V2', 'Promote participation in higher education and equality of opportunity for learners.', true);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('V3', 'Use evidence-informed approaches and the outcomes from research, scholarship and continuing professional development.', true);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('V4', 'Acknowledge the wider context in which higher education operates recognising the implications for professional practice', true);
+
+INSERT INTO tag (tagName, description, isOfficial) VALUES('Insightful', 'I felt this was insightful', false);
+
 -- Dummy data for database --
 
 

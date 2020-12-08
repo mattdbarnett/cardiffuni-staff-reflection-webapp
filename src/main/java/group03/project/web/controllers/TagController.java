@@ -64,15 +64,15 @@ public class TagController {
             try {
                 tagService.createCustomTag(newTag);
 
-                return "all-tags";
+                return "dashboard";
 
             } catch (NullPointerException e) {
                 e.printStackTrace();
                 System.out.println("failed to create tag");
-                return "redirect:all-tags";
+                return "redirect:dashboard";
             }
         } else {
-            return "redirect:all-tags";
+            return "redirect:dashboard";
         }
     }
 
@@ -81,8 +81,9 @@ public class TagController {
         Tag newTag;
 
         try {
+
             newTag = new Tag(
-                    tagForm.getTagID(),
+                    tagForm.getTagName(),
                     tagForm.getDescription(),
                     Boolean.parseBoolean(tagForm.getIsOfficial()));
 

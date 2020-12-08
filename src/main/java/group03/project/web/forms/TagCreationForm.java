@@ -22,8 +22,8 @@ import javax.validation.constraints.NotNull;
 public class TagCreationForm {
 
     @NotNull
-    @NotBlank(message = "Please enter the tag's id")
-    private String tagID;
+    @NotBlank(message = "Please enter the tag's name")
+    private String tagName;
 
     @NotNull
     @NotBlank(message = "Please enter the tag's description")
@@ -32,8 +32,8 @@ public class TagCreationForm {
     private String isOfficial;
 
 
-    public TagCreationForm(String tagID, String description) {
-        this(tagID, description, "false");
+    public TagCreationForm(String name, String description) {
+        this(name, description, "false");
 
     }
 }

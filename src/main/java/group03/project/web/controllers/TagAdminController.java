@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("admin")
@@ -27,6 +28,16 @@ public class TagAdminController{
     public TagAdminController(TagService aService) {
         tagService = aService;
 
+    }
+
+    @GetMapping("/all-tags")
+    public String presentAllTags(Model model) {
+
+        List<Tag> allTags = tagService.findAllTags();
+
+        model.addAttribute("tags", allTags);
+
+        return "all-tags";
     }
 
     @GetMapping("/create-tag")
@@ -76,7 +87,7 @@ public class TagAdminController{
 
         try {
             newTag = new Tag(
-                    tagForm.getTagID(),
+                    tagForm.getTagName(),
                     tagForm.getDescription(),
                     Boolean.parseBoolean(tagForm.getIsOfficial()));
 
