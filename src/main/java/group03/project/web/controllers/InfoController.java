@@ -69,13 +69,9 @@ public class InfoController {
 
         if(!result.hasErrors()) {
             try {
-                System.out.println("test2");
                 SiteUser selectedUser = userUpdateService.findUserById(Long.parseLong(nameForm.getId())).get();
-                System.out.println("test3");
                 selectedUser.setEmailAddress(nameForm.getEdit());
-                System.out.println("test4");
                 userUpdateService.updateUser(selectedUser);
-                System.out.println("test5");
                 return "redirect:/user/account";
 
                 /*

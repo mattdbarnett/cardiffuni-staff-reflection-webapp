@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,7 +47,7 @@ private final SiteUserService userUpdateService;
     }
 
     @GetMapping("/account/{userName}")
-    public String userAccountDetails(@PathVariable("userName") String username, Model model) {
+    public String AdminAccountDetails(@PathVariable("userName") String username, Model model) {
 
 //        String name = ControllerSupport.getAuthenticatedUserName(authentication);
 
@@ -59,5 +62,60 @@ private final SiteUserService userUpdateService;
         } else {
             return "redirect:/";
         }
+    }
+
+    @PostMapping("/change-name")
+    public String changeAccountName(@ModelAttribute("editForm") @Valid UserEditForm nameForm,
+                                    BindingResult result) {
+
+        if(!result.hasErrors()) {
+            SiteUser selectedUser = userUpdateService.findUserById(Long.parseLong(nameForm.getId())).get();
+            selectedUser.setUserName(nameForm.getEdit());
+            userUpdateService.updateUser(selectedUser);
+            return "redirect:/admin/account/" + selectedUser.getUserName();
+        } else {
+            return "all-accounts";
+        }
+    }
+
+    @PostMapping("/change-email")
+    public String changeEmailAddress(@ModelAttribute("editForm") @Valid UserEditForm nameForm,
+                                     BindingResult result) {
+
+
+        if(!result.hasErrors()) {
+            try {
+                SiteUser selectedUser = userUpdateService.findUserById(Long.parseLong(nameForm.getId())).get();
+                selectedUser.setEmailAddress(nameForm.getEdit());
+                userUpdateService.updateUser(selectedUser);
+                return "redirect:/admin/account/" + selectedUser.getUserName();
+
+                /*
+                Catches any email additions with are incorrectly formatted
+                 */
+            } catch (TransactionSystemException e)  {
+                return "all-accounts";
+            }
+        } else {
+            return "all-accounts";
+        }
+
+    }
+
+    @PostMapping("/reset-password")
+    public String changePassword(@ModelAttribute("editForm") @Valid UserEditForm nameForm,
+                                 BindingResult result) {
+
+        if(!result.hasErrors()) {
+
+            SiteUser selectedUser = userUpdateService.findUserById(Long.parseLong(nameForm.getId())).get();
+            selectedUser.setPassword(encoder.encode("p"));
+            userUpdateService.updateUser(selectedUser);
+
+            return "redirect:/admin/account/" + selectedUser.getUserName();
+         } else {
+            return "all-accounts";
+        }
+
     }
 }
