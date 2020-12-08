@@ -4,6 +4,7 @@ import group03.project.domain.SiteUser;
 import group03.project.services.offered.SiteUserService;
 import group03.project.web.forms.UserCreationForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,10 +17,11 @@ public class UserRegistrationController {
 
 
     private SiteUserService accountService;
+    private PasswordEncoder encoder;
 
     @Autowired
-    public UserRegistrationController(SiteUserService aService) {
-
+    public UserRegistrationController(SiteUserService aService, PasswordEncoder theEncoder) {
+        encoder = theEncoder;
         accountService = aService;
 
     }
@@ -35,7 +37,6 @@ public class UserRegistrationController {
     @PostMapping("/register-user")
     public String createNewUser(@ModelAttribute("newUser") @Valid UserCreationForm accountForm,
                                 BindingResult result) {
-        System.out.println("navigated to create user");
 
 
         if(!result.hasErrors()) {
@@ -53,12 +54,7 @@ public class UserRegistrationController {
 
             return "redirect:registration";
 
-
         }
-
-
-
-
     }
 
 
@@ -69,7 +65,7 @@ public class UserRegistrationController {
         try {
          newUser = new SiteUser(
                  accountForm.getEmailAddress(),
-                 accountForm.getPassword(),
+                 encoder.encode(accountForm.getPassword()),
                  accountForm.getName());
         } catch (Exception ex) {
             return null;

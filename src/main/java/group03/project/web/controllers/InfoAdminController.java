@@ -4,6 +4,7 @@ import group03.project.domain.SiteUser;
 import group03.project.services.implementation.SiteUserServiceImpl;
 import group03.project.services.offered.SiteUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +20,8 @@ public class InfoAdminController extends InfoController {
     private final SiteUserServiceImpl userService;
 
     @Autowired
-    public InfoAdminController(group03.project.services.offered.SiteUserService anUpdateService, SiteUserService theAuditor, SiteUserServiceImpl aService) {
-        super(anUpdateService, theAuditor);
+    public InfoAdminController(SiteUserService anUpdateService, SiteUserServiceImpl aService, PasswordEncoder encoder) {
+        super(anUpdateService, encoder);
 
         userService = aService;
 //        userUpdateService = anUpdateService;

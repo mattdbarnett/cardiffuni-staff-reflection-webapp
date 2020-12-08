@@ -1,5 +1,6 @@
 package group03.project.web;
 
+import group03.project.services.offered.SiteUserService;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matcher;
 import org.junit.Assert;
@@ -34,14 +35,14 @@ public class UserAccountTest {
     @Test
     @DisplayName("302 redirect occurs when entering account without authentication")
     @WithMockUser(username="user", password = "password1", roles = "USER")
-    public void shouldAllowUserWhenAttemptingAccessToProfile() throws Exception {
-        mvc.perform(get("/user/account/user")).andExpect(status().is(200));
+    public void shouldAcceptUserWhenAttemptingAccessToProfile() throws Exception {
+        mvc.perform(get("/user/account")).andExpect(status().is(200));
     }
 
     @Test
     @DisplayName("302 redirect occurs when entering account without authentication")
-    public void shouldNotAllowUserWhenAttemptingAccessToProfile() throws Exception {
-        mvc.perform(get("/user/account/2")).andExpect(status().is(302));
+    public void shouldDeclineUserWhenAttemptingAccessToProfile() throws Exception {
+        mvc.perform(get("/user/account")).andExpect(status().is(302));
     }
 
     @Test
@@ -59,36 +60,6 @@ public class UserAccountTest {
                 .andExpect(content().string(containsString("View my")));
     }
 
-    @Test
-    @DisplayName("user cannot see admin 'view all' page on dashboard")
-    @WithMockUser(username = "user", password = "password1", roles = "USER")
-    public void shouldntSeeAdminDashboardButtonsOnLogin() throws Exception {
 
-    mvc.perform(get("/dashboard"))
-            .andExpect(status().isOk())
-            .andExpect(content().string(doesNotContainString("Tag (admin)")));
-
-    }
-    /*
-    Code adapted from StackOverflow answer:-
-    User: Michael W
-    Question: "Spring MockMvc don't expect content"
-    URL: https://stackoverflow.com/questions/56657018/spring-mockmvc-dont-expect-content?fbclid=IwAR1OLVXC0Bb8oD35tRUrBDgt8e0IGyatBmAJDhxrDLEMs5FACUubI8kTuJc
-     */
-
-    private Matcher<String> doesNotContainString(String s) {
-        return CoreMatchers.not(containsString(s));
-    }
-
-    @Test
-    @DisplayName("Admin user can see admin 'view all' page on dashboard")
-    @WithMockUser(username = "admin", password = "password1", roles = "ADMIN")
-    public void shouldSeeAdminPageDetailsOnLogin() throws Exception {
-
-        mvc.perform(get("/dashboard"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Tag (admin)")));
-
-    }
 
 }

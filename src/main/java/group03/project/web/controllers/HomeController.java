@@ -46,40 +46,25 @@ public class HomeController {
 
     @GetMapping("/dashboard")
     public String navigateToDashboard(@ModelAttribute("user") String user, Model model, Authentication authentication) {
-        System.out.println("Got to dashboard");
 
-        String theUser;
-
-        /**
-         * Cast authentication request principal into the custom SiteUserPrincipal class, in order to source username
-         * of SiteUser object logging onto system.
-         */
-        Object principal = authentication.getPrincipal();
-
-        if (principal instanceof UserDetails) {
-            System.out.println("is user details!!!");
-            theUser = ((SiteUserPrincipal)principal).getUsername();
-        } else {
-            System.out.println("is string...");
-            theUser = principal.toString();
-        }
-//        SiteUserPrincipal principal = (SiteUserPrincipal) authentication.getPrincipal();
-
-        /**
-         * Object parsed onto page as attribute for Thymeleaf
+        String theUser = ControllerSupport.getAuthenticatedUserName(authentication);
+       /*
+          String parsed onto page as attribute for Thymeleaf
          */
         model.addAttribute("user", theUser);
 
-        /**
-         * Redirects user object based upon authority set, streaming into 2 different dashboard pages.
-         */
-        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
-            return "dashboard_a";
-        } else {
-            return "dashboard";
-        }
+        return "dashboard";
+
+
+
+
+
+
+
 
     }
+
+
 
     /**
      * Handles method for logging out of application.
@@ -89,12 +74,19 @@ public class HomeController {
      */
     @GetMapping("/logout")
     public String HandleLogout(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("logging out...");
+        System.out.println("logging out from system.");
+        /*
+          Collects current authentication found in session.
+         */
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(authentication.getPrincipal());
 
+        /*
+          Performs static logout method that expires all parsed session attributes.
+         */
         new SecurityContextLogoutHandler().logout(request, response, authentication);
-
+        /*
+          Redirect user back to initial localhost:8080.
+         */
         return "redirect:";
     }
 
@@ -103,11 +95,15 @@ public class HomeController {
      * @return redirection back to application root.
      */
     @PostMapping("/failed-login")
-    public String handleFailedLogin() {
-        System.out.println("User failed to login");
-        /**
-         * returns user back to initial localhost:8080
-         */
-        return "redirect:";
+    public String handleFailedLogin(HttpServletRequest request) {
+
+//        if(request.getHeader("referer") != null) {
+            return "redirect:" + request.getHeader("referer");
+//        }
+//        /**
+//         * returns user back to initial localhost:8080
+//         */
+//
+//        return "redirect:";
     }
 }

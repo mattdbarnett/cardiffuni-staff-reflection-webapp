@@ -4,6 +4,8 @@ import group03.project.domain.SiteUser;
 import group03.project.services.offered.SiteUserService;
 import group03.project.web.forms.UserEditForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.TransactionSystemException;
 import org.springframework.ui.Model;
@@ -17,30 +19,36 @@ import java.util.*;
 @RequestMapping("user")
 public class InfoController {
 
-    private group03.project.services.offered.SiteUserService userUpdateService;
-    private SiteUserService userAuditor;
-//    private SiteUserService userService;
+    private final SiteUserService userUpdateService;
+    private final PasswordEncoder encoder;
+
     String adminField = "/";
     String accountUserPage;
 
+
+
     @Autowired
-    public InfoController(group03.project.services.offered.SiteUserService anUpdateService, SiteUserService theAuditor) {
+    public InfoController(group03.project.services.offered.SiteUserService anUpdateService,
+                          PasswordEncoder theEncoder) {
         userUpdateService = anUpdateService;
-        userAuditor = theAuditor;
         accountUserPage = "user";
+        encoder = theEncoder;
+
     }
 
-    @GetMapping("/account/{userName}")
-    public String userAccountDetails(@PathVariable("userName") String name, Model model) {
+    @GetMapping("/account")
+    public String userAccountDetails( Model model, Authentication authentication) {
 
-        Optional<SiteUser> aSiteUser = userAuditor.findUserByUserName(name);
+        String name = ControllerSupport.getAuthenticatedUserName(authentication);
+
+        Optional<SiteUser> aSiteUser = userUpdateService.findUserByUserName(name);
         if (aSiteUser.isPresent()) {
             UserEditForm editForm = new UserEditForm();
 
             SiteUser selectedUser = aSiteUser.get();
             model.addAttribute("siteuser", selectedUser);
             model.addAttribute("editForm", editForm);
-            return accountUserPage + "-selected-account";
+            return "user-selected-account";
         } else {
             return "redirect:/";
         }
@@ -51,30 +59,41 @@ public class InfoController {
                                     BindingResult result) {
 
         if(!result.hasErrors()) {
-            SiteUser selectedUser = userAuditor.findUserById(Long.parseLong(nameForm.getId())).get();
+            SiteUser selectedUser = userUpdateService.findUserById(Long.parseLong(nameForm.getId())).get();
             selectedUser.setUserName(nameForm.getEdit());
             userUpdateService.updateUser(selectedUser);
-            return "redirect:" + adminField + "account/" + nameForm.getId();
-        } else {
-            return "redirect:" + adminField + "account/" + nameForm.getId();
         }
+        return "redirect:/logout";
     }
 
     @PostMapping("/change-email")
     public String changeEmailAddress(@ModelAttribute("editForm") @Valid UserEditForm nameForm,
                                      BindingResult result) {
 
+        System.out.println("test1");
+
         if(!result.hasErrors()) {
             try {
-                SiteUser selectedUser = userAuditor.findUserById(Long.parseLong(nameForm.getId())).get();
+                System.out.println("test2");
+                SiteUser selectedUser = userUpdateService.findUserById(Long.parseLong(nameForm.getId())).get();
+                System.out.println("test3");
                 selectedUser.setEmailAddress(nameForm.getEdit());
+                System.out.println("test4");
                 userUpdateService.updateUser(selectedUser);
-                return "redirect:" + adminField + "account/" + nameForm.getId();
+                System.out.println("test5");
+                return "redirect:/user/account";
+
+                /*
+                Catches any email additions with are incorrectly formatted
+
+                 */
             } catch (TransactionSystemException  e)  {
-                return "redirect:" + adminField + "account/" + nameForm.getId();
+                System.out.println("testfail1");
+                return "redirect:/user/account";
             }
         } else {
-            return "redirect:" + adminField + "account/" + nameForm.getId();
+            System.out.println("testfail2");
+            return "redirect:/user/account";
         }
 
     }
@@ -85,14 +104,10 @@ public class InfoController {
 
         if(!result.hasErrors()) {
 
-            SiteUser selectedUser = userAuditor.findUserById(Long.parseLong(nameForm.getId())).get();
-            selectedUser.setPassword(nameForm.getEdit());
+            SiteUser selectedUser = userUpdateService.findUserById(Long.parseLong(nameForm.getId())).get();
+            selectedUser.setPassword(encoder.encode(nameForm.getEdit()));
             userUpdateService.updateUser(selectedUser);
-            System.out.println("Success! account/" + nameForm.getId());
-            return "redirect:" + adminField + "account/" + nameForm.getId();
-        } else {
-            System.out.println("Failure. account/" + nameForm.getId());
-            return "redirect:" + adminField + "account/" + nameForm.getId();
         }
+        return "redirect:/user/account";
     }
 }

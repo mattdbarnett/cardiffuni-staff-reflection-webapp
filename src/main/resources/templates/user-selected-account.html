@@ -23,28 +23,28 @@
 
         <button type = button id = "nameButton" th:text = "'change name: ' + ${siteuser.userName}"></button>
         <br>
-        <form id = "nameForm" th:action="@{/change-name}" enctype="multipart/form-data" method=post th:object="${editForm}">
+        <form id = "nameForm" th:action="@{/user/change-name}" enctype="multipart/form-data" method=post th:object="${editForm}">
             <input type = "hidden" th:name="id" th:value = "${siteuser.userID}">
             <label for = "name">new name: </label>
-            <input th:field = "*{edit}">
+            <input minlength=4 maxlength=32 th:field = "*{edit}">
             <button type = "submit">submit new name</button>
         </form>
         <br>
         <button type = button id = "emailButton" th:text = "'change email address: ' + ${siteuser.emailAddress}"></button>
         <br>
-        <form id = "emailForm" th:action="@{/change-email}" enctype="multipart/form-data" method="post" th:object="${editForm}">
+        <form id = "emailForm" th:action="@{/user/change-email}" enctype="multipart/form-data" method="post" th:object="${editForm}">
             <input type = "hidden" th:name="id" th:value = "${siteuser.userID}">
             <label for = "email">new email address: </label>
-            <input id = "nameFormID" th:field = "*{edit}">
+            <input id = "nameFormID" type = "email" th:field = "*{edit}">
             <button type = "submit"> submit new email address</button>
         </form>
         <br>
         <button type = button id = "passwordButton" th:text = "'change password'"></button>
         <br>
-        <form id = "passwordForm" th:action="@{/change-password}" enctype="multipart/form-data" method="post" th:object="${editForm}">
+        <form id = "passwordForm" th:action="@{/user/change-password}" enctype="multipart/form-data" method="post" th:object="${editForm}">
             <input type = "hidden" th:name="id" th:value = "${siteuser.userID}">
             <label for = "password">new password: </label>
-            <input th:field = "*{edit}">
+            <input minlength=4 maxlength=32 type = "password" th:field = "*{edit}">
             <br>
             <button type = "submit">submit new password</button>
         </form>
