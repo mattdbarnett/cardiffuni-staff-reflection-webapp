@@ -60,6 +60,37 @@ public class UserAccountTest {
                 .andExpect(content().string(containsString("View my")));
     }
 
+    @Test
+    @DisplayName("user cannot see admin 'tag (admin)' button page on dashboard")
+    @WithMockUser(username = "user", password = "password1", roles = "USER")
+    public void shouldNotSeeAdminSpecificButtonOnDashboard() throws Exception {
+
+        mvc.perform(get("/dashboard"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(doesNotContainString("Tag (admin)")));
+
+    }
+    /*
+    Code adapted from StackOverflow answer:-
+    User: Michael W
+    Question: "Spring MockMvc don't expect content"
+    URL: https://stackoverflow.com/questions/56657018/spring-mockmvc-dont-expect-content?fbclid=IwAR1OLVXC0Bb8oD35tRUrBDgt8e0IGyatBmAJDhxrDLEMs5FACUubI8kTuJc
+     */
+    private Matcher<String> doesNotContainString(String s) {
+        return CoreMatchers.not(containsString(s));
+    }
+
+    @Test
+    @DisplayName("Admin user can see admin 'view all' page on dashboard")
+    @WithMockUser(username = "admin", password = "password1", roles = "ADMIN")
+    public void shouldSeeAdminPageDetailsOnLogin() throws Exception {
+
+        mvc.perform(get("/dashboard"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Tag (admin)")));
+
+    }
+
 
 
 }
