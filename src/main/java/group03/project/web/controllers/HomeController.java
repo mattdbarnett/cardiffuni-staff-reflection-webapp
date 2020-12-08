@@ -53,14 +53,14 @@ public class HomeController {
          */
         model.addAttribute("user", theUser);
 
-        return "dashboard";
-
-
-
-
-
-
-
+                /*
+          Redirects user object based upon authority set, streaming into 2 different dashboard pages.
+         */
+        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+            return "dashboard_a";
+        } else {
+            return "dashboard";
+        }
 
     }
 

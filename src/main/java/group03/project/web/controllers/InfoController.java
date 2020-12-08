@@ -22,16 +22,11 @@ public class InfoController {
     private final SiteUserService userUpdateService;
     private final PasswordEncoder encoder;
 
-    String adminField = "/";
-    String accountUserPage;
-
-
 
     @Autowired
     public InfoController(group03.project.services.offered.SiteUserService anUpdateService,
                           PasswordEncoder theEncoder) {
         userUpdateService = anUpdateService;
-        accountUserPage = "user";
         encoder = theEncoder;
 
     }
