@@ -5,7 +5,7 @@ import group03.project.domain.SiteUser;
 import java.util.List;
 import java.util.Optional;
 
-public interface SiteUserServiceJPA {
+public interface SiteUserRepository {
 
     public List<SiteUser> findAll();
 
@@ -15,7 +15,10 @@ public interface SiteUserServiceJPA {
 
     public Optional<SiteUser> findByUserName(String name);
 
+    public Optional<SiteUser> findByPermissions(String permissions);
+
     public SiteUser save(SiteUser aSiteUser);
+
 
 
 }

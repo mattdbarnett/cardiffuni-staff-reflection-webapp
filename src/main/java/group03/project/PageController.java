@@ -17,21 +17,21 @@ public class PageController {
         appMode = environment.getProperty("app-mode");
     }
 
-    @GetMapping("/dashboard")
-    public ModelAndView home(){
-        ModelAndView model = new ModelAndView();
-        model.setViewName("dashboard");
-        return model;
-    }
+//    @GetMapping("/dashboard")
+//    public ModelAndView home(){
+//        ModelAndView model = new ModelAndView();
+//        model.setViewName("dashboard");
+//        return model;
+//    }
 
-    @RequestMapping("/login")
-    public ModelAndView login() {
-        ModelAndView model = new ModelAndView();
-        model.setViewName("login"); //cannot resolve MVC login
-                                    //works as html, does not work as jasper
-                                    //implies an issue with jasper dependency in build.gradle
-        return model;
-    }
+//    @RequestMapping("/login")
+//    public ModelAndView login() {
+//        ModelAndView model = new ModelAndView();
+//        model.setViewName("login"); //cannot resolve MVC login
+//                                    //works as html, does not work as jasper
+//                                    //implies an issue with jasper dependency in build.gradle
+//        return model;
+//    }
 
 //    @GetMapping("/")
 //    public ModelAndView getRedirect() {
@@ -40,12 +40,7 @@ public class PageController {
 //        return model;
 //    }
 
-    @GetMapping("/about")
-    public ModelAndView about(){
-        ModelAndView model = new ModelAndView();
-        model.setViewName("about");
-        return model;
-    }
+
 
 
     /*@RequestMapping(value="/login",method= RequestMethod.POST)

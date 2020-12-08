@@ -1,6 +1,7 @@
 package group03.project.web.controllers;
 
 import group03.project.domain.Tag;
+
 import group03.project.services.offered.TagService;
 import group03.project.web.forms.TagCreationForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
@@ -17,6 +19,7 @@ import javax.validation.Valid;
  * Controller for navigating to directories in application relating to tags.
  */
 @Controller
+@RequestMapping("user")
 public class TagController {
 
     private TagService tagService;
@@ -67,7 +70,7 @@ public class TagController {
                     tagService.createOfficialTag(newTag);
                 } else {
 
-                    tagService.createUnofficialTag(newTag);
+                    tagService.createCustomTag(newTag);
                 }
 
                 return "redirect:";

@@ -95,3 +95,28 @@ body {
 .forgot-create-buttons-wrapper{
     margin-top:20px;
 }
+
+.button {
+    border: 1px solid transparent;
+    padding: 10px 20px;
+    background-color: #efefef;
+    border-radius: 2px;
+    text-decoration: none;
+    color: black;
+    margin-left: 20px;
+
+}
+
+.login-button {
+    border: 1px solid transparent;
+    padding: 10px 20px;
+    background-color: #efefef;
+    border-radius: 2px;
+    text-decoration: none;
+    color: black;
+}
+
+.button:hover, .login-button:hover {
+    text-decoration: none;
+    text-shadow:0px 0px 1px black;
+}

@@ -26,11 +26,18 @@ public class SiteUser {
     private String password;
     @Column(name="userName")
     private String userName;
+    @Column(name = "isActive")
+    private Boolean isActive;
+    @Column(name = "permissions")
+    private String permissions;
 
 
-    public SiteUser(String anEmailAddress, String aPassword, String aName) {
-        this(null,  anEmailAddress , aPassword, aName);
+    public SiteUser(String anEmailAddress, String aPassword, String aUsername) {
+        this(null,  anEmailAddress , aPassword, aUsername, null, null);
+        this.permissions = "ROLE_USER";
     }
+
+
 
 
 }

@@ -2,7 +2,6 @@ package group03.project.web.controllers;
 
 import group03.project.domain.SiteUser;
 import group03.project.services.offered.SiteUserService;
-import group03.project.services.required.SiteUserAuditor;
 import group03.project.web.forms.UserEditForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,16 +14,17 @@ import javax.validation.Valid;
 import java.util.*;
 
 @Controller
+@RequestMapping("user")
 public class InfoController {
 
-    private SiteUserService userUpdateService;
-    private SiteUserAuditor userAuditor;
+    private group03.project.services.offered.SiteUserService userUpdateService;
+    private SiteUserService userAuditor;
 //    private SiteUserService userService;
     String adminField = "/";
     String accountUserPage;
 
     @Autowired
-    public InfoController(SiteUserService anUpdateService, SiteUserAuditor theAuditor) {
+    public InfoController(group03.project.services.offered.SiteUserService anUpdateService, SiteUserService theAuditor) {
         userUpdateService = anUpdateService;
         userAuditor = theAuditor;
         accountUserPage = "user";
