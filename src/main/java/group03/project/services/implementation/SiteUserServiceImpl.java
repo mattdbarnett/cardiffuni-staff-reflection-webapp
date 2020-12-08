@@ -31,14 +31,7 @@ public class SiteUserServiceImpl implements SiteUserService {
     public Optional<SiteUser> findUserByEmail(String email) { return userRepoJPA.findByEmailAddress(email); }
 
     @Override
-    public Optional<SiteUser> findUserByUserName(String userName) {
-        System.out.println("In SiteUserServiceJPA");
-
-        System.out.println("Username=" + userName);
-        return userRepoJPA.findByUserName(userName); }
-
-
-
+    public Optional<SiteUser> findUserByUserName(String userName) { return userRepoJPA.findByUserName(userName); }
 
     @Override
     public void updateUser(SiteUser user) {
