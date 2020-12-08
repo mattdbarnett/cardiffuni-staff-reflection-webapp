@@ -4,6 +4,7 @@ import group03.project.domain.SiteUser;
 import group03.project.services.offered.SiteUserService;
 import group03.project.web.forms.UserCreationForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,19 +41,23 @@ public class UserRegistrationController {
 
 
         if(!result.hasErrors()) {
-            System.out.println("result has no errors");
 
-            SiteUser newUser;
+            if(accountForm.getPassword().equals(accountForm.getMatchingPassword())) {
 
-            newUser = createAccount(accountForm, result);
+                SiteUser newUser;
 
-            accountService.createAUser(newUser);
+                newUser = createAccount(accountForm, result);
 
-            return "login";
+                accountService.createAUser(newUser);
+
+                return "login";
+            } else {
+                return "redirect:register";
+            }
         } else {
             System.out.println("Result has errors");
 
-            return "redirect:registration";
+            return "redirect:register";
 
         }
     }
@@ -66,7 +71,7 @@ public class UserRegistrationController {
          newUser = new SiteUser(
                  accountForm.getEmailAddress(),
                  encoder.encode(accountForm.getPassword()),
-                 accountForm.getName());
+                 accountForm.getUserName());
         } catch (Exception ex) {
             return null;
         }

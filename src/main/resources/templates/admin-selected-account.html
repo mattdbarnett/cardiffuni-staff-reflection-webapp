@@ -39,12 +39,12 @@
             <button type = "submit"> submit new email address</button>
         </form>
         <br>
-        <button type = button id = "passwordButton" th:text = "'change password'"></button>
+        <button type = button id = "passwordButton">Reset Password to default</button>
         <br>
         <form id = "passwordForm" th:action="@{/admin/reset-password}" enctype="multipart/form-data" method="post" th:object="${editForm}">
             <input type = "hidden" th:name="id" th:value = "${siteuser.userID}">
             <br>
-            <button type = "submit">ResetPassword</button>
+            <button type = "submit">Confirm reset</button>
         </form>
         <br>
 

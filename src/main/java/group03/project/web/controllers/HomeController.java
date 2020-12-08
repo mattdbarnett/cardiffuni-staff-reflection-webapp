@@ -31,7 +31,7 @@ public class HomeController {
      * @return login form for localhost;
      */
     @GetMapping("/")
-    public String navigateToLogin() {
+    public String navigateToRootPage() {
         return "login";
     }
 
