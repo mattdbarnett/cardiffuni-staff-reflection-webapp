@@ -2,8 +2,11 @@ package group03.project;
 
 import group03.project.domain.Activity;
 import group03.project.services.implementation.ActivityService;
+import group03.project.services.implementation.ParticipationService;
+import group03.project.services.offered.SiteUserService;
 import group03.project.web.controllers.ActivityController;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -44,33 +47,40 @@ public class ActivityTest {
     @MockBean
     private ActivityService activityService;
 
+    @MockBean
+    private ParticipationService participationService;
+
+    @MockBean
+    private SiteUserService siteUserService;
+
     @Autowired
     private MockMvc mvc;
 
     @Test
-    @WithMockUser(username="user")
+    @WithMockUser(username="admin", password="pass", roles = "ADMIN")
     public void shouldLoadAddOfficialActivityPage() throws Exception {
 
         this.mvc
-                .perform(get("/add_official_activity"))
+                .perform(get("/user/add-official-activity"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Official Activity Registration")));
     }
 
     @Test
+    @WithMockUser(username="admin", password="pass", roles = "ADMIN")
     public void shouldAddActivity() throws Exception {
 
         List<Activity> activities = new ArrayList<>(Arrays.asList(
-                new Activity(null, "Example Name 1", "Example File", "Example Desc"),
-                new Activity(null, "Example Name 2", "Example File", "Example Desc")
+                new Activity(null, "Example Name 1", "Example File", "Example Desc", false),
+                new Activity(null, "Example Name 2", "Example File", "Example Desc", false)
         ));
 
         when(activityService.getActivityListSize())
                 .thenReturn(activities.size());
 
         //Adding via post request without errors
-        MvcResult result = mvc.perform(post("/add_official_activity")
+        MvcResult result = mvc.perform(post("/user/add-official-activity")
                 .contentType(APPLICATION_FORM_URLENCODED) //from MediaType
                 .param("name", activities.get(0).getName())
                 .param("file", activities.get(0).getFile())
@@ -84,15 +94,16 @@ public class ActivityTest {
     }
 
     @Test
+    @WithMockUser(username="user", password="passw", roles = "USER")
     public void shouldAddCustomActivity() throws Exception {
 
-        List<Activity> activities = new ArrayList<>(Arrays.asList(new Activity(null, "Example Name 1", "Example File", "Example Desc")));
+        List<Activity> activities = new ArrayList<>(Arrays.asList(new Activity(null, "Example Name 1", "Example File", "Example Desc", false)));
 
         when(activityService.getActivityListSize())
                 .thenReturn(activities.size());
 
         //Adding via custom activity post request without errors
-        MvcResult result = mvc.perform(post("/add_custom_activity")
+        MvcResult result = mvc.perform(post("/user/add-custom-activity")
                 .contentType(APPLICATION_FORM_URLENCODED) //from MediaType
                 .param("name", activities.get(0).getName())
                 .param("file", activities.get(0).getFile())
