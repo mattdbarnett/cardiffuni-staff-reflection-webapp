@@ -1,10 +1,10 @@
 package group03.project.repositories;
 
 import group03.project.domain.SiteUser;
-import group03.project.services.implementation.SiteUserService;
-import group03.project.services.offered.SiteUserUpdateService;
+import group03.project.services.implementation.SiteUserServiceImpl;
+import group03.project.services.offered.SiteUserService;
 import group03.project.services.required.SiteUserServiceJPA;
-import group03.project.web.controllers.InfoUserController;
+import group03.project.web.controllers.InfoController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -38,7 +38,7 @@ public class EditUserTest {
 //    private MockMvc mockMvc;
 
     @MockBean
-    SiteUserUpdateService updateService;
+    SiteUserService updateService;
 
 //    @MockBean
 //    SiteUserAuditor userAuditor;
