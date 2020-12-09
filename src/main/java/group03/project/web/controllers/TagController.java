@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Controller for navigating to directories in application relating to tags.
@@ -23,18 +24,13 @@ import javax.validation.Valid;
 public class TagController {
 
     private TagService tagService;
-
-    String adminAttribute = "";
-    String pageChoice;
-
     /**
      * Links up the tag method interface into controller for accessing database changes.
-     * @param aService
+     * @param aService - TagService interface for performing JPA-accessible methods
      */
     @Autowired
     public TagController(TagService aService) {
         tagService = aService;
-        pageChoice = "user";
     }
 
     /**
@@ -47,7 +43,7 @@ public class TagController {
     public String showTagCreationForm(Model model) {
         TagCreationForm tagForm = new TagCreationForm();
         model.addAttribute("tag", tagForm);
-        return pageChoice + "-create-tag";
+        return "user-create-tag";
     }
 
     /**
@@ -66,21 +62,17 @@ public class TagController {
             Tag newTag = createTag(tagForm);
 
             try {
-                if (newTag.getIsOfficial()) {
-                    tagService.createOfficialTag(newTag);
-                } else {
+                tagService.createCustomTag(newTag);
 
-                    tagService.createCustomTag(newTag);
-                }
+                return "dashboard";
 
-                return "redirect:";
             } catch (NullPointerException e) {
                 e.printStackTrace();
                 System.out.println("failed to create tag");
-                return "redirect:create-tag";
+                return "redirect:dashboard";
             }
         } else {
-            return "redirect:create-tag";
+            return "redirect:dashboard";
         }
     }
 
@@ -89,8 +81,9 @@ public class TagController {
         Tag newTag;
 
         try {
+
             newTag = new Tag(
-                    tagForm.getTagID(),
+                    tagForm.getTagName(),
                     tagForm.getDescription(),
                     Boolean.parseBoolean(tagForm.getIsOfficial()));
 
@@ -99,5 +92,15 @@ public class TagController {
         }
         return newTag;
     }
-    
+
+    @GetMapping("/all-tags")
+    public String presentAllTags(Model model) {
+
+        List<Tag> allTags = tagService.findAllTags();
+
+        model.addAttribute("tags", allTags);
+
+        return "all-tags";
+    }
+
 }

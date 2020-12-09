@@ -1,5 +1,6 @@
 package group03.project.services.offered;
 
+import group03.project.domain.SiteUser;
 import group03.project.domain.Tag;
 
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.Optional;
  * for site users.
  */
 public interface TagService {
+
+    public List<Tag> findAllTags();
     /**
      * Method that creates official tag inside database
      * @param theTag - created tag object from controller.
@@ -26,7 +29,7 @@ public interface TagService {
      * @param id
      * @return tag matching given id.
      */
-    public Optional<Tag> findATagByID(String id);
+    public Optional<Tag> findATagByID(Long id);
 
     /**
      * finds all tags marked as official.

@@ -44,7 +44,8 @@ ENGINE = InnoDB;
 -- Table `developmenttoolkit`.`tag`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS tag(
-  tagID VARCHAR(11) NOT NULL,
+  tagID INT NOT NULL AUTO_INCREMENT,
+  tagName VARCHAR(30) NULL DEFAULT NULL,
   description VARCHAR(200) NULL DEFAULT NULL,
   isOfficial TINYINT(4) NULL DEFAULT NULL,
   PRIMARY KEY (`tagID`))
@@ -57,7 +58,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS objective(
   objectiveID INT(11) NOT NULL,
   Activity_activityID INT(11) NOT NULL,
-  Tag_tagID VARCHAR(11) NOT NULL,
+  Tag_tagID INT(11) NOT NULL,
   PRIMARY KEY (objectiveID),
     FOREIGN KEY (Activity_activityID)
     REFERENCES activity (activityID)
@@ -102,7 +103,7 @@ CREATE TABLE IF NOT EXISTS reflection(
    reflectionID INT(11) NOT NULL AUTO_INCREMENT,
    reflection VARCHAR(45) NULL DEFAULT NULL,
    Participation_participationID INT(11) NOT NULL,
-   Tag_tagID VARCHAR(11) NOT NULL,
+   Tag_tagID INT(11) NOT NULL,
    PRIMARY KEY (reflectionID),
    FOREIGN KEY (Tag_tagID)
        REFERENCES tag (tagID)
