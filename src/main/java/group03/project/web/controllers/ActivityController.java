@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Part;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,15 +89,29 @@ public class ActivityController {
     }
 
     @GetMapping("/all_activities")
-    public String listActivities(Model model) {
+    public String listActivities(Model model, Authentication authentication) {
         List<Activity> activities = activityService.findall();
+        List<Participation> participations = participationService.findall();
+        Integer currentID = getCurrentID(authentication);
+
+        List<Integer> currentActivitiesIDs = new ArrayList<>();
+        for (int y = 0; y < participationService.getParticipationListSize(); y++) {
+            Participation currentPart = participations.get(y);
+            if(currentPart.getUserID() == currentID) {
+                currentActivitiesIDs.add(currentPart.getActivityID());
+            }
+        }
+
         List<Activity> officialActivities = new ArrayList<>();
         for (int x = 0; x < activityService.getActivityListSize(); x++) {
             Activity currentActivity = activities.get(x);
             if(currentActivity.getIsOfficial() == true) {
-                officialActivities.add(currentActivity);
+                if(currentActivitiesIDs.contains(currentActivity.getActivityID()) == false) {
+                    officialActivities.add(currentActivity);
+                }
             }
         }
+
         ActivityJoinForm editForm = new ActivityJoinForm();
         model.addAttribute("editForm", editForm);
         model.addAttribute("activities", officialActivities);
@@ -116,9 +131,18 @@ public class ActivityController {
         System.out.println(editForm);
         System.out.println(editForm.getActivityJoinID());
 
-
         Participation participation = new Participation(null, date, Integer.parseInt(editForm.getActivityJoinID()), currentUserIDInt, "Participant");
         participationService.save(participation);
         return "redirect:";
+    }
+
+    Integer getCurrentID(Authentication authentication) {
+        String currentUserName = ControllerSupport.getAuthenticatedUserName(authentication);
+        Optional<SiteUser> currentUserOptional = siteUserService.findUserByUserName(currentUserName);
+        SiteUser currentUser = currentUserOptional.get();
+        Long currentUserID = currentUser.getUserID();
+        Integer currentUserIDInt = currentUserID.intValue();
+
+        return currentUserIDInt;
     }
 }
