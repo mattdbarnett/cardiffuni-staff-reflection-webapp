@@ -6,16 +6,13 @@ import group03.project.services.implementation.ActivityService;
 import group03.project.domain.Activity;
 import group03.project.services.implementation.ParticipationService;
 import group03.project.services.offered.SiteUserService;
-import group03.project.services.offered.TagService;
 import group03.project.web.forms.ActivityJoinForm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Part;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +21,6 @@ import java.util.Optional;
 @Controller
 @RequestMapping("user")
 public class ActivityController {
-
-    String pageChoice = "user";
 
     @Autowired
     private ActivityService activityService;
@@ -37,38 +32,32 @@ public class ActivityController {
     private SiteUserService siteUserService;
 
     //Page for adding an official activity as an administrator
-    @GetMapping("/add_official_activity")
+    @GetMapping("/add-official-activity")
     public String addOfficialActivity(Model model) {
         Activity activity = new Activity();
-        //activity.setUserID(1);
         model.addAttribute("activity", activity);
-        return "Add_OActivity";
+        return "add-oactivity";
     }
 
     //Submit the activity to the database
-    @PostMapping("/add_official_activity")
+    @PostMapping("/add-official-activity")
     public String submitOfficialActivity(@ModelAttribute("activity") Activity activity) {
-        //activity.setActivityID(activityService.getActivityListSize());
-        //activity.setUserID(1); //No login system yet - placeholder userID
         activity.setIsOfficial(true);
         activityService.save(activity);
         return "redirect:";
     }
 
     //Page for adding a custom activity as a user
-    @GetMapping("/add_custom_activity")
+    @GetMapping("/add-custom-activity")
     public String addCustomActivity(Model model) {
         Activity activity = new Activity();
-        //activity.setUserID(1);
         model.addAttribute("activity", activity);
-        return "Add_CActivity";
+        return "add-cactivity";
     }
 
     //Submit the activity to the database
-    @PostMapping("/add_custom_activity")
+    @PostMapping("/add-custom-activity")
     public String submitCustomActivity(@ModelAttribute("activity") Activity activity, Authentication authentication) {
-        //activity.setActivityID(activityService.getActivityListSize());
-        //activity.setUserID(1); //No login system yet - placeholder userID
         String inputName = activity.getName();
         activity.setName("[Custom] " + inputName);
         activity.setIsOfficial(false);
@@ -77,23 +66,21 @@ public class ActivityController {
 
         java.util.Date date = new java.util.Date();
 
-        String currentUserName = ControllerSupport.getAuthenticatedUserName(authentication);
-        Optional<SiteUser> currentUserOptional = siteUserService.findUserByUserName(currentUserName);
-        SiteUser currentUser = currentUserOptional.get();
-        Long currentUserID = currentUser.getUserID();
-        Integer currentUserIDInt = currentUserID.intValue();
+        Integer currentUserID = getCurrentID(authentication);
 
-        Participation participation = new Participation(null, date, activity.getActivityID(), currentUserIDInt, "Participant");
+        Participation participation = new Participation(null, date, activity.getActivityID(), currentUserID, "Participant");
         participationService.save(participation);
         return "redirect:";
     }
 
-    @GetMapping("/all_activities")
+    //List all activities the user can add themselves too
+    @GetMapping("/activities-signup-list")
     public String listActivities(Model model, Authentication authentication) {
         List<Activity> activities = activityService.findall();
         List<Participation> participations = participationService.findall();
         Integer currentID = getCurrentID(authentication);
 
+        //Get a list of all activities the user is currently participating in
         List<Integer> currentActivitiesIDs = new ArrayList<>();
         for (int y = 0; y < participationService.getParticipationListSize(); y++) {
             Participation currentPart = participations.get(y);
@@ -102,6 +89,7 @@ public class ActivityController {
             }
         }
 
+        //Make sure the user can only sign up for official activities they are not already doing
         List<Activity> officialActivities = new ArrayList<>();
         for (int x = 0; x < activityService.getActivityListSize(); x++) {
             Activity currentActivity = activities.get(x);
@@ -118,24 +106,19 @@ public class ActivityController {
         return "all-activities";
     }
 
-    @PostMapping("/all_activities")
+    //Add a participation for the official activity the user has just signed up to
+    @PostMapping("/activities-signup-list")
     public String joinActivity(@ModelAttribute("activity") @Valid ActivityJoinForm editForm, Authentication authentication) {
         java.util.Date date = new java.util.Date();
 
-        String currentUserName = ControllerSupport.getAuthenticatedUserName(authentication);
-        Optional<SiteUser> currentUserOptional = siteUserService.findUserByUserName(currentUserName);
-        SiteUser currentUser = currentUserOptional.get();
-        Long currentUserID = currentUser.getUserID();
-        Integer currentUserIDInt = currentUserID.intValue();
+        Integer currentUserID = getCurrentID(authentication);
 
-        System.out.println(editForm);
-        System.out.println(editForm.getActivityJoinID());
-
-        Participation participation = new Participation(null, date, Integer.parseInt(editForm.getActivityJoinID()), currentUserIDInt, "Participant");
+        Participation participation = new Participation(null, date, Integer.parseInt(editForm.getActivityJoinID()), currentUserID, "Participant");
         participationService.save(participation);
         return "redirect:";
     }
 
+    //Get the current user's ID
     Integer getCurrentID(Authentication authentication) {
         String currentUserName = ControllerSupport.getAuthenticatedUserName(authentication);
         Optional<SiteUser> currentUserOptional = siteUserService.findUserByUserName(currentUserName);

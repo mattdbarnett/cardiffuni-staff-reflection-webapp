@@ -16,7 +16,7 @@
 <h1>All activities</h1>
         <ul>
             <li action="#" th:each="activity : ${activities}" >
-                <form action="#" th:action="@{all_activities/}" enctype="multipart/form-data" method="post" th:object="${editForm}">
+                <form action="#" th:action="@{activities-signup-list/}" enctype="multipart/form-data" method="post" th:object="${editForm}">
                     <p th:text = "${activity.activityID}"></p>
                     <p th:text = "${activity.name}"></p>
                     <p th:text = "${activity.file}"></p>
