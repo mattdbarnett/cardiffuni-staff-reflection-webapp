@@ -1,4 +1,4 @@
-package group03.project;
+package group03.project.web;
 
 import group03.project.domain.Activity;
 import group03.project.services.implementation.ActivityService;
