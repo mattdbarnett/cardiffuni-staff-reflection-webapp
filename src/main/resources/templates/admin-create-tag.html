@@ -21,10 +21,10 @@
             <!--Covers input of naming field-->
             <br>
             <div>
-                <label for = "tagID">Tag Identification</label>
+                <label for = "tagName">Tag Identification</label>
                 <input th:field = "*{tagName}" type = "text">
 
-                <p th:if = "${#fields.hasErrors('tagID')}" th:errors = "*{tagName}">
+                <p th:if = "${#fields.hasErrors('tagName')}" th:errors = "*{tagName}">
                     Placeholder text for error
                 </p>
 

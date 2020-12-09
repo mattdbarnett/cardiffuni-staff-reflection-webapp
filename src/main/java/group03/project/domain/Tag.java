@@ -16,7 +16,7 @@ public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tagID")
-    private Integer tagID;
+    private Long tagID;
 
     @Column(name = "tagName")
     private String tagName;
@@ -29,5 +29,9 @@ public class Tag {
 
     public Tag(String tagName, String theDescription, Boolean isOfficial) {
         this(null, tagName, theDescription, isOfficial);
+    }
+
+    public Tag(Long id, String tagName) {
+        this(id, tagName, null, null);
     }
 }

@@ -3,6 +3,7 @@ package group03.project.web.controllers;
 import group03.project.domain.Tag;
 import group03.project.services.implementation.TagServiceImpl;
 import group03.project.services.offered.TagService;
+import group03.project.web.forms.EditForm;
 import group03.project.web.forms.TagCreationForm;
 import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -69,7 +71,7 @@ public class TagAdminController{
                     tagService.createCustomTag(newTag);
                 }
 
-                return "all-tags";
+                return "redirect:/admin/all-tags";
             } catch (NullPointerException e) {
                 e.printStackTrace();
                 System.out.println("failed to create tag");
@@ -97,10 +99,21 @@ public class TagAdminController{
     }
 
     @PostMapping("/delete-tag")
-    public String deleteTag(@ModelAttribute("tag") Tag theTag, BindingResult result) {
+    @Transactional
+    public String deleteTag(@ModelAttribute("tag") @Valid EditForm editForm, BindingResult result) {
 
-        tagService.deleteSelectedTag(theTag.getTagName());
+        if(!result.hasErrors()) {
 
-        return "redirect:admin/all-tags";
+            Tag tagToDelete = new Tag(
+                    Long.parseLong(editForm.getId()),
+                    editForm.getEdit());
+
+            tagService.deleteSelectedTag(tagToDelete.getTagName());
+
+        }
+
+
+
+        return "redirect:/admin/all-tags";
     }
 }

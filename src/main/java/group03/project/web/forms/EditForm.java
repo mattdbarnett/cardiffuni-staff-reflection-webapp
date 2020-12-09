@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class UserEditForm {
+public class EditForm {
 
     private String edit;
     private String id;

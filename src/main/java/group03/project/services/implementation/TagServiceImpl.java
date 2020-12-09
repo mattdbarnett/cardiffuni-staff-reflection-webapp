@@ -51,6 +51,6 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Long deleteSelectedTag(String theTagName) { return tagJPAConnector.deleteByTagName(theTagName); }
+    public void deleteSelectedTag(String theTagName) { tagJPAConnector.deleteByTagName(theTagName); }
 
 }

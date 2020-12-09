@@ -43,5 +43,5 @@ public interface TagService {
      */
     public List<Tag> findTagsIfCustom();
 
-    public Long deleteSelectedTag(String theTagName);
+    public void deleteSelectedTag(String theTagName);
 }

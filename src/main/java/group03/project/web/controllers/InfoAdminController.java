@@ -1,11 +1,9 @@
 package group03.project.web.controllers;
 
 import group03.project.domain.SiteUser;
-import group03.project.services.implementation.SiteUserServiceImpl;
 import group03.project.services.offered.SiteUserService;
-import group03.project.web.forms.UserEditForm;
+import group03.project.web.forms.EditForm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.TransactionSystemException;
@@ -53,7 +51,7 @@ private final SiteUserService userUpdateService;
 
         Optional<SiteUser> aSiteUser = userUpdateService.findUserByUserName(username);
         if (aSiteUser.isPresent()) {
-            UserEditForm editForm = new UserEditForm();
+            EditForm editForm = new EditForm();
 
             SiteUser selectedUser = aSiteUser.get();
             model.addAttribute("siteuser", selectedUser);
@@ -65,7 +63,7 @@ private final SiteUserService userUpdateService;
     }
 
     @PostMapping("/change-name")
-    public String changeAccountName(@ModelAttribute("editForm") @Valid UserEditForm nameForm,
+    public String changeAccountName(@ModelAttribute("editForm") @Valid EditForm nameForm,
                                     BindingResult result) {
 
         if(!result.hasErrors()) {
@@ -79,7 +77,7 @@ private final SiteUserService userUpdateService;
     }
 
     @PostMapping("/change-email")
-    public String changeEmailAddress(@ModelAttribute("editForm") @Valid UserEditForm nameForm,
+    public String changeEmailAddress(@ModelAttribute("editForm") @Valid EditForm nameForm,
                                      BindingResult result) {
 
 
@@ -103,7 +101,7 @@ private final SiteUserService userUpdateService;
     }
 
     @PostMapping("/reset-password")
-    public String changePassword(@ModelAttribute("editForm") @Valid UserEditForm nameForm,
+    public String changePassword(@ModelAttribute("editForm") @Valid EditForm nameForm,
                                  BindingResult result) {
 
         if(!result.hasErrors()) {
