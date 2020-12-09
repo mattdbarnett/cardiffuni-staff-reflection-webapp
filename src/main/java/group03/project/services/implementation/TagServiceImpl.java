@@ -50,4 +50,7 @@ public class TagServiceImpl implements TagService {
         return tagJPAConnector.findByIsOfficial(false);
     }
 
+    @Override
+    public void deleteSelectedTag(Long theTagID) { tagJPAConnector.deleteByTagID(theTagID); }
+
 }

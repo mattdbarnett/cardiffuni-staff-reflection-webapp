@@ -16,4 +16,6 @@ public interface TagRepository {
     public List<Tag> findByIsOfficial(Boolean status);
 
     public Tag save (Tag theTag);
+
+    public void deleteByTagID(Long theTag);
 }

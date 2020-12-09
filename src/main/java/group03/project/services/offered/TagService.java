@@ -42,4 +42,6 @@ public interface TagService {
      * @return all custom tags on database.
      */
     public List<Tag> findTagsIfCustom();
+
+    public void deleteSelectedTag(Long tagID);
 }

@@ -33,7 +33,7 @@ public class WebUITesting {
     public void shouldLoadLoginPage() throws Exception {
 
         this.mvc
-                .perform(get("/login"))
+                .perform(get("/"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Login")));

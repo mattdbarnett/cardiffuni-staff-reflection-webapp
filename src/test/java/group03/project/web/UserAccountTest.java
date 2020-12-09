@@ -1,23 +1,17 @@
 package group03.project.web;
 
-import group03.project.services.offered.SiteUserService;
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.Matcher;
-import org.junit.Assert;
+import group03.project.TestSupport;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -67,18 +61,10 @@ public class UserAccountTest {
 
         mvc.perform(get("/dashboard"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(doesNotContainString("Tag (admin)")));
+                .andExpect(content().string(TestSupport.doesNotContainString("Tag (admin)")));
 
     }
-    /*
-    Code adapted from StackOverflow answer:-
-    User: Michael W
-    Question: "Spring MockMvc don't expect content"
-    URL: https://stackoverflow.com/questions/56657018/spring-mockmvc-dont-expect-content?fbclid=IwAR1OLVXC0Bb8oD35tRUrBDgt8e0IGyatBmAJDhxrDLEMs5FACUubI8kTuJc
-     */
-    private Matcher<String> doesNotContainString(String s) {
-        return CoreMatchers.not(containsString(s));
-    }
+
 
     @Test
     @DisplayName("Admin user can see admin 'view all' page on dashboard")

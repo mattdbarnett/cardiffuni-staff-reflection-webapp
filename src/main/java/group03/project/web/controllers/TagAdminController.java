@@ -3,15 +3,16 @@ package group03.project.web.controllers;
 import group03.project.domain.Tag;
 import group03.project.services.implementation.TagServiceImpl;
 import group03.project.services.offered.TagService;
+import group03.project.web.forms.EditForm;
 import group03.project.web.forms.TagCreationForm;
+import org.apache.coyote.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class TagAdminController{
     }
 
     @GetMapping("/create-tag")
-    public String showTagCreationForm(Model model) {
+    public String showAdminTagCreationModel(Model model) {
         TagCreationForm tagForm = new TagCreationForm();
         model.addAttribute("tag", tagForm);
         return "admin-create-tag";
@@ -70,7 +71,7 @@ public class TagAdminController{
                     tagService.createCustomTag(newTag);
                 }
 
-                return "all-tags";
+                return "redirect:/admin/all-tags";
             } catch (NullPointerException e) {
                 e.printStackTrace();
                 System.out.println("failed to create tag");
@@ -95,5 +96,24 @@ public class TagAdminController{
             return null;
         }
         return newTag;
+    }
+
+    @PostMapping("/delete-tag")
+    @Transactional
+    public String deleteTag(@ModelAttribute("tag") @Valid EditForm editForm, BindingResult result) {
+
+        if(!result.hasErrors()) {
+
+            Tag tagToDelete = new Tag(
+                    Long.parseLong(editForm.getId()),
+                    editForm.getEdit());
+
+            System.out.println(tagToDelete.getTagID().getClass());
+            System.out.println(tagToDelete.getTagID());
+
+            tagService.deleteSelectedTag(tagToDelete.getTagID());
+
+        }
+        return "redirect:/admin/all-tags";
     }
 }

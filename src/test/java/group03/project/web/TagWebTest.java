@@ -1,6 +1,7 @@
 package group03.project.web;
 
 
+import group03.project.TestSupport;
 import group03.project.domain.Tag;
 import group03.project.services.required.TagRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -12,6 +13,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+
+import javax.transaction.Transactional;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -53,6 +56,47 @@ public class TagWebTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("test")))
                 .andExpect(content().string(containsString("tester tag")));
+    }
+
+    @Test
+    @WithMockUser(username="user", password = "password1", roles = "USER")
+    public void shouldNotSeeDeleteButtonAsUser() throws Exception {
+
+        mvc.perform(get("/user/all-tags"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(TestSupport.doesNotContainString("Remove")));
+
+    }
+
+    @Test
+    @WithMockUser(username="user", password = "password1", roles = "ADMIN")
+    public void shouldSeeDeleteButtonAsAdmin() throws Exception {
+
+        mvc.perform(get("/admin/all-tags"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Remove Tag")));
+
+    }
+    
+    @Test
+    @Transactional
+    @WithMockUser(username="user", password = "password1", roles = "ADMIN")
+    public void shouldCreateAViewableCustomTagAndDelete() throws Exception {
+
+        Tag newTag = new Tag(1L, "a new tag test", "tester tag", false);
+
+        repository.save(newTag);
+
+        mvc.perform(get("/admin/all-tags"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("a new tag test")));
+
+        repository.deleteByTagID(1L);
+
+        mvc.perform(get("/user/all-tags"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(TestSupport.doesNotContainString("a new tag test")));
+
     }
 
 
