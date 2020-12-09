@@ -48,11 +48,11 @@ public class ActivityTest {
     private MockMvc mvc;
 
     @Test
-    @WithMockUser(username="user")
+    @WithMockUser(username="user", password = "password", roles = "USER")
     public void shouldLoadAddOfficialActivityPage() throws Exception {
 
         this.mvc
-                .perform(get("/add_official_activity"))
+                .perform(get("/user/add_official_activity"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Official Activity Registration")));
