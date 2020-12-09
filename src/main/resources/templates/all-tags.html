@@ -25,7 +25,14 @@
 <div th:replace="navbar.html :: header"></div>
 <div th:replace="snackbar.html :: body"></div>
 <div id="content-pane">
-    <h1>All Tags</h1>
+    <div class = "card">
+        <h2 class = "display-1" id = "tagHeader" >All Tags</h2>
+        <p class = "lead">A view of all tags currently available for use!</p>
+        <hr class = "my-4">
+        <a sec:authorize="hasRole('ROLE_USER')" class = "btn btn-primary btn-lg" href = "/user/create-tag" role = "button">Create tag</a>
+        <a sec:authorize="hasRole('ROLE_ADMIN')" class = "btn btn-primary btn-lg" href = "/admin/create-tag" role = "button">Create tag</a>
+    </div>
+
     <div  id = "tagTable">
         <h2>Official Tags</h2>
         <table class = "table table-responsive">
@@ -57,9 +64,9 @@
                 <td th:unless = "${tag.isOfficial}" sec:authorize="hasRole('ROLE_ADMIN')">
                     <form class = "delete-form" th:action="@{/admin/delete-tag}" enctype="multipart/form-data" method="post" th:object="${editForm}">
                     <input type = "hidden" th:name="id" th:value = "${tag.tagID}"/>
-                        <input type = "hidden" th:name="edit" th:value = "${tag.tagName}"/>
-                    <button type = "submit" class = "glyphicon-floppy-remove" name="action" value = "remove">
-                        Remove
+                    <input type = "hidden" th:name="edit" th:value = "${tag.tagName}"/>
+                    <button type = "submit" class = "btn btn-secondary " name="action" value = "remove ">
+                        Remove Tag
                     </button>
                     </form>
                 </td>

@@ -17,5 +17,5 @@ public interface TagRepository {
 
     public Tag save (Tag theTag);
 
-    public void deleteByTagName(String tagName);
+    public void deleteByTagID(Long theTag);
 }

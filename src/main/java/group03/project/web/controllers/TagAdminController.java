@@ -42,7 +42,7 @@ public class TagAdminController{
     }
 
     @GetMapping("/create-tag")
-    public String showTagCreationForm(Model model) {
+    public String showAdminTagCreationModel(Model model) {
         TagCreationForm tagForm = new TagCreationForm();
         model.addAttribute("tag", tagForm);
         return "admin-create-tag";
@@ -108,12 +108,12 @@ public class TagAdminController{
                     Long.parseLong(editForm.getId()),
                     editForm.getEdit());
 
-            tagService.deleteSelectedTag(tagToDelete.getTagName());
+            System.out.println(tagToDelete.getTagID().getClass());
+            System.out.println(tagToDelete.getTagID());
+
+            tagService.deleteSelectedTag(tagToDelete.getTagID());
 
         }
-
-
-
         return "redirect:/admin/all-tags";
     }
 }
