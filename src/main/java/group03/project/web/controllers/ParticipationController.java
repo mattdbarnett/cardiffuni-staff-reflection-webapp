@@ -33,28 +33,7 @@ public class ParticipationController {
     @Autowired
     private SiteUserService siteUserService;
 
-    //Page for adding a participation entry
-    @GetMapping("/add_participation")
-    public String addParticipation(Model model, Model activityModel) {
-        Participation participation = new Participation();
-        List<Activity> activities = activityService.findall();
-        model.addAttribute("participation", participation);
-        activityModel.addAttribute("activities", activities);
-        return "Add_Participation";
-    }
-
-    //Submit the entry to the database
-    @PostMapping("/add_participation")
-    public String submitParticipation(@ModelAttribute("participation") Participation participation) {
-        //Will only work with data added!!
-        participation.setRoleID("0");
-        participation. setUserID(1);
-        java.util.Date date = new java.util.Date();
-        participation.setDate(date);
-        participationService.save(participation);
-        return "redirect:/";
-    }
-
+    //Lists all participations
     @GetMapping("/all-participations")
     public String listParticipations(Model model) {
         List<Participation> participations = participationService.findall();
