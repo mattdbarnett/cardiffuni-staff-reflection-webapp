@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +50,7 @@ public class ActivityController {
     public String submitOfficialActivity(@ModelAttribute("activity") Activity activity) {
         //activity.setActivityID(activityService.getActivityListSize());
         //activity.setUserID(1); //No login system yet - placeholder userID
+        activity.setIsOfficial(true);
         activityService.save(activity);
         return "redirect:";
     }
@@ -69,7 +71,10 @@ public class ActivityController {
         //activity.setUserID(1); //No login system yet - placeholder userID
         String inputName = activity.getName();
         activity.setName("[Custom] " + inputName);
+        activity.setIsOfficial(false);
+
         activityService.save(activity);
+
         java.util.Date date = new java.util.Date();
 
         String currentUserName = ControllerSupport.getAuthenticatedUserName(authentication);
@@ -86,7 +91,14 @@ public class ActivityController {
     @GetMapping("/all_activities")
     public String listActivities(Model model) {
         List<Activity> activities = activityService.findall();
-        model.addAttribute("activities", activities);
+        List<Activity> officialActivities = new ArrayList<>();
+        for (int x = 0; x < activityService.getActivityListSize(); x++) {
+            Activity currentActivity = activities.get(x);
+            if(currentActivity.getIsOfficial() == true) {
+                officialActivities.add(currentActivity);
+            }
+        }
+        model.addAttribute("activities", officialActivities);
         return "all-activities";
     }
 }
