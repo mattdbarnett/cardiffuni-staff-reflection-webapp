@@ -7,16 +7,15 @@ import group03.project.domain.Activity;
 import group03.project.services.implementation.ParticipationService;
 import group03.project.services.offered.SiteUserService;
 import group03.project.services.offered.TagService;
+import group03.project.web.forms.ActivityJoinForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -98,7 +97,28 @@ public class ActivityController {
                 officialActivities.add(currentActivity);
             }
         }
+        ActivityJoinForm editForm = new ActivityJoinForm();
+        model.addAttribute("editForm", editForm);
         model.addAttribute("activities", officialActivities);
         return "all-activities";
+    }
+
+    @PostMapping("/all_activities")
+    public String joinActivity(@ModelAttribute("activity") @Valid ActivityJoinForm editForm, Authentication authentication) {
+        java.util.Date date = new java.util.Date();
+
+        String currentUserName = ControllerSupport.getAuthenticatedUserName(authentication);
+        Optional<SiteUser> currentUserOptional = siteUserService.findUserByUserName(currentUserName);
+        SiteUser currentUser = currentUserOptional.get();
+        Long currentUserID = currentUser.getUserID();
+        Integer currentUserIDInt = currentUserID.intValue();
+
+        System.out.println(editForm);
+        System.out.println(editForm.getActivityJoinID());
+
+
+        Participation participation = new Participation(null, date, Integer.parseInt(editForm.getActivityJoinID()), currentUserIDInt, "Participant");
+        participationService.save(participation);
+        return "redirect:";
     }
 }

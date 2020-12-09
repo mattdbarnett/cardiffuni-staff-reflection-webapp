@@ -15,11 +15,15 @@
 <div id="content-pane">
 <h1>All activities</h1>
         <ul>
-            <li th:each="activity : ${activities}">
-                <p th:text = "${activity.activityID}"></p>
-                <p th:text = "${activity.name}"></p>
-                <p th:text = "${activity.file}"></p>
-                <p th:text = "${activity.desc}"></p>
+            <li action="#" th:each="activity : ${activities}" >
+                <form action="#" th:action="@{all_activities/}" enctype="multipart/form-data" method="post" th:object="${editForm}">
+                    <p th:text = "${activity.activityID}"></p>
+                    <p th:text = "${activity.name}"></p>
+                    <p th:text = "${activity.file}"></p>
+                    <p th:text = "${activity.desc}"></p>
+                    <input type = "hidden" th:name="activityJoinID" th:value = "${activity.activityID}"/>
+                    <button type="submit">Join Activity</button>
+                </form>
             </li>
         </ul>
     </div>
