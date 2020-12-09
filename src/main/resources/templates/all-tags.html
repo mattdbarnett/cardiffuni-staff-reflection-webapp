@@ -53,20 +53,18 @@
             </thead>
             <tr th:each = "tag : ${tags}">
                 <td th:unless = "${tag.isOfficial}" th:text = "${tag.tagName}"></td>
-                <td th:unless = "${tag.isOfficial}"th:text = "${tag.description}"></td>
+                <td th:unless = "${tag.isOfficial}" th:text = "${tag.description}"></td>
+                <td th:unless = "${tag.isOfficial}" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <form class = "delete-form" th:action="@{/delete-tag}" enctype="multipart/form-data" method="post" th:object="${tag}">
+                    <input type = "hidden" th:value = "${tag.tagName}" name = "deleteButton"/>
+                    <button type = "submit" th:action = "@{/admin/delete-tag}" th:object="${tag}" class = "glyphicon-floppy-remove" name="action" value = "remove">
+                        Remove
+                    </button>
+                </td>
 
             </tr>
         </table>
-<!--        <ul>-->
-<!--            <li th:each = "tag : ${tags}">-->
-<!--&lt;!&ndash;                <a th:id = "tag + ${tag.tagID}"&ndash;&gt;-->
-<!--&lt;!&ndash;                   th:href = "@{/admin/account/{user} (user = ${user.userName})}">&ndash;&gt;-->
 
-<!--                    <p th:text = "${tag.tagID}">CONTENT MISSING</p>-->
-<!--&lt;!&ndash;                </a>&ndash;&gt;-->
-<!--&lt;!&ndash;                <p th:text = "${user.userName}"></p>&ndash;&gt;-->
-<!--            </li>-->
-<!--        </ul>-->
     </div>
 </div>
 </body>

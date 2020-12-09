@@ -4,13 +4,12 @@ import group03.project.domain.Tag;
 import group03.project.services.implementation.TagServiceImpl;
 import group03.project.services.offered.TagService;
 import group03.project.web.forms.TagCreationForm;
+import org.apache.coyote.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -95,5 +94,13 @@ public class TagAdminController{
             return null;
         }
         return newTag;
+    }
+
+    @PostMapping("/delete-tag")
+    public String deleteTag(@ModelAttribute("tag") Tag theTag, BindingResult result) {
+
+        tagService.deleteSelectedTag(theTag.getTagName());
+
+        return "redirect:admin/all-tags";
     }
 }
