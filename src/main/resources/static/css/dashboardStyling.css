@@ -16,11 +16,20 @@ body {
 }
 
 .btn-sq-lg {
-    width: 150px !important;
-    height: 150px !important;
+    width: 150px;
+    height: 150px;
     margin-bottom:2%;
+    margin-right:2%;
+    background-color:#2b354c;!important;
+    -webkit-box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.37);
+    -moz-box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.37);
+    box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.37);
+    transition: 0.2s;
 }
 
+.btn-sq-lg:hover{
+    padding-top:8px;
+}
 
 @media screen and (max-width: 767px) {
     #buttons-container{
@@ -46,7 +55,3 @@ body {
 }
 
 
-.btn-sq-lg{
-    margin-right:2%;
-    background-color:#2b354c;!important;
-}
