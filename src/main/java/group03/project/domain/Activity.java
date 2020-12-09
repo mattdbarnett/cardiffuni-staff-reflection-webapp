@@ -23,6 +23,8 @@ public class Activity {
     private String file;
     @Column(name="description")
     private String desc;
+    @Column(name="isOfficial")
+    private Boolean isOfficial;
 
 
 }

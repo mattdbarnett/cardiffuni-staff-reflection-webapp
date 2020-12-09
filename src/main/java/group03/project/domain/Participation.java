@@ -18,13 +18,14 @@ public class Participation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="participationID")
     private Integer participationID;
+    @Column(name="Activity_activityID")
+    private Integer activityID;
     @DateTimeFormat
     @Column(name="date")
     private Date date;
-    @Column(name="Activity_activityID")
-    private Integer activityID;
-    @Column(name="siteUser_userID")
-    private Integer userID;
     @Column(name="Role_roleID")
     private String roleID;
+    @Column(name="siteUser_userID")
+    private Integer userID;
+
 }

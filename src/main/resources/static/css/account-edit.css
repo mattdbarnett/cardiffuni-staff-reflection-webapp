@@ -1,7 +1,7 @@
 
-* {
-    font-family: Calibri, serif;
-}
+/** {*/
+/*    font-family: Calibri, serif;*/
+/*}*/
 #nameForm {
     display: none;
 }
@@ -14,9 +14,9 @@
     display: none;
 }
 
-head {
-    font-family: Arial, serif;
-}
+/*head {*/
+/*    font-family: Arial, serif;*/
+/*}*/
 
 #boldDiv {
     font-weight: bold;

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Custom Activity Registration</title>
+    <title>Official Activity Registration</title>
     <link th:rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <style>
         font-family: "Karla", sans-serif;
@@ -12,8 +12,8 @@
 <div th:replace="navbar.html :: header"></div>
 <div th:replace="snackbar.html :: body"></div>
 <div align="center">
-    <h1>Custom Activity Registration</h1>
-    <form action="#" th:action="@{/add_custom_activity}" method="post" th:object="${activity}">
+    <h1>Official Activity Registration</h1>
+    <form action="#" th:action="@{add-official-activity/}" method="post" th:object="${activity}">
         <label>Activity Name:</label>
         <input type="text" th:field="*{name}" /><br/>
 
