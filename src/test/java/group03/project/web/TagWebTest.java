@@ -55,5 +55,23 @@ public class TagWebTest {
                 .andExpect(content().string(containsString("tester tag")));
     }
 
+    @Test
+    @WithMockUser(username="user", password = "password1", roles = "USER")
+    public void shouldNotSeeDeleteButtonAsUser() throws Exception {
+
+    }
+
+    @Test
+    @WithMockUser(username="user", password = "password1", roles = "ADMIN")
+    public void shouldSeeDeleteButtonAsAdmin() throws Exception {
+
+    }
+    
+    @Test
+    @WithMockUser(username="user", password = "password1", roles = "ADMIN")
+    public void shouldCreateAViewableCustomTagAndDelete() throws Exception {
+
+    }
+
 
 }
