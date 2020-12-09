@@ -4,7 +4,7 @@ import group03.project.domain.Participation;
 import group03.project.domain.SiteUser;
 import group03.project.services.implementation.ActivityService;
 import group03.project.domain.Activity;
-import group03.project.services.implementation.ParticipationService;
+import group03.project.services.implementation.ParticipationServiceImpl;
 import group03.project.services.offered.SiteUserService;
 import group03.project.web.forms.ActivityJoinForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class ActivityController {
     private ActivityService activityService;
 
     @Autowired
-    private ParticipationService participationService;
+    private ParticipationServiceImpl participationService;
 
     @Autowired
     private SiteUserService siteUserService;
@@ -68,8 +68,8 @@ public class ActivityController {
 
         Integer currentUserID = getCurrentID(authentication);
 
-        Participation participation = new Participation(null, date, activity.getActivityID(), currentUserID, "Participant");
-        participationService.save(participation);
+        Participation participation = new Participation(null,  activity.getActivityID(), date, "Participant", currentUserID );
+        participationService.createParticipation(participation);
         return "redirect:";
     }
 
@@ -77,7 +77,7 @@ public class ActivityController {
     @GetMapping("/activities-signup-list")
     public String listActivities(Model model, Authentication authentication) {
         List<Activity> activities = activityService.findall();
-        List<Participation> participations = participationService.findall();
+        List<Participation> participations = participationService.findAllParticipations();
         Integer currentID = getCurrentID(authentication);
 
         //Get a list of all activities the user is currently participating in
@@ -113,8 +113,8 @@ public class ActivityController {
 
         Integer currentUserID = getCurrentID(authentication);
 
-        Participation participation = new Participation(null, date, Integer.parseInt(editForm.getActivityJoinID()), currentUserID, "Participant");
-        participationService.save(participation);
+        Participation participation = new Participation(null, Integer.parseInt(editForm.getActivityJoinID()),date,"Participant",  currentUserID  );
+        participationService.createParticipation(participation);
         return "redirect:";
     }
 

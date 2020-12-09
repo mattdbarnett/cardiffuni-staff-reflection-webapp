@@ -1,4 +1,4 @@
-package group03.project.repositories;
+package group03.project.services.required;
 
 import group03.project.domain.Activity;
 import group03.project.domain.Participation;

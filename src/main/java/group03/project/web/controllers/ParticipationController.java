@@ -1,19 +1,15 @@
 package group03.project.web.controllers;
 
-import group03.project.domain.Activity;
 import group03.project.domain.Participation;
 import group03.project.domain.SiteUser;
 import group03.project.services.implementation.ActivityService;
-import group03.project.services.implementation.ParticipationService;
+import group03.project.services.implementation.ParticipationServiceImpl;
 import group03.project.services.offered.SiteUserService;
-import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
@@ -25,7 +21,7 @@ import java.util.Optional;
 public class ParticipationController {
 
     @Autowired
-    private ParticipationService participationService;
+    private ParticipationServiceImpl participationService;
 
     @Autowired
     private ActivityService activityService;
@@ -36,7 +32,7 @@ public class ParticipationController {
     //Lists all participations
     @GetMapping("/all-participations")
     public String listParticipations(Model model) {
-        List<Participation> participations = participationService.findall();
+        List<Participation> participations = participationService.findAllParticipations();
         model.addAttribute("participations", participations);
         return "all-participations";
     }
@@ -44,7 +40,7 @@ public class ParticipationController {
     //Return the user's participations
     @GetMapping("/all-my-participations")
     public String listMyParticipations(Model model, Authentication authentication) {
-        List<Participation> participations = participationService.findall();
+        List<Participation> participations = participationService.findAllParticipations();
         List<Participation> myParticipations = new ArrayList<>();
         Integer currentID = getCurrentID(authentication);
 

@@ -2,11 +2,10 @@ package group03.project.web;
 
 import group03.project.domain.Activity;
 import group03.project.services.implementation.ActivityService;
-import group03.project.services.implementation.ParticipationService;
+import group03.project.services.implementation.ParticipationServiceImpl;
 import group03.project.services.offered.SiteUserService;
 import group03.project.web.controllers.ActivityController;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -48,7 +47,7 @@ public class ActivityTest {
     private ActivityService activityService;
 
     @MockBean
-    private ParticipationService participationService;
+    private ParticipationServiceImpl participationService;
 
     @MockBean
     private SiteUserService siteUserService;

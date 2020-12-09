@@ -2,15 +2,18 @@ package group03.project.repositories;
 
 import group03.project.domain.Activity;
 import group03.project.domain.Participation;
+import group03.project.domain.Role;
+import group03.project.domain.SiteUser;
 import group03.project.services.implementation.ActivityService;
-import group03.project.services.implementation.ParticipationService;
+import group03.project.services.offered.ParticipationService;
+import group03.project.services.required.ParticipationRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,18 +27,28 @@ public class ParticipationTest {
     ParticipationRepository participationRepository;
 
     @Autowired
-    ParticipationService participationService;
+    ActivityRepository activityRepository;
 
-    @Autowired
-    ActivityService activityService;
+
+//    @Autowired
+//    ParticipationService participationService;
+//
+//    @Autowired
+//    ActivityService activityService;
 
     @Test
     @WithMockUser(username="admin", password="pass", roles = "ADMIN")
     public void addParticipationForOActivity() {
+
         Activity testActivity = new Activity(null, "Test Activity", "Test Url", "Test Desc", true);
+
+        activityRepository.save(testActivity);
+
         java.util.Date date = new java.util.Date();
 
-        Participation testParticipation = new Participation(null, date, testActivity.getActivityID(), 1, "USER");
+        Participation testParticipation = new Participation(null, testActivity.getActivityID(), date, "Participant",  1 );
+
+        participationRepository.save(testParticipation);
 
         Optional<Participation> findTest = participationRepository.findById(testParticipation.getParticipationID());
 
@@ -45,10 +58,13 @@ public class ParticipationTest {
     @Test
     @WithMockUser(username="admin", password="pass", roles = "ADMIN")
     public void generateParticipationID() {
-        Activity testActivity = new Activity(null, "Test Activity", "Test Url", "Test Desc", true);
-        java.util.Date date = new java.util.Date();
 
-        Participation testParticipation = new Participation(null, date, testActivity.getActivityID(), 1, "USER");
+        Activity testActivity = new Activity(null, "Test Activity", "Test Url", "Test Desc", true);
+        activityRepository.save(testActivity);
+
+        java.util.Date date = new java.util.Date();
+        Participation testParticipation = new Participation(null, testActivity.getActivityID(), date, "Participant",  1 );
+        participationRepository.save(testParticipation);
 
         Optional<Participation> findTest = participationRepository.findById(testParticipation.getParticipationID());
 
