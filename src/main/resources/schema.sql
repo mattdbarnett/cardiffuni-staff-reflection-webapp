@@ -2,7 +2,7 @@
 -- Sun Nov 22 20:59:33 2020
 -- Model: New Model    Version: 1.0
 -- MySQL Workbench Forward Engineering
-SET MODE MYSQL;
+-- SET MODE MYSQL;
 
 -- -----------------------------------------------------
 -- Schema mydb
@@ -119,7 +119,6 @@ CREATE TABLE IF NOT EXISTS participation(
   siteUser_userID INT(11) NOT NULL,
   Activity_activityID INT(11) NOT NULL,
   Role_roleID VARCHAR(45) NOT NULL,
-  Reflection_reflectionID INT(45) NOT NULL,
   PRIMARY KEY (participationID),
     FOREIGN KEY (Activity_activityID)
     REFERENCES activity (activityID)
@@ -133,9 +132,5 @@ CREATE TABLE IF NOT EXISTS participation(
     REFERENCES role (role)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    FOREIGN KEY (Reflection_reflectionID)
-    REFERENCES reflection (reflectionID)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
 )
 ENGINE = InnoDB;

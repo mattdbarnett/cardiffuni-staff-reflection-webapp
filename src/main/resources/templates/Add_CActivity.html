@@ -13,7 +13,7 @@
 <div th:replace="snackbar.html :: body"></div>
 <div align="center">
     <h1>Custom Activity Registration</h1>
-    <form action="#" th:action="@{/add_custom_activity}" method="post" th:object="${activity}">
+    <form action="#" th:action="@{add_custom_activity/}" enctype="multipart/form-data" method="post" th:object="${activity}">
         <label>Activity Name:</label>
         <input type="text" th:field="*{name}" /><br/>
 
