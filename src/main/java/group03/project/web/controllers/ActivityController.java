@@ -1,7 +1,9 @@
 package group03.project.web.controllers;
 
+import group03.project.domain.Participation;
 import group03.project.services.implementation.ActivityService;
 import group03.project.domain.Activity;
+import group03.project.services.implementation.ParticipationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,9 @@ public class ActivityController {
 
     @Autowired
     private ActivityService activityService;
+
+    @Autowired
+    private ParticipationService participationService;
 
     //Page for adding an official activity as an administrator
     @GetMapping("/add_official_activity")
@@ -54,6 +59,9 @@ public class ActivityController {
         String inputName = activity.getName();
         activity.setName("[Custom] " + inputName);
         activityService.save(activity);
+        java.util.Date date = new java.util.Date();
+        Participation participation = new Participation(null, date, activity.getActivityID(), 1, "0");
+        participationService.save(participation);
         return "redirect:";
     }
 
