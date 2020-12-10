@@ -1,8 +1,7 @@
 package group03.project.services.implementation;
 
 import group03.project.domain.Activity;
-import group03.project.repositories.ActivityRepository;
-import group03.project.services.required.ActivityRead;
+import group03.project.services.required.ActivityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ActivityService implements ActivityRead {
+public class ActivityService implements ActivityRepository {
 
     @Autowired
-    private ActivityRepository activityRepo;
+    private group03.project.repositories.ActivityRepository activityRepo;
 
     //Returns a list of all activities in the database
     public List<Activity> getAllActivities() {

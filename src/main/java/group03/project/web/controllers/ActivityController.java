@@ -66,7 +66,7 @@ public class ActivityController {
         Integer currentUserID = getCurrentID(authentication);
         Participation participation = new Participation(null, activity.getActivityID(), date, "Participant", currentUserID );
         participationService.createParticipation(participation);
-        return "redirect:";
+        return "dashboard";
     }
     //List all activities the user can add themselves too
     @GetMapping("/activities-signup-list")
@@ -104,7 +104,7 @@ public class ActivityController {
         Integer currentUserID = getCurrentID(authentication);
         Participation participation = new Participation(null,  Integer.parseInt(editForm.getActivityJoinID()),date, "Participant", currentUserID);
         participationService.createParticipation(participation);
-        return "redirect:";
+        return "dashboard";
     }
     //Get the current user's ID
     Integer getCurrentID(Authentication authentication) {

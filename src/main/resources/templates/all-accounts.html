@@ -36,8 +36,8 @@
                     <tbody>
                     <tr th:each = "user : ${users}" style="padding-top:15px;">
                         <th scope="row" th:text="${user.userID}"></th>
-                        <td><a th:text="${user.name}"
-                            th:href="@{/admin/account/{id} (id = ${user.userID})}"></a></td>
+                        <td><a th:text="${user.userName}"
+                            th:href="@{/admin/account/{userName} (userName = ${user.userName})}"></a></td>
                         <td th:text="${user.emailAddress}"></td>
                         <td><button type="button" name="delete_user" class="btn btn-danger" data-toggle="modal" data-target="#deleteAccConfirmation">Delete Account</button>
                         </td>
