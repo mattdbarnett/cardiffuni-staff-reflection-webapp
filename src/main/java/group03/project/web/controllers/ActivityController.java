@@ -66,7 +66,7 @@ public class ActivityController {
         Integer currentUserID = getCurrentID(authentication);
         Participation participation = new Participation(null, activity.getActivityID(), date, "Participant", currentUserID );
         participationService.createParticipation(participation);
-        return "dashboard";
+        return "redirect:/user/dashboard";
     }
     //List all activities the user can add themselves too
     @GetMapping("/activities-signup-list")
