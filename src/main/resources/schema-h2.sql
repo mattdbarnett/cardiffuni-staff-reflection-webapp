@@ -2,6 +2,7 @@
 -- Sun Nov 22 20:59:33 2020
 -- Model: New Model    Version: 1.0
 -- MySQL Workbench Forward Engineering
+SET MODE MYSQL;
 
 -- -----------------------------------------------------
 -- Schema mydb
