@@ -93,6 +93,34 @@ public class ReflectController {
         return "dashboard";
     }
 
+    //Return the user's reflections
+    @GetMapping("/all-my-reflections")
+    public String listMyParticipations(Model model, Authentication authentication) {
+        List<Reflection> reflections = reflectService.findall();
+        List<Reflection> myReflections = new ArrayList<>();
+        Integer currentID = getCurrentID(authentication);
+
+        //Get a list of all participations the user can or has reflected on
+        List<Participation> participations = participationService.findAllParticipations();
+        List<Integer> currentParticipations = new ArrayList<>();
+        for (int y = 0; y < participationService.getParticipationListSize(); y++) {
+            Participation currentPart = participations.get(y);
+            if(currentPart.getUserID() == currentID) {
+                currentParticipations.add(currentPart.getParticipationID());
+            }
+        }
+
+        //Make a list of all the participations unique to the current user
+        for (int z = 0; z < reflectService.findall().size(); z++) {
+            Reflection reflection = reflections.get(z);
+            if(currentParticipations.contains(reflection.getParticipationID())) {
+                myReflections.add(reflection);
+            }
+        }
+
+        model.addAttribute("reflections", myReflections);
+        return "all-reflections";
+    }
 
     //Get the current user's ID
     Integer getCurrentID(Authentication authentication) {
