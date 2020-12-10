@@ -63,7 +63,7 @@ public class UserRegistrationController {
                  * Catches any errors made via JPA addition.
                  */
             } catch (Exception e) {
-                System.out.println("unable to create account");
+                System.out.println("That username is taken; please try again");
 
                 return "redirect:register";
             }

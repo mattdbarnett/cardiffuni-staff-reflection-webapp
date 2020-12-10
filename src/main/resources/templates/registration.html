@@ -27,29 +27,29 @@
                     <!--Covers input of naming field-->
                     <div class="form-group">
                         <label>Please enter your preferred username:</label>
-                        <input class="form-control" th:field = "*{userName}">
-                        <p th:if = "${#fields.hasErrors('password')}" th:errors = "*{userName}">
+                        <input id = "userName" minlength=4 maxlength=32 class="form-control" th:field = "*{userName}">
+                        <p th:if = "${#fields.hasErrors('userName')}" th:errors = "*{userName}">
                             Placeholder text for error>
                         </p>
                     </div>
                     <div class="form-group">
                         <label>Email Address</label>
-                        <input class="form-control" th:field = "*{emailAddress}" type = "text">
+                        <input type = "email" class="form-control" th:field = "*{emailAddress}">
                         <p th:if = "${#fields.hasErrors('emailAddress')}" th:errors = "*{emailAddress}">
                             Placeholder text for error
                         </p>
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input class="form-control" type = "password" th:field = "*{password}">
+                        <input minlength=5 maxlength=32 class="form-control" type = "password" th:field = "*{password}">
                         <p th:if = "${#fields.hasErrors('password')}" th:errors = "*{password}">
                             Placeholder text for error>
                         </p>
                     </div>
                     <div class="form-group">
                         <label>Confirm Password</label>
-                        <input class="form-control" type = "password" th:field = "*{matchingPassword}">
-                        <p th:if = "${#fields.hasErrors('password')}" th:errors = "*{matchingPassword}">
+                        <input minlength=5 maxlength=32  class="form-control" type = "password" th:field = "*{matchingPassword}">
+                        <p th:if = "${#fields.hasErrors('matchingPassword')}" th:errors = "*{matchingPassword}">
                         Placeholder text for error>
                     </p>
                     </div>
