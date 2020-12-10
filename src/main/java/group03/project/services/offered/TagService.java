@@ -43,5 +43,9 @@ public interface TagService {
      */
     public List<Tag> findTagsIfCustom();
 
+    /**
+     * Delete tag in system by id
+     * @param tagID the tag's id in database.
+     */
     public void deleteSelectedTag(Long tagID);
 }

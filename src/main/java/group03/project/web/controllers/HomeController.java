@@ -72,7 +72,6 @@ public class HomeController {
      */
     @GetMapping("/logout")
     public String HandleLogout(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("logging out from system.");
         /*
           Collects current authentication found in session.
          */

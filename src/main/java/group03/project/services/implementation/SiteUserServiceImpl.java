@@ -33,6 +33,7 @@ public class SiteUserServiceImpl implements SiteUserService {
     @Override
     public Optional<SiteUser> findUserByUserName(String userName) { return userRepoJPA.findByUserName(userName); }
 
+
     @Override
     public void updateUser(SiteUser user) {
 
@@ -53,5 +54,7 @@ public class SiteUserServiceImpl implements SiteUserService {
     @Override
     public void createAUser(SiteUser aSiteuser) { userRepoJPA.save(aSiteuser); }
 
+    @Override
+    public void deleteSelectedUser(Long userID) { userRepoJPA.deleteById(userID); }
 
 }

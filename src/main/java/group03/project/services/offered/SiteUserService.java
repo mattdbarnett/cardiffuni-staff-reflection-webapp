@@ -49,4 +49,10 @@ public interface SiteUserService {
      */
     public Optional<SiteUser> findUserByUserName(String name);
 
+    /**
+     * Delete user in system by id
+     * @param userID the tag's id in database.
+     */
+    public void deleteSelectedUser(Long userID);
+
 }
