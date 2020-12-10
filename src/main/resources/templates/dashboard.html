@@ -96,6 +96,7 @@
                 <div>
                     <h3>UKPSF Progression</h3>
                     <br>
+                    <canvas id="pieChart"></canvas>
                 </div>
                 <br clear="all">
             </div>
@@ -103,6 +104,9 @@
                 <div>
                     <h3>Completed UKPSF Tags</h3>
                     <br>
+                    <div th:each="tag : ${tags}">
+                        <h1 th:text="${tag.tagName}"></h1>
+                    </div>
                 </div>
                 <br clear="all">
             </div>
@@ -132,6 +136,46 @@
     }).get();
 
 
+
+</script>
+<script th:inline="javascript">
+    var tagList = []
+    var thTagList = /*[[${tags}]]*/ [];
+    for (i=0;i<thTagList.length;i++){
+        tagList.push(thTagList[i].tagName);
+    }
+    console.log(thTagList);
+    var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
+    console.log(pieChartCanvas);
+    var pieChart = new Chart(pieChartCanvas);
+    var PieData = [];
+    var pieOptions = {
+        type: 'pie',
+        segmentShowStroke: true,
+        segmentStrokeColor: "#fff",
+        segmentStrokeWidth: 2,
+        percentageInnerCutout: 0,
+        animationSteps: 100,
+        animationEasing: "easeOutBounce",
+        animateRotate: true,
+        animateScale: false,
+        responsive: true,
+        maintainAspectRatio: true,
+    };
+    tagList.forEach(function(tagg) {
+        var random_color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+        PieData.push({
+            value: 1,
+            color: random_color,
+            highlight: random_color,
+            label: tagg
+        });
+    });
+    var myPieChart = new Chart(pieChartCanvas, {
+      type: 'pie',
+      data: PieData,
+      options: pieOptions
+    });
 
 </script>
 </body>
