@@ -15,11 +15,11 @@ public class Reflection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="reflectionID")
-    private long reflectionID;
+    private Integer reflectionID;
     @Column(name="Participation_participationID")
-    private long participationID;
+    private Integer participationID;
     @Column(name="Tag_tagID")
-    private long tagID;
+    private Integer tagID;
     @Column(name="Reflect_what")
     private String reflect_what;
     @Column(name="Reflect_prompt")
