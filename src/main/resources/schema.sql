@@ -2,7 +2,7 @@
 -- Sun Nov 22 20:59:33 2020
 -- Model: New Model    Version: 1.0
 -- MySQL Workbench Forward Engineering
-SET MODE MYSQL;
+-- SET MODE MYSQL;
 
 -- -----------------------------------------------------
 -- Schema mydb
@@ -102,9 +102,14 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS reflection(
    reflectionID INT(11) NOT NULL AUTO_INCREMENT,
-   reflection VARCHAR(45) NULL DEFAULT NULL,
    Participation_participationID INT(11) NOT NULL,
    Tag_tagID INT(11) NOT NULL,
+   Reflect_what VARCHAR(180),
+   Reflect_prompt VARCHAR(180),
+   Reflect_happen VARCHAR(180),
+   Reflect_eval VARCHAR(180),
+   Reflect_diff VARCHAR(180),
+   Reflect_lp VARCHAR(180),
    PRIMARY KEY (reflectionID),
    FOREIGN KEY (Tag_tagID)
        REFERENCES tag (tagID)
