@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"><head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
     <meta charset="UTF-8">
     <title>Professional Development Tracker</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -10,7 +11,9 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/d312da903a.js" crossorigin="anonymous"></script>
-    <script th:src="@{/static/js/snackbar.js}"></script>
+    <script th:src="@{/js/snackbar.js}"></script>
+    <script th:src="@{/js/daysUntil.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
 </head>
 <body>
 <div th:replace="navbar.html :: header"></div>
@@ -53,6 +56,37 @@
             </div>
         </div>
     </div>
+    <div class="container" style="position:relative;margin-top:10px;">
+        <div class="content-pane">
+            <div class="well profile" id="container-box-upcoming" style="float:left;">
+                <div>
+                            <h3>Upcoming activities</h3>
+                            <br>
+                            <div class="list-group">
+                                <th:block th:each="participation : ${participations}">
+                                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1" th:text="${'Participation #'+participation.participationID}"></h5>
+                                        <small th:text="${#strings.arraySplit(participation.date, ' ')[0]}"></small>
+                                    </div>
+                                    <p class="mb-1">participation description</p>
+                                    <small class="date-field" th:text="${#strings.arraySplit(participation.date, ' ')[0]}"></small>
+                                </a>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
+            <div class="well profile" id="container-box-graph" style="float:right;">
+                <div>
+                    <h3>UKPSF Progression</h3>
+                    <br>
+                </div>
+                <br clear="all">
+            </div>
+            <br clear="all">
+            </div>
+        </div>
+    </div>
 </main>
 <script>
     const pathname = window.location.pathname,
@@ -63,6 +97,19 @@
         else if (this.className.includes('active'))
             $(this).removeClass('active');
     });
+</script>
+<script>
+    var all = $(".date-field").map(function() {
+
+            var start = moment();
+            var end = moment(this.innerHTML, "YYYY-MM-DD");
+            var amountofDays = Math.floor(moment.duration(start.diff(end)).asDays());
+            this.innerHTML = amountofDays + " days left"
+
+    }).get();
+
+
+
 </script>
 </body>
 </html>
