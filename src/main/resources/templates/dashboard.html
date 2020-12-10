@@ -8,7 +8,7 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <link th:rel="stylesheet" th:href="@{/css/dashboardStyling.css} "/>
     <link th:rel="stylesheet" th:href="@{/css/snackbarStyling.css} "/>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/d312da903a.js" crossorigin="anonymous"></script>
@@ -133,15 +133,27 @@
 <script th:inline="javascript">
     var tagList = []
     var thTagList = /*[[${tags}]]*/ [];
+
     for (i=0;i<thTagList.length;i++){
         tagList.push(thTagList[i].tagName);
     }
-    console.log(thTagList);
-    var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
-    console.log(pieChartCanvas);
-    var pieChart = new Chart(pieChartCanvas);
-    var PieData = [];
+
+    var pieChartCanvas = document.getElementById("pieChart").getContext("2d");
+    var pieData = [];
+
+    tagList.forEach(function(tagg) {
+        var random_color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+        pieData.push({
+            value: 1,
+            color: random_color,
+            highlight: random_color,
+            label: tagg
+        });
+    });
+
+    console.log(pieData);
     var pieOptions = {
+
         type: 'pie',
         segmentShowStroke: true,
         segmentStrokeColor: "#fff",
@@ -154,20 +166,8 @@
         responsive: true,
         maintainAspectRatio: true,
     };
-    tagList.forEach(function(tagg) {
-        var random_color = '#' + Math.floor(Math.random() * 16777215).toString(16);
-        PieData.push({
-            value: 1,
-            color: random_color,
-            highlight: random_color,
-            label: tagg
-        });
-    });
-    var myPieChart = new Chart(pieChartCanvas, {
-      type: 'pie',
-      data: PieData,
-      options: pieOptions
-    });
+
+    var myPieChart = new Chart(pieChartCanvas).Pie(pieData,pieOptions);
 
 </script>
 </body>
