@@ -68,7 +68,7 @@
         <div class="content-pane">
             <div class="well profile" id="container-box-upcoming" style="float:left;">
                 <div>
-                    <h3>Upcoming activities</h3>
+                    <h3>Your Recent Activities</h3>
                     <br>
                     <div class="list-group">
                         <th:block th:each="participation : ${participations}">
@@ -123,8 +123,8 @@
 
             var start = moment();
             var end = moment(this.innerHTML, "YYYY-MM-DD");
-            var amountofDays = Math.floor(moment.duration(start.diff(end)).asDays());
-            this.innerHTML = amountofDays + " days left"
+            var amountofDays = moment().diff(end,'days',false);
+            this.innerHTML = amountofDays + " days since added"
 
     }).get();
 
