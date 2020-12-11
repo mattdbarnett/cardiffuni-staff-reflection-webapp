@@ -1,6 +1,7 @@
 package group03.project.web;
 
 import group03.project.TestSupport;
+
 import group03.project.domain.SiteUser;
 import group03.project.services.required.SiteUserRepository;
 import group03.project.services.required.TagRepository;
@@ -20,6 +21,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import javax.transaction.Transactional;
 
 import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -101,8 +104,8 @@ public class UserAccountTest {
         repository.save(andrew);
 
         mvc.perform(get("/admin/all-accounts"))
-            .andExpect(status().isOk())
-            .andExpect(content().string(containsString("Andy")));
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Andy")));
 
         repository.deleteById(andrew.getUserID());
 
@@ -113,6 +116,15 @@ public class UserAccountTest {
 
     }
 
+    @Test
+    @DisplayName("User can see recent activities on dashboard")
+    @WithMockUser(username = "user", password = "password1", roles = "USER")
+    public void shouldSeeRecentActivitiesOnDash() throws Exception {
 
+        mvc.perform(get("/dashboard"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Your Recent Activities")));
+
+    }
 
 }

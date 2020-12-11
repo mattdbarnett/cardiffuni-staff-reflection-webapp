@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"><head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
     <meta charset="UTF-8">
     <title>Professional Development Tracker</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -7,10 +8,20 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <link th:rel="stylesheet" th:href="@{/css/dashboardStyling.css} "/>
     <link th:rel="stylesheet" th:href="@{/css/snackbarStyling.css} "/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/d312da903a.js" crossorigin="anonymous"></script>
-    <script th:src="@{/static/js/snackbar.js}"></script>
+    <script th:src="@{/js/snackbar.js}"></script>
+    <script th:src="@{/js/daysUntil.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
+    <style>
+        #container-box-completed-tags,#container-box-upcoming,#container-box-graph{
+            -webkit-box-shadow: 0px 0px 27px 0px rgba(0,0,0,0.37);
+            -moz-box-shadow: 0px 0px 27px 0px rgba(0,0,0,0.37);
+            box-shadow: 0px 0px 27px 0px rgba(0,0,0,0.37);
+        }
+    </style>
 </head>
 <body>
 <div th:replace="navbar.html :: header"></div>
@@ -53,13 +64,57 @@
                         <i class="fas fa-user-tag fa-5x"></i><br/>
                         View all<br>Tags
                     </a>
-<!--                    <a href="#" class="btn btn-sq-lg btn-primary" id="view-a-custom-tags-btn">-->
-<!--                        <i class="fab fa-intercom fa-5x"></i><br/>-->
-<!--                        View all<br>Custom Tags-->
-<!--                    </a>-->
+                    <!--                    <a href="#" class="btn btn-sq-lg btn-primary" id="view-a-custom-tags-btn">-->
+                    <!--                        <i class="fab fa-intercom fa-5x"></i><br/>-->
+                    <!--                        View all<br>Custom Tags-->
+                    <!--                    </a>-->
                 </p>
             </div>
         </div>
+    </div>
+    <div class="container" style="position:relative;margin-top:10px;">
+        <div class="content-pane">
+            <div class="well profile" id="container-box-upcoming" style="float:left;">
+                <div>
+                    <h3>Your Recent Activities</h3>
+                    <br>
+                    <div class="list-group">
+                        <th:block th:each="participation,iterStat : ${participations}" th:if="${iterStat.index} < 4">
+                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1" th:text="${'Participation #'+participation.participationID}"></h5>
+                                    <small th:text="${#strings.arraySplit(participation.date, ' ')[0]}"></small>
+                                </div>
+                                <p class="mb-1">participation description</p>
+                                <small class="date-field" th:text="${#strings.arraySplit(participation.date, ' ')[0]}"></small>
+                            </a>
+                        </th:block>
+                    </div>
+                    <a href="/user/all-my-participations">View all activities</a>
+                </div>
+            </div>
+            <div class="well profile" id="container-box-graph" style="margin-left:300px;">
+                <div>
+                    <h3>UKPSF Progression</h3>
+                    <br>
+                    <!-- <div id="legend"></div> -->
+                    <canvas id="doughnutChart"></canvas>
+                </div>
+                <br clear="all">
+            </div>
+            <div class="well profile" id="container-box-completed-tags" style="margin-top:40px;">
+                <div>
+                    <h3>Completed UKPSF Tags</h3>
+                    <br>
+                    <div th:each="tag : ${tags}">
+                        <h1 th:text="${tag.tagName}"></h1>
+                    </div>
+                </div>
+                <br clear="all">
+            </div>
+            <br clear="all">
+        </div>
+    </div>
     </div>
 </main>
 <script>
@@ -70,6 +125,92 @@
             $(this).addClass('active');
         else if (this.className.includes('active'))
             $(this).removeClass('active');
+    });
+</script>
+<script>
+    var all = $(".date-field").map(function() {
+
+            var start = moment();
+            var end = moment(this.innerHTML, "YYYY-MM-DD");
+            var amountofDays = moment().diff(end,'days',false);
+            this.innerHTML = amountofDays + " days since added"
+
+    }).get();
+
+
+
+</script>
+<script th:inline="javascript">
+    var tagList = []
+    var thTagList = /*[[${tags}]]*/ [];
+
+    for (i=0;i<thTagList.length;i++){
+        tagList.push(thTagList[i].tagName);
+    }
+
+    var doughnutChartCanvas = document.getElementById("doughnutChart").getContext("2d");
+    var doughnutData = [];
+
+    tagList.forEach(function(tagg) {
+            var random_color = "hsla(" + ~~(360 * Math.random()) + "," +
+                    "70%,"+
+                    "80%,1)";
+        doughnutData.push({
+            value: 1,
+            color: random_color,
+            highlight: random_color,
+            label: tagg
+        });
+    });
+
+    var doughnutOptions = {
+        tooltipEvents: [],
+        showTooltips: true,
+        onAnimationComplete: function() {
+            this.showTooltip(this.segments, true);
+        },
+        tooltipTemplate: "<%= label %> - <%= value %>",
+        tooltip: {
+               caretPadding: 50,
+               yAlign: 'bottom'
+           },
+
+        labels: tagList,
+        type: 'doughnut',
+        segmentShowStroke: true,
+        segmentStrokeColor: "#fff",
+        segmentStrokeWidth: 2,
+        percentageInnerCutout: 50,
+
+        animationSteps: 100,
+        animationEasing: "easeOutBounce",
+        animateRotate: true,
+        animateScale: false,
+        responsive: true,
+        maintainAspectRatio: true,
+        legend: {
+            display: true,
+            labels: {
+                fontColor: 'rgb(255, 99, 132)'
+            }
+        }
+    };
+
+    var myDoughnut = new Chart(doughnutChartCanvas).Doughnut(doughnutData,doughnutOptions);
+    /*
+    var legendHolder = document.createElement('div');
+    legendHolder.innerHTML = myDoughnut.generateLegend();
+    document.getElementById('legend').appendChild(legendHolder.firstChild);
+    */
+</script>
+<script>
+    var listitems = Array.from(document.getElementsByClassName("list-group-item"));
+    listitems_divided = listitems.filter(function(value, index, Arr) {
+        return index % 2 == 0;
+    });
+
+    listitems_divided.forEach(function(listitem) {
+        listitem.style.backgroundColor = "#4d90c9";
     });
 </script>
 </body>

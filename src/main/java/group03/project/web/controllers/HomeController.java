@@ -1,12 +1,18 @@
 package group03.project.web.controllers;
 
 import group03.project.config.SiteUserPrincipal;
+import group03.project.domain.Participation;
 import group03.project.domain.SiteUser;
+import group03.project.services.implementation.ParticipationServiceImpl;
+import group03.project.services.offered.SiteUserService;
 import group03.project.web.forms.UserCreationForm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ReactiveAdapterRegistry;
 import org.springframework.security.core.Authentication;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -20,12 +26,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Controller handles basic application navigation (login/logout)
  */
 @Controller
 public class HomeController {
+    @Autowired
+    private ParticipationServiceImpl participationService;
+
+    @Autowired
+    private SiteUserService siteUserService;
+
     /**
      * Default navigation mapping to access localhost:8080
      * @return login form for localhost;
@@ -52,6 +67,19 @@ public class HomeController {
           String parsed onto page as attribute for Thymeleaf
          */
         model.addAttribute("user", theUser);
+            List<Participation> participations = participationService.findAllParticipations();
+            List<Participation> myParticipations = new ArrayList<>();
+            Integer currentID = getCurrentID(authentication);
+
+            //Make a list of all the participations unique to the current user
+            for (int z = 0; z < participationService.getParticipationListSize(); z++) {
+                Participation participation = participations.get(z);
+                if(participation.getUserID() == currentID) {
+                    myParticipations.add(participation);
+                }
+            }
+
+            model.addAttribute("participations", myParticipations);
 
                 /*
           Redirects user object based upon authority set, streaming into 2 different dashboard pages.
@@ -62,6 +90,7 @@ public class HomeController {
             return "dashboard";
         }
     }
+
 
 
     /**
@@ -102,5 +131,14 @@ public class HomeController {
 //         */
 //
 //        return "redirect:";
+    }
+    Integer getCurrentID(Authentication authentication) {
+        String currentUserName = ControllerSupport.getAuthenticatedUserName(authentication);
+        Optional<SiteUser> currentUserOptional = siteUserService.findUserByUserName(currentUserName);
+        SiteUser currentUser = currentUserOptional.get();
+        Long currentUserID = currentUser.getUserID();
+        Integer currentUserIDInt = currentUserID.intValue();
+
+        return currentUserIDInt;
     }
 }
