@@ -77,6 +77,15 @@ public class UserAccountTest {
 
     }
 
+    @Test
+    @DisplayName("User can see recent activities on dashboard")
+    @WithMockUser(username = "user", password = "password1", roles = "USER")
+    public void shouldSeeRecentActivitiesOnDash() throws Exception {
 
+        mvc.perform(get("/dashboard"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Your Recent Activities")));
+
+    }
 
 }
