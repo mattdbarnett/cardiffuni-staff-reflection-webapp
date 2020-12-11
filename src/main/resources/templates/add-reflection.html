@@ -25,6 +25,7 @@
                         <option value="0">Select Activity</option>
                         <option th:each="activity : ${activities}" th:value="${activity.activityID}" th:text="${activity.name}"></option>
                     </select>
+                    <br>
                     <div class="form-group">
                         <label for="description">What did you do?</label>
                         <textarea rows="5" cols="25" th:field="*{reflect_what}" type="text" class="form-control" id="description" name="description"></textarea>
