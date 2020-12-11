@@ -19,6 +19,8 @@ public interface SiteUserRepository {
 
     public SiteUser save(SiteUser aSiteUser);
 
+    public void deleteById(Long theID);
+
 
 
 }
