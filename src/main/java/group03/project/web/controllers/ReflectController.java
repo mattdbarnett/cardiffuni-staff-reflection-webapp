@@ -6,10 +6,9 @@ import group03.project.domain.Reflection;
 import group03.project.domain.SiteUser;
 import group03.project.services.implementation.ActivityService;
 import group03.project.services.implementation.ParticipationServiceImpl;
-import group03.project.services.implementation.ReflectService;
+import group03.project.services.implementation.ReflectionServiceImpl;
 import group03.project.services.offered.SiteUserService;
 import group03.project.web.lists.ReflectList;
-import org.hibernate.dialect.CUBRIDDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.Part;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +30,7 @@ public class ReflectController {
     private ParticipationServiceImpl participationService;
 
     @Autowired
-    private ReflectService reflectService;
+    private ReflectionServiceImpl reflectionServiceImpl;
 
     @Autowired
     private ActivityService activityService;
@@ -100,14 +98,14 @@ public class ReflectController {
         reflection.setParticipationID(chosenParticipation.getParticipationID());
         reflection.setTagID(1); //Placeholder until we assign tags to activities
 
-        reflectService.save(reflection);
+        reflectionServiceImpl.save(reflection);
         return "dashboard";
     }
 
-    //Return the user's reflections
+    //Return the user's reflections in a user-friendly format
     @GetMapping("/all-my-reflections")
     public String listMyReflections(Model model, Authentication authentication) {
-        List<Reflection> reflections = reflectService.findall();
+        List<Reflection> reflections = reflectionServiceImpl.findall();
         List<Reflection> myReflections = new ArrayList<>();
         Integer currentID = getCurrentID(authentication);
 
@@ -124,7 +122,7 @@ public class ReflectController {
         List<ReflectList> formattedReflections = new ArrayList<>();
 
         //Make a list of all the participations unique to the current user
-        for (int z = 0; z < reflectService.findall().size(); z++) {
+        for (int z = 0; z < reflectionServiceImpl.findall().size(); z++) {
             Reflection reflection = reflections.get(z);
             if(currentParticipations.contains(reflection.getParticipationID())) {
                 myReflections.add(reflection);
@@ -132,6 +130,7 @@ public class ReflectController {
         }
 
 
+        //Return all reflections with activity and participation data in a user friendly format
         List<ReflectList> reflectLists = new ArrayList<>();
         for (int x = 0; x < myReflections.size(); x++) {
             Reflection currentReflection = myReflections.get(x);
@@ -158,6 +157,7 @@ public class ReflectController {
 
             reflectLists.add(currentReflectList);
         }
+
         model.addAttribute("reflections", reflectLists);
         return "all-reflections";
     }

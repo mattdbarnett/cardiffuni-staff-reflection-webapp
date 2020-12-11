@@ -41,6 +41,7 @@ public class ParticipationServiceImpl implements ParticipationService {
         return participation.size();
     }
 
+    //Returns the related activity to the inputted participation
     public Activity getRelatedActivity(Participation participation) {
         Activity foundActivity = new Activity();
         List<Activity> activities = activityRepository.findall();
