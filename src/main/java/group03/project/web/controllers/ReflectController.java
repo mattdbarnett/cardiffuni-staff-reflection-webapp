@@ -8,6 +8,8 @@ import group03.project.services.implementation.ActivityService;
 import group03.project.services.implementation.ParticipationServiceImpl;
 import group03.project.services.implementation.ReflectService;
 import group03.project.services.offered.SiteUserService;
+import group03.project.web.lists.ReflectList;
+import org.hibernate.dialect.CUBRIDDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -73,7 +75,16 @@ public class ReflectController {
     public String submitParticipation(@ModelAttribute("reflection") Reflection reflection, Authentication authentication) {
 
         Integer activityID = reflection.getParticipationID();
+        Activity chosenActivity = new Activity();
         reflection.setParticipationID(null);
+        List<Activity> activities = activityService.getAllActivities();
+        for (int y = 0; y < activityService.getActivityListSize(); y++) {
+            Activity currentActivity = activities.get(y);
+            if(currentActivity.getActivityID() == activityID) {
+                chosenActivity = currentActivity;
+            }
+        }
+
         Integer currentID = getCurrentID(authentication);
         List<Participation> participations = participationService.findAllParticipations();
         Participation chosenParticipation = new Participation();
@@ -95,7 +106,7 @@ public class ReflectController {
 
     //Return the user's reflections
     @GetMapping("/all-my-reflections")
-    public String listMyParticipations(Model model, Authentication authentication) {
+    public String listMyReflections(Model model, Authentication authentication) {
         List<Reflection> reflections = reflectService.findall();
         List<Reflection> myReflections = new ArrayList<>();
         Integer currentID = getCurrentID(authentication);
@@ -110,6 +121,8 @@ public class ReflectController {
             }
         }
 
+        List<ReflectList> formattedReflections = new ArrayList<>();
+
         //Make a list of all the participations unique to the current user
         for (int z = 0; z < reflectService.findall().size(); z++) {
             Reflection reflection = reflections.get(z);
@@ -118,7 +131,34 @@ public class ReflectController {
             }
         }
 
-        model.addAttribute("reflections", myReflections);
+
+        List<ReflectList> reflectLists = new ArrayList<>();
+        for (int x = 0; x < myReflections.size(); x++) {
+            Reflection currentReflection = myReflections.get(x);
+            Participation currentParticipation = new Participation();
+            for (int y = 0; y < currentParticipations.size(); y++) {
+                Participation participation = participations.get(y);
+                if(currentReflection.getParticipationID() == participation.getParticipationID()) {
+                    currentParticipation = participation;
+                }
+            }
+            Activity currentActivity = participationService.getRelatedActivity(currentParticipation);
+
+            ReflectList currentReflectList = new ReflectList(
+                    currentActivity.getName(),
+                    currentParticipation.getDate(),
+                    currentActivity.getIsOfficial(),
+                    currentReflection.getReflect_what(),
+                    currentReflection.getReflect_prompt(),
+                    currentReflection.getReflect_happen(),
+                    currentReflection.getReflect_eval(),
+                    currentReflection.getReflect_diff(),
+                    currentReflection.getReflect_lp()
+            );
+
+            reflectLists.add(currentReflectList);
+        }
+        model.addAttribute("reflections", reflectLists);
         return "all-reflections";
     }
 
