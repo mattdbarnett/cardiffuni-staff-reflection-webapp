@@ -27,16 +27,18 @@
     <div class="row">
         <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
             <div class="well profile" id="container-box">
-                <h1 align="center">My Activities</h1><hr style="background-color:#333;height:0.5px;">
+                <h1 align="center">My Reflections</h1><hr style="background-color:#333;height:0.5px;">
                 <ul class="list-group">
-                    <li class = "list-group-item" th:each="participation : ${participations}">
-                        <p th:text = "'Participation ID: '+ ${participation.participationID}"></p>
-                        <span class="badge" th:text="${participation.activityID}"></span>
-                        <p th:text = "'Participation Date: '+ ${participation.date}"></p>
-                        <p th:text = "'Activity ID: '+ ${participation.activityID}"></p>
-                        <p th:text = "'Current User: '+ ${participation.userID}"></p>
-                        <p th:text = "'User role: '+ ${participation.roleID}"></p>
-
+                    <li class = "list-group-item" th:each="reflectlist : ${reflections}">
+                        <p th:text = "'Activity Name: '+ ${reflectlist.activityName}"></p>
+                        <p th:text = "'Sign-Up Date: '+ ${reflectlist.date}"></p>
+                        <p th:text = "'Is it Official?: '+ ${reflectlist.isOfficial}"></p>
+                        <p th:text = "'What did you do? '+ ${reflectlist.reflect_what}"></p>
+                        <p th:text = "'What prompted your approach? '+ ${reflectlist.reflect_prompt}"></p>
+                        <p th:text = "'What happened? '+ ${reflectlist.reflect_happen}"></p>
+                        <p th:text = "'How will you evaluate this activity later? What evidence do you need? '+ ${reflectlist.reflect_eval}"></p>
+                        <p th:text = "'What could you have done differently? '+ ${reflectlist.reflect_diff}"></p>
+                        <p th:text = "'What are your reflective learning points? '+ ${reflectlist.reflect_lp}"></p>
 
                     </li>
                 </ul>
