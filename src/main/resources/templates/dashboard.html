@@ -71,7 +71,7 @@
                     <h3>Your Recent Activities</h3>
                     <br>
                     <div class="list-group">
-                        <th:block th:each="participation : ${participations}">
+                        <th:block th:each="participation,iterStat : ${participations}" th:if="${iterStat.index} < 4">
                             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1" th:text="${'Participation #'+participation.participationID}"></h5>
