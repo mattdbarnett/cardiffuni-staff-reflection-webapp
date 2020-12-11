@@ -1,6 +1,8 @@
 package group03.project.services.implementation;
 
+import group03.project.domain.Activity;
 import group03.project.domain.Participation;
+import group03.project.services.required.ActivityRepository;
 import group03.project.services.required.ParticipationRepository;
 import group03.project.services.offered.ParticipationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,9 @@ public class ParticipationServiceImpl implements ParticipationService {
 
     @Autowired
     private ParticipationRepository participationRepo;
+
+    @Autowired
+    private ActivityRepository activityRepository;
 
     @Override
     public List<Participation> findAllParticipations() { return participationRepo.findAll(); }
@@ -34,5 +39,18 @@ public class ParticipationServiceImpl implements ParticipationService {
         List<Participation> participation = new ArrayList<>();
         participationRepo.findAll().forEach(participation::add);
         return participation.size();
+    }
+
+    //Returns the related activity to the inputted participation
+    public Activity getRelatedActivity(Participation participation) {
+        Activity foundActivity = new Activity();
+        List<Activity> activities = activityRepository.findall();
+        for(int x = 0; x < activities.size(); x++) {
+            Activity currentActivity = activities.get(x);
+            if(currentActivity.getActivityID() == participation.getActivityID()) {
+                foundActivity = currentActivity;
+            }
+        }
+        return foundActivity;
     }
 }
