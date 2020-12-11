@@ -14,12 +14,12 @@ public class ReflectionServiceImpl implements ReflectionService {
     @Autowired
     private ReflectionRepository reflectionRepository;
 
-    public List<Reflection> findall() {
-        return reflectionRepository.findall();
+    public List<Reflection> findAllReflections() {
+        return reflectionRepository.findAll();
     }
 
     //Adds a reflection
-    public void save(Reflection reflection) {
+    public void saveReflection(Reflection reflection) {
         reflectionRepository.save(reflection);
     }
 

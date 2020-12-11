@@ -98,14 +98,14 @@ public class ReflectController {
         reflection.setParticipationID(chosenParticipation.getParticipationID());
         reflection.setTagID(1); //Placeholder until we assign tags to activities
 
-        reflectionServiceImpl.save(reflection);
+        reflectionServiceImpl.saveReflection(reflection);
         return "dashboard";
     }
 
     //Return the user's reflections in a user-friendly format
     @GetMapping("/all-my-reflections")
     public String listMyReflections(Model model, Authentication authentication) {
-        List<Reflection> reflections = reflectionServiceImpl.findall();
+        List<Reflection> reflections = reflectionServiceImpl.findAllReflections();
         List<Reflection> myReflections = new ArrayList<>();
         Integer currentID = getCurrentID(authentication);
 
@@ -122,7 +122,7 @@ public class ReflectController {
         List<ReflectList> formattedReflections = new ArrayList<>();
 
         //Make a list of all the participations unique to the current user
-        for (int z = 0; z < reflectionServiceImpl.findall().size(); z++) {
+        for (int z = 0; z < reflectionServiceImpl.findAllReflections().size(); z++) {
             Reflection reflection = reflections.get(z);
             if(currentParticipations.contains(reflection.getParticipationID())) {
                 myReflections.add(reflection);

@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface ReflectionRepository {
 
-    List<Reflection> findall();
+    List<Reflection> findAll();
 
     Reflection save(Reflection theReflection);
 
