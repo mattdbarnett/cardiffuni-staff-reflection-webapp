@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -100,7 +101,7 @@ public class TagAdminController{
 
     @PostMapping("/delete-tag")
     @Transactional
-    public String deleteTag(@ModelAttribute("tag") @Valid EditForm editForm, BindingResult result) {
+    public String deleteTag(RedirectAttributes redirectAttributes, @ModelAttribute("tag") @Valid EditForm editForm, BindingResult result) {
 
         if(!result.hasErrors()) {
 
@@ -114,6 +115,8 @@ public class TagAdminController{
             tagService.deleteSelectedTag(tagToDelete.getTagID());
 
         }
+        redirectAttributes.addFlashAttribute("success",true);
+        redirectAttributes.addFlashAttribute("type","deletetagadmin");
         return "redirect:/admin/all-tags";
     }
 }
