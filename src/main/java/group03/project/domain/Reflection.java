@@ -32,5 +32,7 @@ public class Reflection {
     private String reflect_diff;
     @Column(name="Reflect_lp")
     private String reflect_lp;
+    @Column(name="isPublic")
+    private Boolean isPublic;
 
 }
