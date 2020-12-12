@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link th:rel="stylesheet" th:href="@{/css/snackbarStyling.css} "/>
+
+    <script th:src="@{/js/snackbar.js}"></script>
 </head>
 <body>
 
@@ -23,7 +26,7 @@
 </head>
 <body>
 <div th:replace="navbar.html :: header"></div>
-<div id="snackbar" th:text="${message}"></div>
+<div id="snackbar"><span id="snackbar-text"></span><i id="snackbar-icon" class="fas fa-check"></i></div>
 <div id="content-pane">
     <div class = "card">
         <h2 class = "display-1" id = "tagHeader" >All Tags</h2>
@@ -76,5 +79,16 @@
 
     </div>
 </div>
+<script th:inline="javascript">
+    var message = [[${success}]];
+    var msg_type = [[${type}]];
+    if (message == true){
+        switch(msg_type){
+            case "deletetagadmin":
+                document.getElementById("snackbar-text").innerHTML="Deleted tag successfully";
+        }
+        showSnackbar();
+    }
+</script>
 </body>
 </html>
