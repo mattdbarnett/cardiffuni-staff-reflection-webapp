@@ -60,5 +60,21 @@
             $(this).removeClass('active');
     });
 </script>
+<script th:inline="javascript">
+    var message = [[${success}]];
+    var msg_type = [[${type}]];
+    if (message == true){
+        switch(msg_type){
+            case "cactivity":
+                document.getElementById("snackbar-text").innerHTML="Added custom activity";
+            case "addreflection":
+                document.getElementById("snackbar-text").innerHTML="Added reflection";
+            case "thoughtcloud":
+                document.getElementById("snackbar-text").innerHTML="Added thought cloud";
+
+        }
+        showSnackbar();
+    }
+</script>
 </body>
 </html>
