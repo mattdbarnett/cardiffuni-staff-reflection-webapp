@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class ActivityController {
     }
     //Submit the activity to the database
     @PostMapping("/add-custom-activity")
-    public String submitCustomActivity(@ModelAttribute("activity") Activity activity, Authentication authentication) {
+    public String submitCustomActivity(RedirectAttributes redirectAttributes, @ModelAttribute("activity") Activity activity, Authentication authentication) {
         String inputName = activity.getName();
         activity.setName("[Custom] " + inputName);
         activity.setIsOfficial(false);
@@ -66,7 +67,8 @@ public class ActivityController {
         Integer currentUserID = getCurrentID(authentication);
         Participation participation = new Participation(null, activity.getActivityID(), date, "Participant", currentUserID );
         participationService.createParticipation(participation);
-        return "dashboard";
+        redirectAttributes.addFlashAttribute("success",true);
+        return "redirect:/dashboard";
     }
     //List all activities the user can add themselves too
     @GetMapping("/activities-signup-list")
