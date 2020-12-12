@@ -21,11 +21,16 @@
             -moz-box-shadow: 0px 0px 27px 0px rgba(0,0,0,0.37);
             box-shadow: 0px 0px 27px 0px rgba(0,0,0,0.37);
         }
+        #snackbar-icon{
+            margin:0;
+            margin-left:10px;
+            padding:0;
+        }
     </style>
 </head>
 <body>
 <div th:replace="navbar.html :: header"></div>
-<div id="snackbar" th:text="${message}"></div>
+<div id="snackbar"><span id="snackbar-text"></span><i id="snackbar-icon" class="fas fa-check"></i></div>
 <main>
     <div class="container" id="buttons-container">
         <div class="row">
@@ -214,9 +219,15 @@
     });
 </script>
 <script th:inline="javascript">
-    var message = [[${message}]];
-    console.log(message);
-    showSnackbar();
+    var message = [[${success}]];
+    var msg_type = [[${type}]];
+    if (message == true){
+        switch(msg_type){
+            case "cactivity":
+                document.getElementById("snackbar-text").innerHTML="Added custom activity";
+        }
+        showSnackbar();
+    }
 </script>
 </body>
 </html>

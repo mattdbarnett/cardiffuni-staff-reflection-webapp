@@ -68,6 +68,7 @@ public class ActivityController {
         Participation participation = new Participation(null, activity.getActivityID(), date, "Participant", currentUserID );
         participationService.createParticipation(participation);
         redirectAttributes.addFlashAttribute("success",true);
+        redirectAttributes.addFlashAttribute("type","cactivity");
         return "redirect:/dashboard";
     }
     //List all activities the user can add themselves too
