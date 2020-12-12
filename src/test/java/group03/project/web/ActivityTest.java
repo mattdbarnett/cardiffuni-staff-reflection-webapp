@@ -21,9 +21,10 @@ import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 import org.springframework.test.web.servlet.*;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -111,6 +112,17 @@ public class ActivityTest {
 
         assertEquals(1, activityService.getActivityListSize());
     }
+    /*@Test  --- BROKEN TEST NEEDS FIXING
+    @WithMockUser(username="user", password="passw", roles = "USER")
+    public void shouldLoadFlashRedirectAttribute() throws Exception {
+        MvcResult result = (MvcResult) mvc.perform(post("/user/add-custom-activity")
+                .contentType(APPLICATION_FORM_URLENCODED) //from MediaType
+                .param("name", "testname")
+                .param("file", "testfile")
+                .param("desc", "testdesc"))
+                .andExpect(flash().attribute("success",true));
+    }
 
+     */
 }
 
