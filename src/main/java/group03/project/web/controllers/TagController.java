@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -55,7 +56,7 @@ public class TagController {
      * @return page redirection depending on success/failure of tag creation
      */
     @PostMapping("/tag-build")
-    public String createNewTag(@ModelAttribute("tag") @Valid TagCreationForm tagForm,
+    public String createNewTag(RedirectAttributes redirectAttributes, @ModelAttribute("tag") @Valid TagCreationForm tagForm,
                                BindingResult result) {
 
         if(!result.hasErrors()) {
@@ -66,7 +67,9 @@ public class TagController {
             try {
                 tagService.createCustomTag(newTag);
 
-                return "dashboard";
+                redirectAttributes.addFlashAttribute("success",true);
+                redirectAttributes.addFlashAttribute("type","thoughtcloud");
+                return "redirect:/dashboard";
 
             } catch (NullPointerException e) {
                 e.printStackTrace();
