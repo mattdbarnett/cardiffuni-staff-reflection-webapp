@@ -18,7 +18,7 @@
 </head>
 <body>
 <div th:replace="navbar.html :: header"></div>
-<div id="snackbar" th:text="${message}"></div>
+<div id="snackbar"><span id="snackbar-text"></span><i id="snackbar-icon" class="fas fa-check"></i></div>
 <main>
     <div id = "content-pane">
         <div class="row">
