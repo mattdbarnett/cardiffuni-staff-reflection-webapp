@@ -18,6 +18,7 @@
 </head>
 <body>
 <div th:replace="navbar.html :: header"></div>
+<div id="snackbar"><span id="snackbar-text"></span><i id="snackbar-icon" class="fas fa-check"></i></div>
 
 <div id="content-pane">
     <div class="row">
@@ -73,6 +74,17 @@
         </div>
     </div>
 </div>
+<script th:inline="javascript">
+    var message = [[${success}]];
+    var msg_type = [[${type}]];
+    if (message == true){
+        switch(msg_type){
+            case "admindeluser":
+                document.getElementById("snackbar-text").innerHTML = "Account deleted";
+        }
+        showSnackbar();
+    }
+</script>
 </body>
 </html>
 
