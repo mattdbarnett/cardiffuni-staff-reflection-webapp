@@ -10,6 +10,7 @@ import org.springframework.transaction.TransactionSystemException;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -118,7 +119,7 @@ private final SiteUserService userService;
     }
 
     @PostMapping("deleteAccount")
-    public String deleteAccount(@ModelAttribute("editForm") @Valid EditForm userForm,
+    public String deleteAccount(RedirectAttributes redirectAttributes, @ModelAttribute("editForm") @Valid EditForm userForm,
                                 BindingResult result) {
         if(!result.hasErrors()) {
 
@@ -128,6 +129,8 @@ private final SiteUserService userService;
 
         }
 
+        redirectAttributes.addFlashAttribute("success",true);
+        redirectAttributes.addFlashAttribute("type","admindeluser");
         return "redirect:/admin/all-accounts";
     }
 }
