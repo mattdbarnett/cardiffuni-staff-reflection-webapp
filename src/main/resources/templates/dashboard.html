@@ -213,7 +213,9 @@
         listitem.style.backgroundColor = "#4d90c9";
     });
 </script>
-<script>
+<script th:inline="javascript">
+    var message = [[${message}]];
+    console.log(message);
     showSnackbar();
 </script>
 </body>
