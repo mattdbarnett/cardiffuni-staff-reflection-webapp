@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +71,7 @@ public class ReflectController {
 
     //Submit the entry to the database
     @PostMapping("/add-reflection")
-    public String submitParticipation(@ModelAttribute("reflection") Reflection reflection, Authentication authentication) {
+    public String submitParticipation(RedirectAttributes redirectAttributes, @ModelAttribute("reflection") Reflection reflection, Authentication authentication) {
 
         Integer activityID = reflection.getParticipationID();
         Activity chosenActivity = new Activity();
@@ -99,7 +100,9 @@ public class ReflectController {
         reflection.setTagID(1); //Placeholder until we assign tags to activities
 
         reflectionServiceImpl.saveReflection(reflection);
-        return "dashboard";
+        redirectAttributes.addFlashAttribute("success",true);
+        redirectAttributes.addFlashAttribute("type","addreflection");
+        return "redirect:/dashboard";
     }
 
     //Return the user's reflections in a user-friendly format
