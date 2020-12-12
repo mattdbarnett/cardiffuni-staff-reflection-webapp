@@ -15,7 +15,7 @@
 </head>
 <body>
 <div th:replace="navbar.html :: header"></div>
-<div th:replace="snackbar.html :: body"></div>
+<div id="snackbar" th:text="${message}"></div>
 <main>
     <div class="container" id="buttons-container">
         <div class="row">

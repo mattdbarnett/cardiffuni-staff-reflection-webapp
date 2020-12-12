@@ -23,7 +23,7 @@
 </head>
 <body>
 <div th:replace="navbar.html :: header"></div>
-<div th:replace="snackbar.html :: body"></div>
+<div id="snackbar" th:text="${message}"></div>
 <div id="content-pane">
     <div class = "card">
         <h2 class = "display-1" id = "tagHeader" >All Tags</h2>
