@@ -25,7 +25,7 @@
 </head>
 <body>
 <div th:replace="navbar.html :: header"></div>
-<div th:replace="snackbar.html :: body"></div>
+<div id="snackbar" th:text="${message}"></div>
 <main>
     <div class="container" id="buttons-container">
         <div class="row">
@@ -212,6 +212,9 @@
     listitems_divided.forEach(function(listitem) {
         listitem.style.backgroundColor = "#4d90c9";
     });
+</script>
+<script>
+    showSnackbar();
 </script>
 </body>
 </html>
