@@ -22,6 +22,53 @@
             box-shadow: 0px 0px 27px 0px rgba(0,0,0,0.37);
         }
     </style>
+    <style>
+    </style>
+    <style>
+        .chartjs-tooltip {
+          opacity: 1;
+          position: absolute;
+          background: rgba(0, 0, 0, 0.7);
+          color: white;
+          padding: 3px;
+          border-radius: 0px;
+          -webkit-transition: all .1s ease;
+          transition: all .1s ease;
+          pointer-events: none;
+          -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+        }
+
+        .chartjs-tooltip.below {
+          -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, -100%);
+        }
+
+        .chartjs-tooltip.above {
+          -webkit-transform: translate(-50%, -100%);
+          transform: translate(-50%, -100%);
+        }
+
+        .tooltip_tbl {
+          font-size: 13px;
+        }
+
+        ._chart_percent {
+        }
+
+        ._chart_percent #percent {
+          font-size: 46px;
+          color: #353535;
+        }
+
+        .custom-menu {
+          z-index: 1000;
+          position: absolute;
+          background-color: #fff;
+          border: 1px solid black;
+          padding: 2px;
+        }
+    </style>
 </head>
 <body>
 <div th:replace="navbar.html :: header"></div>
@@ -97,7 +144,25 @@
                     <h3>UKPSF Progression</h3>
                     <br>
                     <!-- <div id="legend"></div> -->
-                    <canvas id="doughnutChart"></canvas>
+                    <div id="canvas-holder">
+                        <canvas id="chart-area" width="300" height="300"></canvas>
+                        <div class="_chart_percent above" style="display: none">
+                            <span id="percent"></span><span style="font-size:23px;font-weight:normal;">%</span>
+                        </div>
+                        <div class="chartjs-tooltip" style="display: none">
+                            <table class="tooltip_tbl">
+                                <tr>
+                                    <td>
+                                        <div class="em" style="width: 10px; height: 10px;">&nbsp;</div>
+                                    </td>
+                                    <td style="padding: 3px;"><span class="label">label</span></td>
+                                    <td>
+                                        <div class="val"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 <br clear="all">
             </div>
@@ -147,7 +212,7 @@
         tagList.push(thTagList[i].tagName);
     }
 
-    var doughnutChartCanvas = document.getElementById("doughnutChart").getContext("2d");
+    var doughnutChartCanvas = document.getElementById("chart-area").getContext("2d");
     var doughnutData = [];
 
     tagList.forEach(function(tagg) {
@@ -163,44 +228,124 @@
     });
 
     var doughnutOptions = {
-        tooltipEvents: [],
-        showTooltips: true,
-        onAnimationComplete: function() {
-            this.showTooltip(this.segments, true);
+
+         onAnimationComplete: function () {
+            var max = 0,
+                max_pos = 0;
+
+            this.segments.forEach(function (key, i) {
+                key.index = i;
+                key.percent =  Math.round(key.circumference / 6.283 * 100);
+                this[i].percent = key.percent;
+                if (max - (key.percent) < 0) {
+                    max = key.percent;
+                    max_pos = i;
+                }
+            }, doughnutData);
+
+            var max_tooltip = [this.segments[max_pos]];
+
+            $("#chart-area").on('mouseleave', function () {
+                this.showTooltip(max_tooltip, true);
+            }.bind(this));
+
+            this.showTooltip(max_tooltip, true);
         },
-        tooltipTemplate: "<%= label %> - <%= value %>",
-        tooltip: {
-               caretPadding: 50,
-               yAlign: 'bottom'
-           },
-
-        labels: tagList,
-        type: 'doughnut',
-        segmentShowStroke: true,
-        segmentStrokeColor: "#fff",
-        segmentStrokeWidth: 2,
-        percentageInnerCutout: 50,
-
+        segmentShowStroke: false,
+        showTooltips: true,
         animationSteps: 100,
-        animationEasing: "easeOutBounce",
         animateRotate: true,
+        animationEasing: 'easeInOutQuart',
+        percentageInnerCutout: 50,
         animateScale: false,
-        responsive: true,
-        maintainAspectRatio: true,
-        legend: {
-            display: true,
-            labels: {
-                fontColor: 'rgb(255, 99, 132)'
-            }
-        }
+        labelAlign: 'center',
+        scaleShowLabels: false,
+        tooltipTemplate: "<%=index%>"
     };
 
+    var ChartDisplay = {
+        $holder : null,
+        init : function(){
+            this.$holder = $("#canvas-holder");
+            this.initEvent();
+            this.initView();
+        },
+        initView : function(){
+            var ctx = this.$holder.find("#chart-area")[0].getContext("2d"),
+                doughnut = new Chart(ctx).Doughnut(doughnutData, doughnutOptions);
+
+            this.initTooltipIndex(doughnut.segments);
+            doughnut.segments.myData = doughnutData;
+        },
+        initEvent : function(){
+            Chart.defaults.global.customTooltips = (function (tooltip) {
+								this.setTooltipEvent(doughnutData, tooltip);
+            }.bind(this));
+
+            this.$holder.on("mousemove", "canvas", function(evt){
+                evt.preventDefault();
+                var tooltipEl = $(".chartjs-tooltip");
+                tooltipEl.css({
+                    opacity: 1,
+                    left: event.pageX + 'px',
+                    top: event.pageY + 'px'
+                });
+            }.bind(this));
+        },
+        initTooltipIndex: function (segment) {
+            segment.forEach(function (obj) {
+                obj.index = 0;
+            });
+        },
+        setTooltipEvent : function (doughnutData, tooltip) {
+            var tooltipEl = $(".chartjs-tooltip"),
+                percentLegend = $("._chart_percent");
+            var idx = tooltip.text * 1;
+            tooltipEl.show();
+            percentLegend.show();
+
+            if (!tooltip) {
+              tooltipEl.hide();
+              return;
+            }
+
+            tooltipEl.removeClass('above below');
+            tooltipEl.addClass(tooltip.yAlign);
+
+            var offset = $(tooltip.chart.canvas).offset();
+
+            if (offset.left && offset.top) {
+              tooltipEl.find(".em").css("background", doughnutData[idx].color);
+              tooltipEl.find(".label").html(doughnutData[idx].label);
+              tooltipEl.find(".val").html(doughnutData[idx].value);
+              percentLegend.find("#percent").html(doughnutData[idx].percent);
+
+              tooltipEl.css({
+                opacity: 1,
+                left: offset.left + tooltip.x + 'px',
+                top: offset.top + tooltip.y + 'px',
+              });
+
+              percentLegend.css({
+                width: $(tooltip.chart.canvas).width() / 4,
+                left: $(tooltip.chart.canvas).width() / 2.6 + offset.left + 'px',
+                top: $(tooltip.chart.canvas).height() / 2.4 + offset.top + 'px',
+                position: 'absolute',
+                'z-index': 100
+              });
+            }
+        },
+        labels: tagList,
+        type: 'doughnut',
+        tooltips: {
+
+            mode: 'nearest',
+            intersect: false
+        }
+    };
+    ChartDisplay.init();
     var myDoughnut = new Chart(doughnutChartCanvas).Doughnut(doughnutData,doughnutOptions);
-    /*
-    var legendHolder = document.createElement('div');
-    legendHolder.innerHTML = myDoughnut.generateLegend();
-    document.getElementById('legend').appendChild(legendHolder.firstChild);
-    */
+
 </script>
 </body>
 </html>
