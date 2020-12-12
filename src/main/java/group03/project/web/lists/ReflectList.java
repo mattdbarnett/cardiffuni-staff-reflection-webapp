@@ -23,4 +23,5 @@ public class ReflectList {
     private String reflect_eval;
     private String reflect_diff;
     private String reflect_lp;
+    private String privacy;
 }

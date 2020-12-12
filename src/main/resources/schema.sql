@@ -109,6 +109,7 @@ CREATE TABLE IF NOT EXISTS reflection(
    Reflect_eval VARCHAR(180),
    Reflect_diff VARCHAR(180),
    Reflect_lp VARCHAR(180),
+   isPublic BOOLEAN,
    PRIMARY KEY (reflectionID),
    FOREIGN KEY (Tag_tagID)
        REFERENCES tag (tagID)

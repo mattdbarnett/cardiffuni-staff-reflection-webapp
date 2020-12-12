@@ -143,6 +143,12 @@ public class ReflectController {
             }
             Activity currentActivity = participationService.getRelatedActivity(currentParticipation);
 
+            String privacy;
+            if(currentReflection.getIsPublic() == true){
+                privacy = "Public";
+            } else{
+                privacy = "Private";
+            }
             ReflectList currentReflectList = new ReflectList(
                     currentActivity.getName(),
                     currentParticipation.getDate(),
@@ -152,7 +158,8 @@ public class ReflectController {
                     currentReflection.getReflect_happen(),
                     currentReflection.getReflect_eval(),
                     currentReflection.getReflect_diff(),
-                    currentReflection.getReflect_lp()
+                    currentReflection.getReflect_lp(),
+                    privacy
             );
 
             reflectLists.add(currentReflectList);
