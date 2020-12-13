@@ -17,6 +17,8 @@ public interface ActivityRepository {
     @Query(value = "select MAX(ActivityID) from activity", nativeQuery = true)
     public Long findLastActivityID();
 
+    Optional<Activity> findByDescription(Long id);
+
 
 
 }

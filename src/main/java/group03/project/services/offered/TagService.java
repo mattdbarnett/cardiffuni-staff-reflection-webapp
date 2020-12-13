@@ -48,4 +48,6 @@ public interface TagService {
      * @param tagID the tag's id in database.
      */
     public void deleteSelectedTag(Long tagID);
+
+    public Optional<Tag> findATagByName(String theName);
 }

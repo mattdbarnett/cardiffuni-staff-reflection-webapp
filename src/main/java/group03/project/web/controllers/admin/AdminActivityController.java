@@ -4,6 +4,7 @@ import group03.project.domain.*;
 import group03.project.services.implementation.ActivityServiceImpl;
 import group03.project.services.implementation.ParticipationServiceImpl;
 import group03.project.services.implementation.ReflectionServiceImpl;
+import group03.project.services.offered.ActivityService;
 import group03.project.services.offered.ObjectiveService;
 import group03.project.services.offered.TagService;
 import group03.project.web.forms.OfficialActivityForm;
@@ -20,13 +21,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("admin")
 public class AdminActivityController {
 
     @Autowired
-    private ActivityServiceImpl activityService;
+    private ActivityService activityService;
 
     @Autowired
     private TagService tagService;
@@ -53,21 +55,35 @@ public class AdminActivityController {
     @PostMapping("/add-official-activity")
     public String submitOfficialActivity(@ModelAttribute("activity") @Valid OfficialActivityForm activity,
                                          BindingResult result) {
+        System.out.println("getting here?");
 
-        if (!result.hasErrors()) {
+        activity.allOfficialTags();
+
+
+            System.out.println("no errors");
 
             Activity latestActivity = createActivity(activity, result);
+            System.out.println("activity: " + latestActivity);
 
-            String[] tags = activity.getAllTags().split(",");
 
-            if (tags.length > 0) {
-            for (String tag : tags ) {
-                Tag theTag = tagService.findATagByID(Long.valueOf(tag)).get();
 
-                Objective newObj = new Objective(latestActivity, theTag);
-                objService.createObjective(newObj);
+            for (Map.Entry<String, Boolean> tag : activity.allOfficialTags().entrySet()) {
+                if (tag.getValue()) {
+                    System.out.println(tag.getKey());
+                    Tag theTag = tagService.findATagByName(tag.getKey()).get();
+                    Objective newObj = new Objective(latestActivity, theTag);
+                    objService.createObjective(newObj);
+
                 }
-            }
+//             }
+//            if (customTags.length > 0) {
+//                for (String customTag : customTags) {
+//                    Tag theTag = tagService.findATagByID(Long.valueOf(customTag)).get();
+//                    Objective newObj = new Objective(latestActivity, theTag);
+//                    objService.createObjective(newObj);
+//
+//                }
+//            }
         }
         return "dashboard_a";
     }
@@ -133,8 +149,9 @@ public class AdminActivityController {
         try {
             newActivity = new Activity(
                     activityForm.getName(),
-                    activityForm.getDescription(),
-                    true);
+                    activityForm.getDescription());
+
+            newActivity.setIsOfficial(true);
 
             activityService.saveActivity(newActivity);
 

@@ -1,6 +1,7 @@
 package group03.project.repositories;
 
 import group03.project.domain.*;
+import group03.project.services.required.ActivityRepository;
 import group03.project.services.required.ParticipationRepository;
 import group03.project.services.required.ReflectionRepository;
 import org.junit.jupiter.api.Test;
@@ -40,17 +41,18 @@ public class ReflectionTest {
 
         Date date = new Date();
 
-        Participation testParticipation = new Participation(null, testActivity.getActivityID(), date, "Participant",  1 );
+        Participation testParticipation = new Participation(null, testActivity.getActivityID(), date, "Participant",  1L );
 
         participationRepository.save(testParticipation);
 
         String reflect_what = "Test Reflect_What";
 
-        Reflection testReflection = new Reflection(null, testParticipation.getParticipationID(), 1, reflect_what, "Test", "Test", "Test", "Test", "Test", false);
+        Reflection testReflection = new Reflection(null, testParticipation.getParticipationID(), 1L, reflect_what, "Test", "Test", "Test", "Test", "Test", false);
 
         reflectionRepository.save(testReflection);
+        System.out.println(testParticipation.getParticipationID().getClass());
 
-        Optional<Reflection> findTest = reflectionRepository.findById(testParticipation.getParticipationID());
+        Optional<Reflection> findTest = reflectionRepository.findByReflectionID(testParticipation.getParticipationID());
 
         assertEquals(reflect_what, findTest.get().getReflect_what());
     }
@@ -69,24 +71,28 @@ public class ReflectionTest {
 
         Date date = new Date();
 
-        Participation testParticipation1 = new Participation(null, testActivity1.getActivityID(), date, "Participant",  1 );
-        Participation testParticipation2 = new Participation(null, testActivity2.getActivityID(), date, "Participant",  1 );
-        Participation testParticipation3 = new Participation(null, testActivity3.getActivityID(), date, "Participant",  1 );
+        Participation testParticipation1 = new Participation(null, testActivity1.getActivityID(), date, "Participant",  1L );
+        Participation testParticipation2 = new Participation(null, testActivity2.getActivityID(), date, "Participant",  1L );
+        Participation testParticipation3 = new Participation(null, testActivity3.getActivityID(), date, "Participant",  1L );
 
         participationRepository.save(testParticipation1);
         participationRepository.save(testParticipation2);
         participationRepository.save(testParticipation3);
 
-        Reflection testReflection1 = new Reflection(null, testParticipation1.getParticipationID(), 1, "Test", "Test", "Test", "Test", "Test", "Test", false);
-        Reflection testReflection2 = new Reflection(null, testParticipation1.getParticipationID(), 1, "Test", "Test", "Test", "Test", "Test", "Test", true);
-        Reflection testReflection3 = new Reflection(null, testParticipation1.getParticipationID(), 1, "Test", "Test", "Test", "Test", "Test", "Test", true);
+
+        Reflection testReflection1 = new Reflection(null, testParticipation1.getParticipationID(), 1L, "Test", "Test", "Test", "Test", "Test", "Test", false);
+        Reflection testReflection2 = new Reflection(null, testParticipation1.getParticipationID(), 1L, "Test", "Test", "Test", "Test", "Test", "Test", true);
+        Reflection testReflection3 = new Reflection(null, testParticipation1.getParticipationID(), 1L, "Test", "Test", "Test", "Test", "Test", "Test", true);
+
 
         reflectionRepository.save(testReflection1);
         reflectionRepository.save(testReflection2);
         reflectionRepository.save(testReflection3);
 
         List<Reflection> reflections =  reflectionRepository.findAll();
+
         List<Reflection> publicReflections = new ArrayList<>();
+
         for(int i = 0; i < reflections.size(); i++) {
             Reflection currentReflection = reflections.get(i);
             if(currentReflection.getIsPublic() == true) {

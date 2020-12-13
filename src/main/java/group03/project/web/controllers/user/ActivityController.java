@@ -5,7 +5,10 @@ import group03.project.domain.SiteUser;
 import group03.project.services.implementation.ActivityServiceImpl;
 import group03.project.domain.Activity;
 import group03.project.services.implementation.ParticipationServiceImpl;
+import group03.project.services.offered.ActivityService;
+import group03.project.services.offered.ParticipationService;
 import group03.project.services.offered.SiteUserService;
+import group03.project.services.required.SiteUserRepository;
 import group03.project.web.controllers.ControllerSupport;
 import group03.project.web.forms.ActivityJoinForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +30,19 @@ import java.util.Optional;
 @RequestMapping("user")
 public class ActivityController {
 
-    @Autowired
-    private ActivityServiceImpl activityService;
-
-    @Autowired
-    private ParticipationServiceImpl participationService;
-
-    @Autowired
+    private ActivityService activityService;
+    private ParticipationService participationService;
     private SiteUserService siteUserService;
+
+    @Autowired
+    public ActivityController(ActivityService actService, ParticipationService partService, SiteUserService userService) {
+        activityService = actService;
+        participationService = partService;
+        siteUserService = userService;
+    }
+
+
+
 
 
     //Page for adding a custom activity as a user
@@ -62,7 +70,7 @@ public class ActivityController {
     //List all activities the user can add themselves too
     @GetMapping("/activities-signup-list")
     public String listActivities(Model model, Authentication authentication) {
-        List<Activity> activities = activityService.findall();
+        List<Activity> activities = activityService.findAllActivities();
         List<Participation> participations = participationService.findAllParticipations();
         Long currentID = getCurrentID(authentication);
         //Get a list of all activities the user is currently participating in

@@ -8,12 +8,13 @@ import java.util.Optional;
 
 public interface ActivityService {
 
+    public List<Activity> findAllActivities();
 
     public Optional<Activity> findActivitiesByID(Long id);
 
-    public List<Activity> findAllActivities();
-
     public void saveActivity(Activity theActivity);
+
+    public Optional<Activity> findAnActivityDescription(Long id);
 
     int getActivityListSize();
 }

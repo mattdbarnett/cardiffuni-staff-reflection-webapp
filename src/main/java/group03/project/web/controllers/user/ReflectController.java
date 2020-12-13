@@ -99,7 +99,7 @@ public class ReflectController {
         }
 
         reflection.setParticipationID(chosenParticipation.getParticipationID());
-        reflection.setTagID(1); //Placeholder until we assign tags to activities
+        reflection.setTagID(1L); //Placeholder until we assign tags to activities
 
         reflectionServiceImpl.saveReflection(reflection);
         redirectAttributes.addFlashAttribute("success",true);

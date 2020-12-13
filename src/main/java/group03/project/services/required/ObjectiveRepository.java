@@ -1,5 +1,6 @@
 package group03.project.services.required;
 
+import group03.project.domain.Activity;
 import group03.project.domain.Objective;
 
 import java.util.List;
@@ -14,6 +15,4 @@ public interface ObjectiveRepository {
     Optional<Objective> Tag_tagID(Long ActivityID);
 
     Objective save(Objective theObjective);
-
-
 }

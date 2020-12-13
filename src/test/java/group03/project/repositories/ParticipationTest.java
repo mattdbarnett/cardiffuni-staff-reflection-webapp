@@ -2,6 +2,7 @@ package group03.project.repositories;
 
 import group03.project.domain.Activity;
 import group03.project.domain.Participation;
+import group03.project.services.required.ActivityRepository;
 import group03.project.services.required.ParticipationRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +42,11 @@ public class ParticipationTest {
 
         java.util.Date date = new java.util.Date();
 
-        Participation testParticipation = new Participation(null, testActivity.getActivityID(), date, "Participant",  1 );
+        Participation testParticipation = new Participation(null, testActivity.getActivityID(), date, "Participant",  1L );
 
         participationRepository.save(testParticipation);
 
-        Optional<Participation> findTest = participationRepository.findById(testParticipation.getParticipationID());
+        Optional<Participation> findTest = participationRepository.findByParticipationID(testParticipation.getParticipationID());
 
         assertEquals(date, findTest.get().getDate());
     }
@@ -58,10 +59,10 @@ public class ParticipationTest {
         activityRepository.save(testActivity);
 
         java.util.Date date = new java.util.Date();
-        Participation testParticipation = new Participation(null, testActivity.getActivityID(), date, "Participant",  1 );
+        Participation testParticipation = new Participation(null, testActivity.getActivityID(), date, "Participant",  1L );
         participationRepository.save(testParticipation);
 
-        Optional<Participation> findTest = participationRepository.findById(testParticipation.getParticipationID());
+        Optional<Participation> findTest = participationRepository.findByParticipationID(testParticipation.getParticipationID());
 
         assertNotEquals(null, findTest.get().getParticipationID());
     }

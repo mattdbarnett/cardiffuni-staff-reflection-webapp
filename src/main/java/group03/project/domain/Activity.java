@@ -23,12 +23,12 @@ public class Activity {
     @Column(name="file")
     private String file;
     @Column(name="description")
-    private String desc;
+    private String description;
     @Column(name="isOfficial")
     private Boolean isOfficial;
 
-    public Activity(String name, String desc, Boolean isOfficial) {
-        this(null, name, null, desc, false);
+    public Activity(String name, String desc) {
+        this(null, name, null, desc, null);
     }
 
 
