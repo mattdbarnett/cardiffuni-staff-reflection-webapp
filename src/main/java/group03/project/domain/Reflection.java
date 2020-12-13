@@ -17,7 +17,7 @@ public class Reflection {
     @Column(name="reflectionID")
     private Integer reflectionID;
     @Column(name="Participation_participationID")
-    private Integer participationID;
+    private Long participationID;
     @Column(name="Tag_tagID")
     private Integer tagID;
     @Column(name="Reflect_what")

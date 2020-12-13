@@ -2,14 +2,9 @@ package group03.project.repositories;
 
 import group03.project.domain.Activity;
 import group03.project.domain.Participation;
-import group03.project.domain.Role;
-import group03.project.domain.SiteUser;
-import group03.project.services.implementation.ActivityService;
-import group03.project.services.offered.ParticipationService;
 import group03.project.services.required.ParticipationRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;

@@ -1,4 +1,4 @@
-package group03.project.web.controllers;
+package group03.project.web.controllers.user;
 
 import group03.project.domain.Tag;
 

@@ -1,4 +1,4 @@
-package group03.project.web.controllers;
+package group03.project.web.controllers.admin;
 
 import group03.project.domain.SiteUser;
 import group03.project.services.offered.SiteUserService;

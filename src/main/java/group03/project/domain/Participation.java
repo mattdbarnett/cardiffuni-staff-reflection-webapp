@@ -17,15 +17,15 @@ public class Participation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="participationID")
-    private Integer participationID;
+    private Long participationID;
     @Column(name="Activity_activityID")
-    private Integer activityID;
+    private Long activityID;
     @DateTimeFormat
     @Column(name="date")
     private Date date;
     @Column(name="Role_roleID")
     private String roleID;
     @Column(name="siteUser_userID")
-    private Integer userID;
+    private Long userID;
 
 }

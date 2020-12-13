@@ -10,12 +10,13 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Table(name = "activity")
 public class Activity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="activityID")
-    private Integer activityID;
+    private Long activityID;
 //    private Integer userID;
     @Column(name = "name")
     private String name;
@@ -25,6 +26,10 @@ public class Activity {
     private String desc;
     @Column(name="isOfficial")
     private Boolean isOfficial;
+
+    public Activity(String name, String desc, Boolean isOfficial) {
+        this(null, name, null, desc, false);
+    }
 
 
 }

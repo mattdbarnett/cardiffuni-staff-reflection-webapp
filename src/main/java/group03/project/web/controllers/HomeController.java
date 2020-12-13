@@ -69,7 +69,7 @@ public class HomeController {
         model.addAttribute("user", theUser);
             List<Participation> participations = participationService.findAllParticipations();
             List<Participation> myParticipations = new ArrayList<>();
-            Integer currentID = getCurrentID(authentication);
+            Long currentID = getCurrentID(authentication);
 
             //Make a list of all the participations unique to the current user
             for (int z = 0; z < participationService.getParticipationListSize(); z++) {
@@ -132,13 +132,12 @@ public class HomeController {
 //
 //        return "redirect:";
     }
-    Integer getCurrentID(Authentication authentication) {
+    Long getCurrentID(Authentication authentication) {
         String currentUserName = ControllerSupport.getAuthenticatedUserName(authentication);
         Optional<SiteUser> currentUserOptional = siteUserService.findUserByUserName(currentUserName);
         SiteUser currentUser = currentUserOptional.get();
         Long currentUserID = currentUser.getUserID();
-        Integer currentUserIDInt = currentUserID.intValue();
 
-        return currentUserIDInt;
+        return currentUserID;
     }
 }

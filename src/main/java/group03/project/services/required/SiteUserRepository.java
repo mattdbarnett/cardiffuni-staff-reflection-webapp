@@ -7,19 +7,19 @@ import java.util.Optional;
 
 public interface SiteUserRepository {
 
-    public List<SiteUser> findAll();
+     List<SiteUser> findAll();
 
-    public Optional<SiteUser> findById(Long id);
+     Optional<SiteUser> findById(Long id);
 
-    public Optional<SiteUser> findByEmailAddress(String email);
+     Optional<SiteUser> findByEmailAddress(String email);
 
-    public Optional<SiteUser> findByUserName(String name);
+     Optional<SiteUser> findByUserName(String name);
 
-    public Optional<SiteUser> findByPermissions(String permissions);
+     Optional<SiteUser> findByPermissions(String permissions);
 
-    public SiteUser save(SiteUser aSiteUser);
+     SiteUser save(SiteUser aSiteUser);
 
-    public void deleteById(Long theID);
+     void deleteById(Long theID);
 
 
 

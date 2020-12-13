@@ -26,13 +26,28 @@
                         <input th:field = "*{name}" type="text" class="form-control" id="activity-name" name="activity-name">
                     </div>
                     <div class="form-group">
-                        <label for="file-url">File URL:</label>
-                        <input th:field = "*{file}" type="text" class="form-control" id="file-url" name="file-url">
-                    </div>
-                    <div class="form-group">
                         <label for="description">Description:</label>
-                        <textarea rows="5" cols="25" th:field="*{desc}" type="text" class="form-control" id="description" name="description"></textarea>
+                        <textarea rows="5" cols="25" th:field="*{description}" type="text" class="form-control" id="description" name="description"></textarea>
                     </div>
+                    <div class = "center-block">
+                    <label for = "tags">Activity UKPSF tags</label>
+                        <ul>
+                            <li th:each = "tag: ${tags}" id = "tags">
+                            <input type = "radio" th:value = "${tag.tagID}">
+                            <label for = "tags" th:text = "${tag.tagName}"></label>
+                            </li>
+                        </ul>
+
+
+<!--                    <select th:field = "*{allTags}" class = "form-control" id = "tags" name = "tags" multiple = "multiple">-->
+<!--                        <option th:each = "tag : ${tags}"-->
+<!--                        th:value = "${tag.tagID}"-->
+<!--                        th:Text = "${tag.tagName}">-->
+<!--                        </option>-->
+
+<!--                    </select>-->
+                    </div>
+
                     <button type="submit" id="submit" class="btn btn-default">Submit</button>
                 </form>
             </div>

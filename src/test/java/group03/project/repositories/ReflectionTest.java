@@ -1,19 +1,14 @@
 package group03.project.repositories;
 
 import group03.project.domain.*;
-import group03.project.services.implementation.ActivityService;
-import group03.project.services.offered.ParticipationService;
 import group03.project.services.required.ParticipationRepository;
 import group03.project.services.required.ReflectionRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 
-import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

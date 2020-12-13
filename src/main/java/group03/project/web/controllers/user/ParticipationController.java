@@ -1,10 +1,11 @@
-package group03.project.web.controllers;
+package group03.project.web.controllers.user;
 
 import group03.project.domain.Participation;
 import group03.project.domain.SiteUser;
-import group03.project.services.implementation.ActivityService;
+import group03.project.services.implementation.ActivityServiceImpl;
 import group03.project.services.implementation.ParticipationServiceImpl;
 import group03.project.services.offered.SiteUserService;
+import group03.project.web.controllers.ControllerSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,7 @@ public class ParticipationController {
     private ParticipationServiceImpl participationService;
 
     @Autowired
-    private ActivityService activityService;
+    private ActivityServiceImpl activityService;
 
     @Autowired
     private SiteUserService siteUserService;
@@ -42,7 +43,7 @@ public class ParticipationController {
     public String listMyParticipations(Model model, Authentication authentication) {
         List<Participation> participations = participationService.findAllParticipations();
         List<Participation> myParticipations = new ArrayList<>();
-        Integer currentID = getCurrentID(authentication);
+        Long currentID = getCurrentID(authentication);
 
         //Make a list of all the participations unique to the current user
         for (int z = 0; z < participationService.getParticipationListSize(); z++) {
@@ -57,13 +58,12 @@ public class ParticipationController {
     }
 
     //Get the current user's ID
-    Integer getCurrentID(Authentication authentication) {
+    Long getCurrentID(Authentication authentication) {
         String currentUserName = ControllerSupport.getAuthenticatedUserName(authentication);
         Optional<SiteUser> currentUserOptional = siteUserService.findUserByUserName(currentUserName);
         SiteUser currentUser = currentUserOptional.get();
         Long currentUserID = currentUser.getUserID();
-        Integer currentUserIDInt = currentUserID.intValue();
 
-        return currentUserIDInt;
+        return currentUserID;
     }
 }

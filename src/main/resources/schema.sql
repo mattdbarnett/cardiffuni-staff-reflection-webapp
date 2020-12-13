@@ -56,7 +56,7 @@ ENGINE = InnoDB;
 -- Table `developmenttoolkit`.`objective`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS objective(
-  objectiveID INT(11) NOT NULL,
+  objectiveID INT(11) NOT NULL AUTO_INCREMENT,
   Activity_activityID INT(11) NOT NULL,
   Tag_tagID INT(11) NOT NULL,
   PRIMARY KEY (objectiveID),
