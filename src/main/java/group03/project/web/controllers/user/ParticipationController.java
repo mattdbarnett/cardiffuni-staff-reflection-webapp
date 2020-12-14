@@ -1,18 +1,24 @@
 package group03.project.web.controllers.user;
 
 import group03.project.domain.Participation;
+import group03.project.domain.Reflection;
 import group03.project.domain.SiteUser;
 import group03.project.services.implementation.ActivityServiceImpl;
 import group03.project.services.implementation.ParticipationServiceImpl;
 import group03.project.services.offered.SiteUserService;
 import group03.project.web.controllers.ControllerSupport;
+import group03.project.web.forms.ActivityJoinForm;
+import group03.project.web.forms.ReflectionButtonForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -53,8 +59,19 @@ public class ParticipationController {
             }
         }
 
+        System.out.println(participations);
+
+        System.out.println(myParticipations);
         model.addAttribute("participations", myParticipations);
         return "all-participations";
+    }
+
+    @PostMapping("/all-my-participations")
+    public String addReflectionButton(@ModelAttribute("participation") @Valid ReflectionButtonForm editForm, Model model) {
+        Reflection reflection = new Reflection();
+        reflection.setParticipationID(Long.parseLong(editForm.getParticipationReflectID()));
+        model.addAttribute("reflection", reflection);
+        return "add-reflection-button";
     }
 
     //Get the current user's ID

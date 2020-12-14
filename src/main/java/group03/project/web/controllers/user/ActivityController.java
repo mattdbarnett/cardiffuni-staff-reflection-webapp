@@ -41,10 +41,6 @@ public class ActivityController {
         siteUserService = userService;
     }
 
-
-
-
-
     //Page for adding a custom activity as a user
     @GetMapping("/add-custom-activity")
     public String addCustomActivity(Model model) {
@@ -52,6 +48,7 @@ public class ActivityController {
         model.addAttribute("activity", activity);
         return "add-cactivity";
     }
+
     //Submit the activity to the database
     @PostMapping("/add-custom-activity")
     public String submitCustomActivity(RedirectAttributes redirectAttributes, @ModelAttribute("activity") Activity activity, Authentication authentication) {
@@ -67,6 +64,7 @@ public class ActivityController {
         redirectAttributes.addFlashAttribute("type","cactivity");
         return "redirect:/dashboard";
     }
+
     //List all activities the user can add themselves too
     @GetMapping("/activities-signup-list")
     public String listActivities(Model model, Authentication authentication) {
