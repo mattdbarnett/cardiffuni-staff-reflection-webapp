@@ -67,22 +67,13 @@ public class ActivityController {
 
         String[] customTags = activity.getCustomTags().split(",");
 
-                    if (customTags.length > 0) {
+            if (customTags.length > 0) {
                 for (String customTag : customTags) {
                     Tag theTag = tagService.findATagByID(Long.valueOf(customTag)).get();
                     Objective newObj = new Objective(newCustomActivity, theTag);
                     objService.createObjective(newObj);
-                    System.out.println(theTag.getTagName());
-
                 }
             }
-
-
-//        String inputName = activity.getName();
-//        activity.setName("[Custom] " + inputName);
-//        activity.setIsOfficial(false);
-//        activityService.saveActivity(activity);
-
         /*
         Date must be entered into subsequent participation addition.
          */
@@ -92,10 +83,12 @@ public class ActivityController {
          */
         Long currentUserID = getCurrentID(authentication);
         /*
-
+        Create participation from data created prior.
          */
-        System.out.println(activityService.findLastActivity());
-        Participation participation = new Participation(null, activityService.findLastActivity(), date, "Participant", currentUserID );
+        Participation participation = new Participation(null, activityService.findMostRecentActivity(), date, "Participant", currentUserID );
+        /*
+        Add participation to database.
+         */
         participationService.createParticipation(participation);
         redirectAttributes.addFlashAttribute("success",true);
         redirectAttributes.addFlashAttribute("type","cactivity");
@@ -157,8 +150,6 @@ public class ActivityController {
             newActivity = new Activity(
                     activityForm.getName(),
                     activityForm.getDescription());
-
-            newActivity.setIsOfficial(false);
 
             activityService.saveActivity(newActivity);
 

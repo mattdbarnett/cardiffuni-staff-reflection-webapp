@@ -12,6 +12,8 @@ public interface ObjectiveRepository {
 
     Optional<Objective> findByActivity_activityID(Long ActivityID);
 
+    Optional<Objective> findByTag_tagID(Long ActivityID);
+
     Optional<Objective> Tag_tagID(Long ActivityID);
 
     Objective save(Objective theObjective);

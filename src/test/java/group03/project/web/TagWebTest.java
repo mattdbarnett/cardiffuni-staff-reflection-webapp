@@ -33,14 +33,25 @@ public class TagWebTest {
     private TagRepository repository;
 
     @Test
-    @DisplayName("User is presented all tags from hardcoded datasource")
-    @WithMockUser(username="user", password = "password1", roles = "USER")
-    public void shouldPresentUserWithAllTags() throws Exception {
+    @DisplayName("Admin is presented all tags from hardcoded datasource")
+    @WithMockUser(username="user", password = "password1", roles = "ADMIN")
+    public void shouldPresentAdminWithAllTags() throws Exception {
 
         mvc.perform(get("/user/all-tags"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("A1")))
-                .andExpect(content().string(containsString("Insightful")));
+                .andExpect(content().string(containsString("Develop effective learning environments and approaches to student support and guidance")));
+    }
+
+    @Test
+    @DisplayName("User is presented custom tags from hardcoded datasource")
+    @WithMockUser(username="user", password = "password1", roles = "ADMIN")
+    public void shouldPresentUserWithCustomTags() throws Exception {
+
+        mvc.perform(get("/user/all-tags"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("worked well")))
+                .andExpect(content().string(containsString("I felt I worked well during this activity")));
     }
 
     @Test

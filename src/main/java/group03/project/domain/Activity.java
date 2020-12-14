@@ -28,7 +28,7 @@ public class Activity {
     private Boolean isOfficial;
 
     public Activity(String name, String desc) {
-        this(null, name, null, desc, null);
+        this(null, name, null, desc, false);
     }
 
 

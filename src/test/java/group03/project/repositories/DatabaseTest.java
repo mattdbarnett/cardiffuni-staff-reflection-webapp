@@ -33,7 +33,7 @@ public class DatabaseTest {
     }
 
     @Test
-    public void shouldReturnCEODescription() throws Exception {
+    public void shouldReturnParticipantDescription() throws Exception {
 
         Role role = roleRepository.findById("Participant").get();
         assertEquals("participating in activity", role.getDescription());

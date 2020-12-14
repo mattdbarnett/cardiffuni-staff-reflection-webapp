@@ -45,25 +45,8 @@ public class ObjectiveServiceImpl implements ObjectiveService {
     @Override
     public void createObjective(Objective theObjective) {
 
-//        Optional<Tag> thetag = tagRepository.findByTagID(theObjective.getTag().getTagID());
-//        Optional<Activity> theActivity = activityRepository.findByActivityID(theObjective.getActivity().getActivityID());
-//
-//
 
         objectiveRepository.save(theObjective);
-
-//
-//        template.update(
-//                con -> {
-//                    PreparedStatement statement =
-//                            con.prepareStatement(newObjectiveSQL, Statement.RETURN_GENERATED_KEYS);
-//
-//                    statement.setLong(1, theActivity.get().getActivityID());
-//                    statement.setLong(2, thetag.get().getTagID());
-//                    return statement;
-//                },
-//                keyHolder);
-
 
 
     }
@@ -74,7 +57,10 @@ public class ObjectiveServiceImpl implements ObjectiveService {
     }
 
     @Override
-    public Optional<Objective> findObjectivesByTag(Tag theTag) {
-        return Optional.empty();
+    public Optional<Objective> findObjectivesByTagID(Long theID) { return objectiveRepository.findByTag_tagID(theID); }
+
+    @Override
+    public Optional<Objective> findObjectivesByActivityID(Long theID) { return objectiveRepository.findByActivity_activityID(theID);
     }
+
 }

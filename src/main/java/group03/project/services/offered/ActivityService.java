@@ -10,6 +10,8 @@ public interface ActivityService {
 
     public List<Activity> findAllActivities();
 
+    public Optional<Activity> findActivityByName(String name);
+
     public Optional<Activity> findActivitiesByID(Long id);
 
     public void saveActivity(Activity theActivity);
@@ -18,5 +20,6 @@ public interface ActivityService {
 
     int getActivityListSize();
 
-    public Long findLastActivity();
+    public Long findMostRecentActivity();
+
 }

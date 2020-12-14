@@ -44,8 +44,9 @@ public class TagCreationTest {
 
         List<Tag> allOfficialTags = tagRepository.findByIsOfficial(true);
         List<Tag> allCustomTags = tagRepository.findByIsOfficial(false);
-
+        // Correct with fresh database.
         assertEquals(18, allOfficialTags.size());
-        assertEquals(2, allCustomTags.size());
+        // Correct with fresh database.
+        assertEquals(17, allCustomTags.size());
     }
 }

@@ -54,15 +54,12 @@ public class ActivityAdminController {
     @PostMapping("/add-official-activity")
     public String submitOfficialActivity(@ModelAttribute("activity") @Valid ActivityCreationForm activity,
                                          BindingResult result) {
-        System.out.println("getting here?");
 
         activity.allOfficialTags();
 
 
-            System.out.println("no errors");
 
             Activity latestActivity = createActivity(activity, result);
-            System.out.println("activity: " + latestActivity);
 
 
 
