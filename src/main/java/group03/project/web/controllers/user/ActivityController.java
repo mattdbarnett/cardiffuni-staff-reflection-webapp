@@ -1,11 +1,15 @@
-package group03.project.web.controllers;
+package group03.project.web.controllers.user;
 
 import group03.project.domain.Participation;
 import group03.project.domain.SiteUser;
-import group03.project.services.implementation.ActivityService;
+import group03.project.services.implementation.ActivityServiceImpl;
 import group03.project.domain.Activity;
 import group03.project.services.implementation.ParticipationServiceImpl;
+import group03.project.services.offered.ActivityService;
+import group03.project.services.offered.ParticipationService;
 import group03.project.services.offered.SiteUserService;
+import group03.project.services.required.SiteUserRepository;
+import group03.project.web.controllers.ControllerSupport;
 import group03.project.web.forms.ActivityJoinForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -26,29 +30,21 @@ import java.util.Optional;
 @RequestMapping("user")
 public class ActivityController {
 
-    @Autowired
     private ActivityService activityService;
-
-    @Autowired
-    private ParticipationServiceImpl participationService;
-
-    @Autowired
+    private ParticipationService participationService;
     private SiteUserService siteUserService;
 
-    //Page for adding an official activity as an administrator
-    @GetMapping("/add-official-activity")
-    public String addOfficialActivity(Model model) {
-        Activity activity = new Activity();
-        model.addAttribute("activity", activity);
-        return "add-oactivity";
+    @Autowired
+    public ActivityController(ActivityService actService, ParticipationService partService, SiteUserService userService) {
+        activityService = actService;
+        participationService = partService;
+        siteUserService = userService;
     }
-    //Submit the activity to the database
-    @PostMapping("/add-official-activity")
-    public String submitOfficialActivity(@ModelAttribute("activity") Activity activity) {
-        activity.setIsOfficial(true);
-        activityService.save(activity);
-        return "redirect:";
-    }
+
+
+
+
+
     //Page for adding a custom activity as a user
     @GetMapping("/add-custom-activity")
     public String addCustomActivity(Model model) {
@@ -62,9 +58,9 @@ public class ActivityController {
         String inputName = activity.getName();
         activity.setName("[Custom] " + inputName);
         activity.setIsOfficial(false);
-        activityService.save(activity);
+        activityService.saveActivity(activity);
         java.util.Date date = new java.util.Date();
-        Integer currentUserID = getCurrentID(authentication);
+        Long currentUserID = getCurrentID(authentication);
         Participation participation = new Participation(null, activity.getActivityID(), date, "Participant", currentUserID );
         participationService.createParticipation(participation);
         redirectAttributes.addFlashAttribute("success",true);
@@ -74,11 +70,11 @@ public class ActivityController {
     //List all activities the user can add themselves too
     @GetMapping("/activities-signup-list")
     public String listActivities(Model model, Authentication authentication) {
-        List<Activity> activities = activityService.findall();
+        List<Activity> activities = activityService.findAllActivities();
         List<Participation> participations = participationService.findAllParticipations();
-        Integer currentID = getCurrentID(authentication);
+        Long currentID = getCurrentID(authentication);
         //Get a list of all activities the user is currently participating in
-        List<Integer> currentActivitiesIDs = new ArrayList<>();
+        List<Long> currentActivitiesIDs = new ArrayList<>();
         for (int y = 0; y < participationService.getParticipationListSize(); y++) {
             Participation currentPart = participations.get(y);
             if(currentPart.getUserID() == currentID) {
@@ -104,19 +100,19 @@ public class ActivityController {
     @PostMapping("/activities-signup-list")
     public String joinActivity(@ModelAttribute("activity") @Valid ActivityJoinForm editForm, Authentication authentication) {
         java.util.Date date = new java.util.Date();
-        Integer currentUserID = getCurrentID(authentication);
-        Participation participation = new Participation(null,  Integer.parseInt(editForm.getActivityJoinID()),date, "Participant", currentUserID);
+        Long currentUserID = getCurrentID(authentication);
+        Participation participation = new Participation(null,  Long.parseLong(editForm.getActivityJoinID()),date, "Participant", currentUserID);
         participationService.createParticipation(participation);
         return "dashboard";
     }
     //Get the current user's ID
-    Integer getCurrentID(Authentication authentication) {
+    Long getCurrentID(Authentication authentication) {
         String currentUserName = ControllerSupport.getAuthenticatedUserName(authentication);
         Optional<SiteUser> currentUserOptional = siteUserService.findUserByUserName(currentUserName);
         SiteUser currentUser = currentUserOptional.get();
         Long currentUserID = currentUser.getUserID();
-        Integer currentUserIDInt = currentUserID.intValue();
-        return currentUserIDInt;
+//        Integer currentUserIDInt = currentUserID.intValue();
+        return currentUserID;
     }
 
 }

@@ -15,14 +15,14 @@ import javax.validation.Valid;
 import java.sql.SQLException;
 
 @Controller
-public class UserRegistrationController {
+public class RegistrationController {
 
 
     private SiteUserService accountService;
     private PasswordEncoder encoder;
 
     @Autowired
-    public UserRegistrationController(SiteUserService aService, PasswordEncoder theEncoder) {
+    public RegistrationController(SiteUserService aService, PasswordEncoder theEncoder) {
         encoder = theEncoder;
         accountService = aService;
 

@@ -1,10 +1,14 @@
 package group03.project.web;
 
 import group03.project.domain.Activity;
-import group03.project.services.implementation.ActivityService;
+import group03.project.domain.Objective;
+import group03.project.services.implementation.ActivityServiceImpl;
 import group03.project.services.implementation.ParticipationServiceImpl;
+import group03.project.services.offered.ActivityService;
+import group03.project.services.offered.ObjectiveService;
 import group03.project.services.offered.SiteUserService;
-import group03.project.web.controllers.ActivityController;
+import group03.project.services.offered.TagService;
+import group03.project.web.controllers.user.ActivityController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -15,6 +19,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalToObject;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED;
@@ -24,7 +29,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.springframework.test.web.servlet.*;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,9 +46,15 @@ import java.util.List;
  * Configures a mock mvc environment
  */
 @AutoConfigureMockMvc
-public class ActivityTest {
+public class ActivityWebTest {
 
-    @MockBean
+    @Autowired
+    private TagService tagService;
+
+    @Autowired
+    private ObjectiveService objService;
+
+    @Autowired
     private ActivityService activityService;
 
     @MockBean
@@ -61,7 +71,7 @@ public class ActivityTest {
     public void shouldLoadAddOfficialActivityPage() throws Exception {
 
         this.mvc
-                .perform(get("/user/add-official-activity"))
+                .perform(get("/admin/add-official-activity"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Official Activity Registration")));
@@ -84,11 +94,11 @@ public class ActivityTest {
                 .contentType(APPLICATION_FORM_URLENCODED) //from MediaType
                 .param("name", activities.get(0).getName())
                 .param("file", activities.get(0).getFile())
-                .param("desc", activities.get(0).getDesc()))
+                .param("desc", activities.get(0).getDescription()))
                 .andReturn();
 
         //Adding via service without errors
-        activityService.save(activities.get(1));
+        activityService.saveActivity(activities.get(1));
 
         assertEquals(2, activityService.getActivityListSize());
     }
@@ -107,7 +117,7 @@ public class ActivityTest {
                 .contentType(APPLICATION_FORM_URLENCODED) //from MediaType
                 .param("name", activities.get(0).getName())
                 .param("file", activities.get(0).getFile())
-                .param("desc", activities.get(0).getDesc()))
+                .param("desc", activities.get(0).getDescription()))
                 .andReturn();
 
         assertEquals(1, activityService.getActivityListSize());

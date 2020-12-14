@@ -1,4 +1,4 @@
-package group03.project.web.controllers;
+package group03.project.web.controllers.admin;
 
 import group03.project.domain.Tag;
 import group03.project.services.implementation.TagServiceImpl;

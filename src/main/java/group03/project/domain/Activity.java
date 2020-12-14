@@ -10,21 +10,26 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Table(name = "activity")
 public class Activity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="activityID")
-    private Integer activityID;
+    private Long activityID;
 //    private Integer userID;
     @Column(name = "name")
     private String name;
     @Column(name="file")
     private String file;
     @Column(name="description")
-    private String desc;
+    private String description;
     @Column(name="isOfficial")
     private Boolean isOfficial;
+
+    public Activity(String name, String desc) {
+        this(null, name, null, desc, null);
+    }
 
 
 }
