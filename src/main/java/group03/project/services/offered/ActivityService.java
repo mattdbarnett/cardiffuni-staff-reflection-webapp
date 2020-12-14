@@ -17,4 +17,6 @@ public interface ActivityService {
     public Optional<Activity> findAnActivityDescription(Long id);
 
     int getActivityListSize();
+
+    public Long findLastActivity();
 }

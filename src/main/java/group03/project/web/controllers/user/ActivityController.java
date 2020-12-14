@@ -1,13 +1,7 @@
 package group03.project.web.controllers.user;
 
-import group03.project.domain.Participation;
-import group03.project.domain.SiteUser;
-import group03.project.domain.Tag;
-import group03.project.domain.Activity;
-import group03.project.services.offered.ActivityService;
-import group03.project.services.offered.ParticipationService;
-import group03.project.services.offered.SiteUserService;
-import group03.project.services.offered.TagService;
+import group03.project.domain.*;
+import group03.project.services.offered.*;
 import group03.project.web.controllers.ControllerSupport;
 import group03.project.web.forms.ActivityJoinForm;
 import group03.project.web.forms.ActivityCreationForm;
@@ -15,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,14 +29,17 @@ public class ActivityController {
     private ParticipationService participationService;
     private SiteUserService siteUserService;
     private TagService tagService;
+    private ObjectiveService objService;
 
     @Autowired
     public ActivityController(ActivityService actService, ParticipationService partService,
-                              SiteUserService userService, TagService theTagService) {
+                              SiteUserService userService, TagService theTagService,
+                              ObjectiveService objectiveService) {
         activityService = actService;
         participationService = partService;
         siteUserService = userService;
         tagService = theTagService;
+        objService = objectiveService;
     }
 
 
@@ -60,14 +58,44 @@ public class ActivityController {
     }
     //Submit the activity to the database
     @PostMapping("/add-custom-activity")
-    public String submitCustomActivity(RedirectAttributes redirectAttributes, @ModelAttribute("activity") Activity activity, Authentication authentication) {
-        String inputName = activity.getName();
-        activity.setName("[Custom] " + inputName);
-        activity.setIsOfficial(false);
-        activityService.saveActivity(activity);
+    public String submitCustomActivity(RedirectAttributes redirectAttributes, @ModelAttribute("activity")
+            @Valid ActivityCreationForm activity, Authentication authentication, BindingResult result) {
+        /*
+        Creates activity via basic information parsed from form.
+         */
+        Activity newCustomActivity = createActivity(activity, result);
+
+        String[] customTags = activity.getCustomTags().split(",");
+
+                    if (customTags.length > 0) {
+                for (String customTag : customTags) {
+                    Tag theTag = tagService.findATagByID(Long.valueOf(customTag)).get();
+                    Objective newObj = new Objective(newCustomActivity, theTag);
+                    objService.createObjective(newObj);
+                    System.out.println(theTag.getTagName());
+
+                }
+            }
+
+
+//        String inputName = activity.getName();
+//        activity.setName("[Custom] " + inputName);
+//        activity.setIsOfficial(false);
+//        activityService.saveActivity(activity);
+
+        /*
+        Date must be entered into subsequent participation addition.
+         */
         java.util.Date date = new java.util.Date();
+        /*
+        Source user who created activity from authentication.
+         */
         Long currentUserID = getCurrentID(authentication);
-        Participation participation = new Participation(null, activity.getActivityID(), date, "Participant", currentUserID );
+        /*
+
+         */
+        System.out.println(activityService.findLastActivity());
+        Participation participation = new Participation(null, activityService.findLastActivity(), date, "Participant", currentUserID );
         participationService.createParticipation(participation);
         redirectAttributes.addFlashAttribute("success",true);
         redirectAttributes.addFlashAttribute("type","cactivity");
@@ -119,6 +147,26 @@ public class ActivityController {
         Long currentUserID = currentUser.getUserID();
 //        Integer currentUserIDInt = currentUserID.intValue();
         return currentUserID;
+    }
+
+    private Activity createActivity(ActivityCreationForm activityForm,
+                                    BindingResult result) {
+        Activity newActivity;
+
+        try {
+            newActivity = new Activity(
+                    activityForm.getName(),
+                    activityForm.getDescription());
+
+            newActivity.setIsOfficial(false);
+
+            activityService.saveActivity(newActivity);
+
+        } catch (Exception ex) {
+            return null;
+        }
+        return newActivity;
+//        return activityService.findMostRecentActivity();
     }
 
 }

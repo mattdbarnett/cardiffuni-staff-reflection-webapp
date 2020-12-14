@@ -40,6 +40,9 @@ public class ActivityServiceImpl implements ActivityService {
         return activities.size();
     }
 
+    @Override
+    public Long findLastActivity() { return activityRepo.findLastActivityID(); }
+
 //    public List<Activity> findall() {
 //        return activityRepo.findAll();
 //    }

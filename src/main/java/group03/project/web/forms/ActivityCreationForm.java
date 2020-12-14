@@ -33,8 +33,8 @@ public class ActivityCreationForm {
     @NotBlank(message = "Please enter the activity's description")
     private String description;
 
-    @NotNull
-    @NotBlank(message = "Please enter the related custom tags")
+//    @NotNull
+//    @NotBlank(message = "Please enter the related custom tags")
     private String customTags;
 
     private Boolean a1;
