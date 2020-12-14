@@ -2,15 +2,15 @@ package group03.project.web.controllers.user;
 
 import group03.project.domain.Participation;
 import group03.project.domain.SiteUser;
-import group03.project.services.implementation.ActivityServiceImpl;
+import group03.project.domain.Tag;
 import group03.project.domain.Activity;
-import group03.project.services.implementation.ParticipationServiceImpl;
 import group03.project.services.offered.ActivityService;
 import group03.project.services.offered.ParticipationService;
 import group03.project.services.offered.SiteUserService;
-import group03.project.services.required.SiteUserRepository;
+import group03.project.services.offered.TagService;
 import group03.project.web.controllers.ControllerSupport;
 import group03.project.web.forms.ActivityJoinForm;
+import group03.project.web.forms.ActivityCreationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -33,12 +33,15 @@ public class ActivityController {
     private ActivityService activityService;
     private ParticipationService participationService;
     private SiteUserService siteUserService;
+    private TagService tagService;
 
     @Autowired
-    public ActivityController(ActivityService actService, ParticipationService partService, SiteUserService userService) {
+    public ActivityController(ActivityService actService, ParticipationService partService,
+                              SiteUserService userService, TagService theTagService) {
         activityService = actService;
         participationService = partService;
         siteUserService = userService;
+        tagService = theTagService;
     }
 
 
@@ -48,8 +51,11 @@ public class ActivityController {
     //Page for adding a custom activity as a user
     @GetMapping("/add-custom-activity")
     public String addCustomActivity(Model model) {
-        Activity activity = new Activity();
+        ActivityCreationForm activity = new ActivityCreationForm();
+//        Activity activity = new Activity();
+        List<Tag> allTags = tagService.findTagsIfCustom();
         model.addAttribute("activity", activity);
+        model.addAttribute("tags", allTags);
         return "add-cactivity";
     }
     //Submit the activity to the database

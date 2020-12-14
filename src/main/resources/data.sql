@@ -7,7 +7,6 @@ INSERT INTO `developmenttoolkit`.`role` VALUES ( 'Lead', 'Leading activity');
 
 
 INSERT INTO tag (tagName, description, isOfficial) VALUES ('A1', 'Design and plan learning activities and/or programmes of study', 1);
-
 INSERT INTO tag (tagName, description, isOfficial) VALUES('A2', 'Teach and/or support learning.', true);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('A3', 'Assess and give feedback to learners.', true);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('A4', 'Develop effective learning environments and approaches to student support and guidance.', true);
@@ -24,7 +23,22 @@ INSERT INTO tag (tagName, description, isOfficial) VALUES('V2', 'Promote partici
 INSERT INTO tag (tagName, description, isOfficial) VALUES('V3', 'Use evidence-informed approaches and the outcomes from research, scholarship and continuing professional development.', true);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('V4', 'Acknowledge the wider context in which higher education operates recognising the implications for professional practice', true);
 
-INSERT INTO tag (tagName, description, isOfficial) VALUES('Insightful', 'I felt this was insightful', false);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('worked well', 'I felt I worked well during this activity', false);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('Motivational', 'I felt I worked well during this activity', false);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('Context', 'I felt I worked well during this activity', false);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('Something new', 'I felt I worked well during this activity', false);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('Out of my comfort zone', 'I felt I worked well during this activity', false);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('Had a go', 'I felt I worked well during this activity', false);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('Good response', 'I felt I worked well during this activity', false);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('Needs more work', 'I felt I worked well during this activity', false);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('Back to the drawing board', 'I felt I worked well during this activity', false);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('Phone a friend', 'I felt I worked well during this activity', false);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('Apprehensive', 'I felt I worked well during this activity', false);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('Cautious', 'I felt I worked well during this activity', false);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('Confident', 'I felt I worked well during this activity', false);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('Excited', 'I felt I worked well during this activity', false);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('Depressed', 'I felt I worked well during this activity', false);
+INSERT INTO tag (tagName, description, isOfficial) VALUES('Frustrated', 'I felt I worked well during this activity', false);
 
 -- Dummy data for database --
 

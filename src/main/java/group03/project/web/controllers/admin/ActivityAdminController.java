@@ -1,13 +1,12 @@
 package group03.project.web.controllers.admin;
 
 import group03.project.domain.*;
-import group03.project.services.implementation.ActivityServiceImpl;
 import group03.project.services.implementation.ParticipationServiceImpl;
 import group03.project.services.implementation.ReflectionServiceImpl;
 import group03.project.services.offered.ActivityService;
 import group03.project.services.offered.ObjectiveService;
 import group03.project.services.offered.TagService;
-import group03.project.web.forms.OfficialActivityForm;
+import group03.project.web.forms.ActivityCreationForm;
 import group03.project.web.lists.ReflectList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +24,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("admin")
-public class AdminActivityController {
+public class ActivityAdminController {
 
     @Autowired
     private ActivityService activityService;
@@ -45,7 +44,7 @@ public class AdminActivityController {
     //Page for adding an official activity as an administrator
     @GetMapping("/add-official-activity")
     public String addOfficialActivity(Model model) {
-        OfficialActivityForm activity = new OfficialActivityForm();
+        ActivityCreationForm activity = new ActivityCreationForm();
         List<Tag> allTags = tagService.findTagsIfOfficial();
         model.addAttribute("activity", activity);
         model.addAttribute("tags", allTags);
@@ -53,7 +52,7 @@ public class AdminActivityController {
     }
     //Submit the activity to the database
     @PostMapping("/add-official-activity")
-    public String submitOfficialActivity(@ModelAttribute("activity") @Valid OfficialActivityForm activity,
+    public String submitOfficialActivity(@ModelAttribute("activity") @Valid ActivityCreationForm activity,
                                          BindingResult result) {
         System.out.println("getting here?");
 
@@ -142,8 +141,8 @@ public class AdminActivityController {
         return "all-reflections-admin";
     }
 
-    private Activity createActivity(OfficialActivityForm activityForm,
-                                   BindingResult result) {
+    private Activity createActivity(ActivityCreationForm activityForm,
+                                    BindingResult result) {
         Activity newActivity;
 
         try {

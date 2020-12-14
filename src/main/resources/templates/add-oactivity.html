@@ -21,7 +21,7 @@
         <div class="col-md-offset-2 col-md-8 col-lg-offset-2 col-lg-8">
             <div class="well profile" id="container-box">
                 <h1 align="center">Official Activity Registration</h1><hr style="background-color:#333;">
-                <form action="#" th:action="@{add-official-activity/}" enctype="multipart/form-data" method="post" th:object="${activity}">
+                <form action="#" th:action="@{/admin/add-official-activity/}" enctype="multipart/form-data" method="post" th:object="${activity}">
                     <div class="form-group">
                         <h4>Activity Name</h4>
                         <input th:field = "*{name}" type="text" class="form-control" id="activity-name" name="activity-name">

@@ -24,7 +24,7 @@ import java.util.Map;
  */
 @NoArgsConstructor
 
-public class OfficialActivityForm {
+public class ActivityCreationForm {
     @NotNull
     @NotBlank(message = "Please enter the activity name")
     private String name;
