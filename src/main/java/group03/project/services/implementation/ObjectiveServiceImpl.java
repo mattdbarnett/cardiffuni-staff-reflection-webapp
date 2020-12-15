@@ -2,6 +2,7 @@ package group03.project.services.implementation;
 
 import group03.project.domain.Activity;
 import group03.project.domain.Objective;
+import group03.project.domain.Participation;
 import group03.project.domain.Tag;
 import group03.project.services.offered.ObjectiveService;
 import group03.project.services.required.ActivityRepository;
@@ -85,5 +86,11 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         List<Objective> objective = new ArrayList<>();
         objectiveRepository.findAll().forEach(objective::add);
         return objective.size();
+    }
+
+    public List<Objective> getAllObjectives() {
+        List<Objective> objectives = new ArrayList<>();
+        objectiveRepository.findAll().forEach(objectives::add);
+        return objectives;
     }
 }
