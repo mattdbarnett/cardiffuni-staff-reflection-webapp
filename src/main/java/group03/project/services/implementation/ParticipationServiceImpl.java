@@ -24,6 +24,7 @@ public class ParticipationServiceImpl implements ParticipationService {
     public List<Participation> findAllParticipations() { return participationRepo.findAll(); }
 
     //Returns a list of all participations in the database
+    @Override
     public List<Participation> getAllParticipations() {
         List<Participation> participations = new ArrayList<>();
         participationRepo.findAll().forEach(participations::add);

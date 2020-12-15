@@ -1,10 +1,13 @@
 package group03.project.web.controllers.user;
 
+import group03.project.domain.Activity;
 import group03.project.domain.Participation;
 import group03.project.domain.Reflection;
 import group03.project.domain.SiteUser;
 import group03.project.services.implementation.ActivityServiceImpl;
 import group03.project.services.implementation.ParticipationServiceImpl;
+import group03.project.services.offered.ActivityService;
+import group03.project.services.offered.ParticipationService;
 import group03.project.services.offered.SiteUserService;
 import group03.project.web.controllers.ControllerSupport;
 import group03.project.web.forms.ReflectionButtonForm;
@@ -26,14 +29,18 @@ import java.util.Optional;
 @RequestMapping("user")
 public class ParticipationController {
 
-    @Autowired
-    private ParticipationServiceImpl participationService;
+    private final ParticipationService participationService;
+    private final ActivityService activityService;
+    private final SiteUserService siteUserService;
 
     @Autowired
-    private ActivityServiceImpl activityService;
+    public ParticipationController(ActivityService AnActivityService, ParticipationService aParticipationService, SiteUserService aSiteUserService) {
+        activityService = AnActivityService;
+        participationService = aParticipationService;
+        siteUserService = aSiteUserService;
+    }
 
-    @Autowired
-    private SiteUserService siteUserService;
+
 
     //Lists all participations
     @GetMapping("/all-participations")
@@ -48,6 +55,7 @@ public class ParticipationController {
     public String listMyParticipations(Model model, Authentication authentication) {
         List<Participation> participations = participationService.findAllParticipations();
         List<Participation> myParticipations = new ArrayList<>();
+        List<Activity> relatedActivities =  new ArrayList<>();
         Long currentID = getCurrentID(authentication);
 
         //Make a list of all the participations unique to the current user
@@ -55,12 +63,11 @@ public class ParticipationController {
             Participation participation = participations.get(z);
             if(participation.getUserID() == currentID) {
                 myParticipations.add(participation);
+                relatedActivities.add(activityService.findActivitiesByID(participation.getActivityID()).get());
             }
         }
 
-        System.out.println(participations);
-
-        System.out.println(myParticipations);
+        model.addAttribute("activities", relatedActivities);
         model.addAttribute("participations", myParticipations);
         return "all-participations";
     }
