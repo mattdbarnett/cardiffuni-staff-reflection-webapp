@@ -65,15 +65,30 @@ public class ParticipationController {
             Participation participation = participations.get(z);
             if(participation.getUserID() == currentID) {
                 myParticipations.add(participation);
+                //Adds the linked activity into list depending on participation.
                 relatedActivities.add(activityService.findActivitiesByID(participation.getActivityID()).get());
 
+                //Finds all objectives that link to activity, sources the tag relating to each activity, and passes that
+                //into list for adding onto page.
                 List<Objective> objectives = objectiveService.findObjectivesByActivityID(participation.getActivityID());
-
                 Tag[] tags = objectives.stream().map(Objective::getTag).toArray(size -> new Tag[objectives.size()]);
-
                 allTags.add(tags);
 
             }
+        }
+
+        for ( Participation part:
+            myParticipations) {
+            System.out.println(part);
+        }
+        for ( Activity part:
+                relatedActivities) {
+            System.out.println(part);
+        }
+        for ( Tag[] part:
+                allTags) {
+            for (Tag tag : part)
+                System.out.println(tag);
         }
 
         model.addAttribute("tags", allTags);

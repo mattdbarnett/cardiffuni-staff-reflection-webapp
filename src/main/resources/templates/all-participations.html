@@ -19,7 +19,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500&display=swap" rel="stylesheet">
     <link th:rel="stylesheet" th:href="@{/css/contentMargin.css}">
 
-    <script th:src="@{/js/bootstrap.js}"></script>
+    <script th:src="@{/js/bootstrap.js}" th:inline = "javascript">
+
+        // function showMouseOverTest(ts) {
+        //     return escape
+        // }
+
+    </script>
     <link th:rel="stylesheet" th:href="@{/css/bootstrap.css}">
 </head>
 <body>
@@ -32,8 +38,20 @@
                 <ul class="list-group">
                     <li class = "list-group-item" th:each="participation,iterStat : ${participations}">
                         <form action="#" th:action="@{all-my-participations/}" enctype="multipart/form-data" method="post" th:object="${editForm}">
-                            <span class="badge" th:text="${participation.activityID}"></span>
                             <p th:text = "'Activity Name: '+ ${activities[iterStat.index].name}"></p>
+<!--                            <span class="badge" th:text="${participation.activityID}"></span>-->
+                            <p class = "tag_list">Activity tags: </p>
+
+                            <ul class = "tag_list">
+                                <li id = "tag-colour" th:each = "listOfTags: ${tags[iterStat.index]}">
+                                    <ul class = "tag_list">
+                                        <li   th:each = "tag : ${listOfTags}">
+                                            <span class = "tags" th:text = "${tag.tagName}" th:onmouseover="showMouseOverText(/*[[${tag.description}]]*/)"></span>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+
                             <p th:text = "'Description: '+ ${activities[iterStat.index].description}"></p>
                             <p th:text = "'Participation Date: '+ ${participation.date}"></p>
                             <p th:text = "'Your role: '+ ${participation.roleID}"></p>
@@ -57,6 +75,24 @@
     $(function () {
         $('[data-toggle="popover"]').popover()
     })
+
+
+    // Method calls a random colour from set list and adds different backgrounds to each tag.
+    $(document).ready(function() {
+        var colours = ['#ffcccc', '#ffd9cc', '#ffe6cc', '#fff2cc', '#ffffcc',
+            '#f2ffcc', '#e6ffcc', '#d9ffcc', '#ccffcc', '#ccffd9',
+            '#ccffe6', '#ccfff2', '#ccffff', '#ccf2ff', '#cce6ff',
+            '#ccd9ff', '#ccccff', '#d9ccff', '#e6ccff', '#f2ccff',
+            '#ffccff', '#ffccf2', '#ffcce6', '#ffccd9', '#ffcccc'];
+
+        $('.tags').each(function() {
+            var random_colour = colours[Math.floor(Math.random() * colours.length)]
+            $(this).css('background-color', random_colour)
+        })
+
+    });
+
+
 </script>
 </body>
 </html>
