@@ -176,50 +176,6 @@
         </div>
     </div>
     </div>
-    <div class="container" style="position:relative;margin-top:10px;">
-        <div class="content-pane">
-            <div class="well profile" id="container-box-upcoming" style="float:left;">
-                <div>
-                    <h3>Your Recent Activities</h3>
-                    <br>
-                    <div class="list-group">
-                        <th:block th:each="participation,iterStat : ${participations}" th:if="${iterStat.index} < 4">
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1" th:text="${'Participation #'+participation.participationID}"></h5>
-                                    <small th:text="${#strings.arraySplit(participation.date, ' ')[0]}"></small>
-                                </div>
-                                <p class="mb-1">participation description</p>
-                                <small class="date-field" th:text="${#strings.arraySplit(participation.date, ' ')[0]}"></small>
-                            </a>
-                        </th:block>
-                    </div>
-                    <a href="/user/all-my-participations">View all activities</a>
-                </div>
-            </div>
-            <div class="well profile" id="container-box-graph" style="margin-left:300px;">
-                <div>
-                    <h3>UKPSF Progression</h3>
-                    <br>
-                    <!-- <div id="legend"></div> -->
-                    <canvas id="doughnutChart"></canvas>
-                </div>
-                <br clear="all">
-            </div>
-            <div class="well profile" id="container-box-completed-tags" style="margin-top:40px;">
-                <div>
-                    <h3>Completed UKPSF Tags</h3>
-                    <br>
-                    <div th:each="tag : ${tags}">
-                        <h1 th:text="${tag.tagName}"></h1>
-                    </div>
-                </div>
-                <br clear="all">
-            </div>
-            <br clear="all">
-        </div>
-    </div>
-    </div>
 </main>
 <script>
     const pathname = window.location.pathname,
