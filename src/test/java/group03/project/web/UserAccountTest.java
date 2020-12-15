@@ -127,4 +127,14 @@ public class UserAccountTest {
 
     }
 
+    @Test
+    @DisplayName("User can see a chart of their tags on dashboard")
+    @WithMockUser(username = "user", password = "password1", roles = "USER")
+    public void shouldSeeChartOnDash() throws Exception {
+
+        mvc.perform(get("/dashboard"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("id=\"doughnutChart\"")));
+
+    }
 }

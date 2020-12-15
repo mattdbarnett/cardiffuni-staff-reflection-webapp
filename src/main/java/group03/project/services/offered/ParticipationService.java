@@ -15,4 +15,6 @@ public interface ParticipationService {
 
     public Integer getParticipationListSize();
 
+    public Activity getRelatedActivity(Participation participation);
+
 }

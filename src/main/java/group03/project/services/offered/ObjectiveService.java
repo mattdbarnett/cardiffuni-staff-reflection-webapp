@@ -3,6 +3,7 @@ package group03.project.services.offered;
 
 import group03.project.domain.Activity;
 import group03.project.domain.Objective;
+import group03.project.domain.Participation;
 import group03.project.domain.Tag;
 
 import java.util.List;
@@ -16,11 +17,16 @@ public interface ObjectiveService {
      */
     public void createObjective(Objective theObjective);
 
-
     public Optional<Objective> findObjectivesByActivity(Activity theActivity);
 
     public Optional<Objective> findObjectivesByTagID(Long theID);
 
     public Optional<Objective> findObjectivesByActivityID(Long theID);
+
+    public Integer getObjectiveListSize();
+
+    List<Objective> getAllObjectives();
+
+    public Activity getAssociatedActivity(Objective objective);
 
 }

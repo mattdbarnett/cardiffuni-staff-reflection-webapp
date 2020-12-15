@@ -1,18 +1,17 @@
 package group03.project.web.controllers;
 
 import group03.project.config.SiteUserPrincipal;
-import group03.project.domain.Participation;
-import group03.project.domain.SiteUser;
+import group03.project.domain.*;
 import group03.project.services.implementation.ParticipationServiceImpl;
+import group03.project.services.offered.ObjectiveService;
 import group03.project.services.offered.SiteUserService;
+import group03.project.services.offered.TagService;
 import group03.project.web.forms.UserCreationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ReactiveAdapterRegistry;
 import org.springframework.security.core.Authentication;
-
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-
 import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -21,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,6 +41,12 @@ public class HomeController {
     @Autowired
     private SiteUserService siteUserService;
 
+
+    @Autowired
+    private ObjectiveService objService;
+
+    @Autowired
+    private TagService tagService;
     /**
      * Default navigation mapping to access localhost:8080
      * @return login form for localhost;
@@ -80,6 +86,48 @@ public class HomeController {
             }
 
             model.addAttribute("participations", myParticipations);
+
+            List<Participation> allParticipations = participationService.findAllParticipations();
+            List<Participation> t_myParticipations = new ArrayList<>();
+            List<Activity> t_myActivities = new ArrayList<>();
+            List<Long> t_tagList = new ArrayList<>();
+            //Make a list of all the tags that the current user has
+            for (int partlist = 0; partlist < allParticipations.size(); partlist++) {
+                Participation participation = allParticipations.get(partlist);
+                System.out.println("current participation: " + participation);
+                if(participation.getUserID() == currentID) {
+                    t_myParticipations.add(participation);
+                    System.out.println("All participations: "+ t_myParticipations);
+                }
+            }
+            Integer counter =0;
+            Integer innerCounter = 0;
+            Integer deepcounter =0;
+                for (Participation mypart : t_myParticipations) {
+                    t_myActivities.add(participationService.getRelatedActivity(mypart));
+                }
+                for (Activity myact : t_myActivities){
+                        for (Objective obj : objService.getAllObjectives()) {
+                            if (objService.getAssociatedActivity(obj) == myact) {
+                                //System.out.println("Objective " + obj.getObjectiveID() + " matches " + myact.getActivityID()
+                                // + ", objective tag " + obj.getTag().getTagName() + " being added to list of tags.");
+                                t_tagList.add(tagService.findATagByID(obj.getTag().getTagID()).get().getTagID());
+                                //System.out.println("Current tag list by id: " + t_tagList);
+                            }
+                        }
+                    }
+
+        List<Tag> allTags = tagService.findAllTags();
+        System.out.println("taglist: "+ t_tagList);
+
+        List<String> tagNames = new ArrayList<>();
+        for (Long tagID : t_tagList)
+        {
+            tagNames.add(tagService.findATagByID(tagID).get().getTagName());
+        }
+
+        model.addAttribute("userstags",tagNames);
+        model.addAttribute("tags", allTags);
 
                 /*
           Redirects user object based upon authority set, streaming into 2 different dashboard pages.
