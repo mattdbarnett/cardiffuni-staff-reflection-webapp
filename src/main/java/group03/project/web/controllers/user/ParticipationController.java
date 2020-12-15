@@ -1,14 +1,9 @@
 package group03.project.web.controllers.user;
 
-import group03.project.domain.Activity;
-import group03.project.domain.Participation;
-import group03.project.domain.Reflection;
-import group03.project.domain.SiteUser;
+import group03.project.domain.*;
 import group03.project.services.implementation.ActivityServiceImpl;
 import group03.project.services.implementation.ParticipationServiceImpl;
-import group03.project.services.offered.ActivityService;
-import group03.project.services.offered.ParticipationService;
-import group03.project.services.offered.SiteUserService;
+import group03.project.services.offered.*;
 import group03.project.web.controllers.ControllerSupport;
 import group03.project.web.forms.ReflectionButtonForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +27,19 @@ public class ParticipationController {
     private final ParticipationService participationService;
     private final ActivityService activityService;
     private final SiteUserService siteUserService;
+    private final ObjectiveService objectiveService;
+    private final TagService tagService;
 
     @Autowired
-    public ParticipationController(ActivityService AnActivityService, ParticipationService aParticipationService, SiteUserService aSiteUserService) {
+    public ParticipationController(ActivityService AnActivityService, TagService theTagService,
+                                   ParticipationService aParticipationService,
+                                   SiteUserService aSiteUserService, ObjectiveService theObjectiveService) {
         activityService = AnActivityService;
         participationService = aParticipationService;
         siteUserService = aSiteUserService;
+        objectiveService = theObjectiveService;
+        tagService = theTagService;
     }
-
-
 
     //Lists all participations
     @GetMapping("/all-participations")
@@ -56,6 +55,7 @@ public class ParticipationController {
         List<Participation> participations = participationService.findAllParticipations();
         List<Participation> myParticipations = new ArrayList<>();
         List<Activity> relatedActivities =  new ArrayList<>();
+        List<Tag[]> allTags = new ArrayList<>();
         Long currentID = getCurrentID(authentication);
 
         //Make a list of all the participations unique to the current user
