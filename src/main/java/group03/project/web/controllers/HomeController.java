@@ -98,35 +98,23 @@ public class HomeController {
                     t_myParticipations.add(participation);
                     System.out.println("All participations: "+ t_myParticipations);
                 }
-                }
-                Integer counter =0;
+            }
+            Integer counter =0;
             Integer innerCounter = 0;
             Integer deepcounter =0;
-                for (Participation mypart : t_myParticipations){
-
-                    System.out.println("outer counter: "+counter);
+                for (Participation mypart : t_myParticipations) {
                     t_myActivities.add(participationService.getRelatedActivity(mypart));
-                    for (Activity myact : t_myActivities){
-                        //System.out.println("size: "+ t_myActivities.size());
-                        //System.out.println("inner counter: "+innerCounter);
-
+                }
+                for (Activity myact : t_myActivities){
                         for (Objective obj : objService.getAllObjectives()) {
-                            //System.out.println("depcont: " + deepcounter);
                             if (objService.getAssociatedActivity(obj) == myact) {
                                 System.out.println("Objective " + obj.getObjectiveID() + " matches " + myact.getActivityID()
                                  + ", objective tag " + obj.getTag().getTagName() + " being added to list of tags.");
-
-//                              System.out.println("obj" + obj.getActivity().getActivityID() + " matches " + myact.getActivityID());
                                 t_tagList.add(tagService.findATagByID(obj.getTag().getTagID()).get().getTagID());
                                 System.out.println("Current tag list by id: " + t_tagList);
                             }
                         }
-                        innerCounter++;
-                    } counter++;
-                }
-
-            System.out.println("w "+t_tagList);
-
+                    }
 
         List<Tag> allTags = tagService.findAllTags();
 
