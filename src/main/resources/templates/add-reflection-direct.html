@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Official Activity Registration</title>
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link th:rel="stylesheet" th:href="@{/css/dashPageStyle.css}">
+    <link th:rel="stylesheet" th:href="@{/css/contentMargin.css}">
+    <link th:rel="stylesheet" th:href="@{/css/gradientBg.css}">
+    <link th:rel="stylesheet" th:href="@{/css/snackbarStyling.css} "/>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+<div th:replace="navbar.html :: header"></div>
+<div id="snackbar" th:text="${message}"></div>
+<div id="content-pane">
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+            <div class="well profile" id="container-box">
+                <h1 align="center">Reflection Registration</h1><hr style="background-color:#333;">
+                <form action="#" th:action="@{/user/add-reflection-direct}" enctype="multipart/form-data" method="post" th:object="${reflection}">
+                    <br>
+                    <div class="form-group">
+                        <label for="what">What did you do?</label>
+                        <textarea rows="5" cols="25" th:field="*{reflect_what}" type="text" class="form-control" id="what" name="description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">What prompted your approach?</label>
+                        <textarea rows="5" cols="25" th:field="*{reflect_prompt}" type="text" class="form-control" id="prompt" name="description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">What happened?</label>
+                        <textarea rows="5" cols="25" th:field="*{reflect_happen}" type="text" class="form-control" id="happen" name="description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">How will you evaluate this activity later? What evidence do you need?</label>
+                        <textarea rows="5" cols="25" th:field="*{reflect_eval}" type="text" class="form-control" id="eval" name="description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">What could you have done differently?</label>
+                        <textarea rows="5" cols="25" th:field="*{reflect_diff}" type="text" class="form-control" id="diff" name="description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">What are your reflective learning points?</label>
+                        <textarea rows="5" cols="25" th:field="*{reflect_lp}" type="text" class="form-control" id="lp" name="description"></textarea>
+                    </div>
+                    <br>
+                    <label for="ifpublic"> Do you want your reflection to be public? (Private by default)</label><br>
+                    <input type = "hidden" th:name="participationID" th:value = "${reflection.participationID}"/>
+                    <input th:field="*{isPublic}" type="checkbox" id="ifpublic" name="ifpublic" value="Public">
+                    <br>
+                    <button type="submit" id="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

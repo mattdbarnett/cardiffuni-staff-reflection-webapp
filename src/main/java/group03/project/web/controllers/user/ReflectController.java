@@ -47,33 +47,26 @@ public class ReflectController {
         Reflection reflection = new Reflection();
         model.addAttribute("reflection", reflection);
 
-        List<Activity> activities = activityService.findAllActivities();
-        List<Participation> participations = participationService.findAllParticipations();
-        Long currentID = getCurrentID(authentication);
-        //Get a list of all activities the user is currently participating in
-        List<Long> currentActivitiesIDs = new ArrayList<>();
-        for (int x = 0; x < participationService.getParticipationListSize(); x++) {
-            Participation currentPart = participations.get(x);
-            if(currentPart.getUserID() == currentID) {
-                currentActivitiesIDs.add(currentPart.getActivityID());
-            }
-        }
-        //Make sure the user can only choose official activities
-        List<Activity> possibleActivities = new ArrayList<>();
-        for (int x = 0; x < activityService.getActivityListSize(); x++) {
-            Activity currentActivity = activities.get(x);
-            if(currentActivitiesIDs.contains(currentActivity.getActivityID()) == true) {
-                possibleActivities.add(currentActivity);
-            }
-        }
+        List<Activity> possibleActivities = reflectionSetup(authentication);
 
         model.addAttribute("activities", possibleActivities);
         return "add-reflection";
     }
 
+    @GetMapping("/add-reflection-direct")
+    public String addReflectionDirect (Model model, Authentication authentication) {
+        Reflection reflection = new Reflection();
+        model.addAttribute("reflection", reflection);
+
+        List<Activity> possibleActivities = reflectionSetup(authentication);
+
+        model.addAttribute("activities", possibleActivities);
+        return "add-reflection-direct";
+    }
+
     //Submit the entry to the database
     @PostMapping("/add-reflection")
-    public String submitParticipation(RedirectAttributes redirectAttributes, @ModelAttribute("reflection") Reflection reflection, Authentication authentication) {
+    public String submitReflection(RedirectAttributes redirectAttributes, @ModelAttribute("reflection") Reflection reflection, Authentication authentication) {
 
         Long activityID = reflection.getParticipationID();
         Activity chosenActivity = new Activity();
@@ -100,7 +93,16 @@ public class ReflectController {
 
         reflection.setParticipationID(chosenParticipation.getParticipationID());
         reflection.setTagID(1L); //Placeholder until we assign tags to activities
+        reflectionServiceImpl.saveReflection(reflection);
+        redirectAttributes.addFlashAttribute("success",true);
+        redirectAttributes.addFlashAttribute("type","addreflection");
+        return "redirect:/dashboard";
+    }
 
+    @PostMapping("/add-reflection-direct")
+    public String submitReflectionDirect(RedirectAttributes redirectAttributes, @ModelAttribute("reflection") Reflection reflection, Authentication authentication) {
+
+        reflection.setTagID(1L);
         reflectionServiceImpl.saveReflection(reflection);
         redirectAttributes.addFlashAttribute("success",true);
         redirectAttributes.addFlashAttribute("type","addreflection");
@@ -182,5 +184,30 @@ public class ReflectController {
         Long currentUserID = currentUser.getUserID();
 
         return currentUserID;
+    }
+
+    List<Activity> reflectionSetup(Authentication authentication) {
+
+        List<Activity> activities = activityService.findAllActivities();
+        List<Participation> participations = participationService.findAllParticipations();
+        Long currentID = getCurrentID(authentication);
+        //Get a list of all activities the user is currently participating in
+        List<Long> currentActivitiesIDs = new ArrayList<>();
+        for (int x = 0; x < participationService.getParticipationListSize(); x++) {
+            Participation currentPart = participations.get(x);
+            if (currentPart.getUserID() == currentID) {
+                currentActivitiesIDs.add(currentPart.getActivityID());
+            }
+        }
+        //Make sure the user can only choose official activities
+        List<Activity> possibleActivities = new ArrayList<>();
+        for (int x = 0; x < activityService.getActivityListSize(); x++) {
+            Activity currentActivity = activities.get(x);
+            if (currentActivitiesIDs.contains(currentActivity.getActivityID()) == true) {
+                possibleActivities.add(currentActivity);
+            }
+        }
+
+        return possibleActivities;
     }
 }
