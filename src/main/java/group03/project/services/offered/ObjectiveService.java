@@ -17,7 +17,6 @@ public interface ObjectiveService {
      */
     public void createObjective(Objective theObjective);
 
-
     public Optional<Objective> findObjectivesByActivity(Activity theActivity);
 
     public Optional<Objective> findObjectivesByTag(Tag theTag);
@@ -25,5 +24,7 @@ public interface ObjectiveService {
     public Integer getObjectiveListSize();
 
     List<Objective> getAllObjectives();
+
+    public Activity getAssociatedActivity(Objective objective);
 
 }
