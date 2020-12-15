@@ -89,6 +89,7 @@ public class HomeController {
             List<Participation> t_participations = participationService.findAllParticipations();
             List<Participation> t_myParticipations = new ArrayList<>();
             List<Activity> t_myActivities = new ArrayList<>();
+            List<Integer> t_tagList = new ArrayList<>();
             //Make a list of all the tags that the current user has
             for (int partlist = 0; partlist < participationService.getParticipationListSize(); partlist++) {
                 Participation participation = t_participations.get(partlist);
@@ -97,11 +98,17 @@ public class HomeController {
                     for (Participation mypart : t_myParticipations){
                         t_myActivities.add(mypart.getRelatedActivity());
                         for (Activity myact : t_myActivities){
-                            for (Objective obj : objService.)
+                            for (Objective obj : objService.getAllObjectives()){
+                                if(obj.getAssociatedActivity() == myact){
+                                    t_tagList.add(obj.getTag_tagID());
+                                }
+
+                            }
                         }
                     }
                 }
             }
+            System.out.println(t_tagList);
 
 
         List<Tag> allTags = tagService.findAllTags();
