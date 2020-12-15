@@ -24,6 +24,7 @@ public class ParticipationServiceImpl implements ParticipationService {
     public List<Participation> findAllParticipations() { return participationRepo.findAll(); }
 
     //Returns a list of all participations in the database
+    @Override
     public List<Participation> getAllParticipations() {
         List<Participation> participations = new ArrayList<>();
         participationRepo.findAll().forEach(participations::add);
@@ -42,6 +43,7 @@ public class ParticipationServiceImpl implements ParticipationService {
     }
 
     //Returns the related activity to the inputted participation
+    @Override
     public Activity getRelatedActivity(Participation participation) {
         Activity foundActivity = new Activity();
         List<Activity> activities = activityRepository.findAll();
