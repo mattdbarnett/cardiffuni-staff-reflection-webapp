@@ -120,13 +120,23 @@ public class HomeController {
         List<Tag> allTags = tagService.findAllTags();
         System.out.println("taglist: "+ t_tagList);
 
+
+
         List<String> tagNames = new ArrayList<>();
         for (Long tagID : t_tagList)
         {
             tagNames.add(tagService.findATagByID(tagID).get().getTagName());
         }
 
+        List<String> uncompletedTagNames = new ArrayList<>();
+        for (Tag thetag : allTags){
+            if (!tagNames.contains(thetag.getTagName())){
+                uncompletedTagNames.add(thetag.getTagName());
+            }
+        }
+
         model.addAttribute("userstags",tagNames);
+        model.addAttribute("uncompletedtags",uncompletedTagNames);
         model.addAttribute("tags", allTags);
 
                 /*
