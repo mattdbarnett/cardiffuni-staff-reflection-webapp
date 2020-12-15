@@ -29,7 +29,9 @@ public class ObjectiveServiceImpl implements ObjectiveService {
 
 //    private JdbcTemplate template;
     final ObjectiveRepository objectiveRepository;
+
     final TagRepository tagRepository;
+
     final ActivityRepository activityRepository;
 
 //    @Value("INSERT INTO objective( Activity_activityID, Tag_tagID) values (?,?)")
@@ -100,11 +102,15 @@ public class ObjectiveServiceImpl implements ObjectiveService {
     //gets associated activity
     @Override
     public Activity getAssociatedActivity(Objective objective) {
+
         Activity foundActivity = new Activity();
         List<Activity> activities = activityRepository.findAll();
+        for (Activity newActivity : activities) {
+
+        }
         for(int x = 0; x < activities.size(); x++) {
             Activity currentActivity = (activities.get(x));
-            if(currentActivity.getActivityID() == objective.getActivityID()) {
+            if(currentActivity.getActivityID() == objective.getActivity().getActivityID()) {
                 foundActivity = currentActivity;
             }
         }
