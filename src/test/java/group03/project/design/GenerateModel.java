@@ -87,10 +87,29 @@ public class GenerateModel {
             System.out.println(component.getRelationships());
         }
 
-
+        Component tagService = webApp.getComponentOfType("group03.project.services.offered.TagService");
         Component siteUserService = webApp.getComponentOfType("group03.project.services.offered.SiteUserService");
+        Component activityService = webApp.getComponentOfType("group03.project.services.offered.ActivityService");
+        Component participationService = webApp.getComponentOfType("group03.project.services.offered.ParticipationService");
+        Component ReflectionService = webApp.getComponentOfType("group03.project.services.offered.ReflectionService");
+        Component ObjectiveService = webApp.getComponentOfType("group03.project.services.offered.ObjectiveService");
+        Component RoleService = webApp.getComponentOfType("group03.project.services.offered.RoleService");
+
+        Component tagRepo = webApp.getComponentOfType("group03.project.repositories.TagRepoJPA");
         Component siteUserRepo = webApp.getComponentOfType("group03.project.repositories.SiteUserRepoJPA");
+        Component activityRepo = webApp.getComponentOfType("group03.project.repositories.ActivityRepoJPA");
+        Component participationRepo = webApp.getComponentOfType("group03.project.repositories.ParticipationRepoJPA");
+        Component reflectionRepo = webApp.getComponentOfType("group03.project.repositories.ReflectRepoJPA");
+        Component objectiveRepo = webApp.getComponentOfType("group03.project.repositories.ObjectiveRepoJPA");
+        Component RoleRepo = webApp.getComponentOfType("group03.project.repositories.RoleRepoJPA");
+
+        tagService.uses(tagRepo, "uses");
         siteUserService.uses(siteUserRepo, "uses");
+        activityService.uses(activityRepo, "uses");
+        participationService.uses(participationRepo, "uses");
+        ReflectionService.uses(reflectionRepo, "uses");
+        ObjectiveService.uses(objectiveRepo, "uses");
+        RoleService.uses(RoleRepo, "uses");
 
 
 
