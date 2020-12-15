@@ -1,10 +1,9 @@
 package group03.project.web.controllers;
 
 import group03.project.config.SiteUserPrincipal;
-import group03.project.domain.Participation;
-import group03.project.domain.SiteUser;
-import group03.project.domain.Tag;
+import group03.project.domain.*;
 import group03.project.services.implementation.ParticipationServiceImpl;
+import group03.project.services.offered.ObjectiveService;
 import group03.project.services.offered.SiteUserService;
 import group03.project.services.offered.TagService;
 import group03.project.web.forms.UserCreationForm;
@@ -41,6 +40,9 @@ public class HomeController {
     @Autowired
     private SiteUserService siteUserService;
 
+
+    @Autowired
+    private ObjectiveService objService;
 
     @Autowired
     private TagService tagService;
@@ -83,6 +85,23 @@ public class HomeController {
             }
 
             model.addAttribute("participations", myParticipations);
+
+            List<Participation> t_participations = participationService.findAllParticipations();
+            List<Participation> t_myParticipations = new ArrayList<>();
+            List<Activity> t_myActivities = new ArrayList<>();
+            //Make a list of all the tags that the current user has
+            for (int partlist = 0; partlist < participationService.getParticipationListSize(); partlist++) {
+                Participation participation = t_participations.get(partlist);
+                if(participation.getUserID() == currentID) {
+                    t_myParticipations.add(participation);
+                    for (Participation mypart : t_myParticipations){
+                        t_myActivities.add(mypart.getRelatedActivity());
+                        for (Activity myact : t_myActivities){
+                            for (Objective obj : objService.)
+                        }
+                    }
+                }
+            }
 
 
         List<Tag> allTags = tagService.findAllTags();
