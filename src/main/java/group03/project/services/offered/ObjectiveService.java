@@ -3,6 +3,7 @@ package group03.project.services.offered;
 
 import group03.project.domain.Activity;
 import group03.project.domain.Objective;
+import group03.project.domain.Participation;
 import group03.project.domain.Tag;
 
 import java.util.List;
@@ -22,4 +23,7 @@ public interface ObjectiveService {
     public Optional<Objective> findObjectivesByTag(Tag theTag);
 
     public Integer getObjectiveListSize();
+
+    List<Objective> getAllObjectives();
+
 }
