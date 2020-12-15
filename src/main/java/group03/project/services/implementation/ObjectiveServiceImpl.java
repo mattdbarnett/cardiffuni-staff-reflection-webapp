@@ -19,6 +19,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -76,5 +78,12 @@ public class ObjectiveServiceImpl implements ObjectiveService {
     @Override
     public Optional<Objective> findObjectivesByTag(Tag theTag) {
         return Optional.empty();
+    }
+
+    @Override
+    public Integer getObjectiveListSize() {
+        List<Objective> objective = new ArrayList<>();
+        objectiveRepository.findAll().forEach(objective::add);
+        return objective.size();
     }
 }
