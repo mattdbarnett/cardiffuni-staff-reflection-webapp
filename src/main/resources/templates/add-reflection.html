@@ -14,7 +14,7 @@
 </head>
 <body>
 <div th:replace="navbar.html :: header"></div>
-<div th:replace="snackbar.html :: body"></div>
+<div id="snackbar" th:text="${message}"></div>
 <div id="content-pane">
     <div class="row">
         <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
@@ -25,30 +25,35 @@
                         <option value="0">Select Activity</option>
                         <option th:each="activity : ${activities}" th:value="${activity.activityID}" th:text="${activity.name}"></option>
                     </select>
+                    <br>
                     <div class="form-group">
-                        <label for="description">What did you do?</label>
-                        <textarea rows="5" cols="25" th:field="*{reflect_what}" type="text" class="form-control" id="description" name="description"></textarea>
+                        <label for="what">What did you do?</label>
+                        <textarea rows="5" cols="25" th:field="*{reflect_what}" type="text" class="form-control" id="what" name="description"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="description">What prompted your approach?</label>
-                        <textarea rows="5" cols="25" th:field="*{reflect_prompt}" type="text" class="form-control" id="description" name="description"></textarea>
+                        <textarea rows="5" cols="25" th:field="*{reflect_prompt}" type="text" class="form-control" id="prompt" name="description"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="description">What happened?</label>
-                        <textarea rows="5" cols="25" th:field="*{reflect_happen}" type="text" class="form-control" id="description" name="description"></textarea>
+                        <textarea rows="5" cols="25" th:field="*{reflect_happen}" type="text" class="form-control" id="happen" name="description"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="description">How will you evaluate this activity later? What evidence do you need?</label>
-                        <textarea rows="5" cols="25" th:field="*{reflect_eval}" type="text" class="form-control" id="description" name="description"></textarea>
+                        <textarea rows="5" cols="25" th:field="*{reflect_eval}" type="text" class="form-control" id="eval" name="description"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="description">What could you have done differently?</label>
-                        <textarea rows="5" cols="25" th:field="*{reflect_diff}" type="text" class="form-control" id="description" name="description"></textarea>
+                        <textarea rows="5" cols="25" th:field="*{reflect_diff}" type="text" class="form-control" id="diff" name="description"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="description">What are your reflective learning points?</label>
-                        <textarea rows="5" cols="25" th:field="*{reflect_lp}" type="text" class="form-control" id="description" name="description"></textarea>
+                        <textarea rows="5" cols="25" th:field="*{reflect_lp}" type="text" class="form-control" id="lp" name="description"></textarea>
                     </div>
+                    <br>
+                    <label for="ifpublic"> Do you want your reflection to be public? (Private by default)</label><br>
+                    <input th:field="*{isPublic}" type="checkbox" id="ifpublic" name="ifpublic" value="Public">
+                    <br>
                     <button type="submit" id="submit" class="btn btn-default">Submit</button>
                 </form>
             </div>

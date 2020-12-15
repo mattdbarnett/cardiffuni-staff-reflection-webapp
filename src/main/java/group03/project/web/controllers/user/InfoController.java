@@ -1,7 +1,8 @@
-package group03.project.web.controllers;
+package group03.project.web.controllers.user;
 
 import group03.project.domain.SiteUser;
 import group03.project.services.offered.SiteUserService;
+import group03.project.web.controllers.ControllerSupport;
 import group03.project.web.forms.EditForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

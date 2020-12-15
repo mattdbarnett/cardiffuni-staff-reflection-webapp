@@ -11,5 +11,5 @@ public interface ParticipationRepository {
 
     Participation save(Participation theParticipation);
 
-    public Optional<Participation> findById(Integer id);
+    public Optional<Participation> findByParticipationID(Long id);
 }

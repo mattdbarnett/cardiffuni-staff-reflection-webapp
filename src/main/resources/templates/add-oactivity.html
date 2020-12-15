@@ -8,31 +8,137 @@
     <link th:rel="stylesheet" th:href="@{/css/contentMargin.css}">
     <link th:rel="stylesheet" th:href="@{/css/gradientBg.css}">
     <link th:rel="stylesheet" th:href="@{/css/snackbarStyling.css} "/>
+    <link th:rel="stylesheet" th:href="@{/css/tableStyling.css} "/>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 <div th:replace="navbar.html :: header"></div>
-<div th:replace="snackbar.html :: body"></div>
+<div id="snackbar" th:text="${message}"></div>
 <div id="content-pane">
     <div class="row">
-        <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+        <div class="col-md-offset-2 col-md-8 col-lg-offset-2 col-lg-8">
             <div class="well profile" id="container-box">
                 <h1 align="center">Official Activity Registration</h1><hr style="background-color:#333;">
                 <form action="#" th:action="@{add-official-activity/}" enctype="multipart/form-data" method="post" th:object="${activity}">
                     <div class="form-group">
-                        <label for="activity-name">Activity Name</label>
+                        <h4>Activity Name</h4>
                         <input th:field = "*{name}" type="text" class="form-control" id="activity-name" name="activity-name">
                     </div>
                     <div class="form-group">
-                        <label for="file-url">File URL:</label>
-                        <input th:field = "*{file}" type="text" class="form-control" id="file-url" name="file-url">
+                        <h4>Description</h4>
+                        <textarea rows="5" cols="25" th:field="*{description}" type="text" class="form-control" id="description" name="description"></textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="description">Description:</label>
-                        <textarea rows="5" cols="25" th:field="*{desc}" type="text" class="form-control" id="description" name="description"></textarea>
+                    <div class = "card-header border-bottom">
+                        <h3>UKPSF Dimensions</h3>
                     </div>
+                    <div class = "card-header border-bottom">
+                        <h4>Areas of Activity</h4>
+                    </div>
+                    <div class = "card-body">
+                        <Table class = "table table-responsive">
+                            <tr class = " tag-box">
+                                <td><input type = "checkbox"  id = "1" value = "1" th:field = "*{a1}"></td>
+                                <td  class = "tag-label" for = "1">A1 - Develop effective learning environments and approaches to student support and guidance. </td>
+                            </tr>
+                            <tr class = "tag-box">
+                                <td><input type = "checkbox"  id = "2" value = "1" th:field = "*{a2}"></td>
+                                <td class = "tag-label" for = "2">A2 - Teach and/or support learning. </td>
+                            </tr>
+                            <tr class = "tag-box">
+                                <td><input type = "checkbox" class = "custom-control-input" id = "3" value = "1" th:field = "*{a3}"></td>
+                                <td class = "tag-label" for = "3">A3 - Assess and give feedback to learners. </td>
+                            </tr>
+                            <tr class = "tag-box">
+                                <td><input type = "checkbox" class = "custom-control-input" id = "4" value = "1" th:field = "*{a4}"></td>
+                                <td class = "tag-label" for = "4">A4 - Develop effective learning environments and approaches to student support and guidance. </td>
+                            </tr>
+                            <tr class = "tag-box">
+                                <td><input type = "checkbox" class = "custom-control-input" id = "5" value = "1" th:field = "*{a5}"></td>
+                                <td class = "tag-label" for = "5">A5 - Engage in continuing professional development in subjects/disciples and their pedagogy, incorporating research, scholarship and the evaluation of professional practices. </td>
+                            </tr>
+                            <tr class = "tag-box">
+                                <td><input type = "checkbox" class = "custom-control-input" id = "6" value = "1" th:field = "*{d3_7}"></td>
+                                <td class = "tag-label" for = "6">D3.7 - Supporting colleagues. </td>
+                            </tr>
+                        </Table>
+                    </div>
+                    <div class = "card-header border-bottom">
+                        <h4>Core Knowledge</h4>
+                    </div>
+                    <div>
+                        <table class = "table table-responsive">
+                        <tr class = "md-1 custom-control custom-checkbox">
+                            <td><input type = "checkbox" class = "custom-control-input" id = "7" value = "1" th:field = "*{k1}"></td>
+                            <td class = "tag-label-label" for = "7">K1 - The subject material </td>
+                        </tr>
+                        <tr class = "md-1 custom-control custom-checkbox">
+                            <td><input type = "checkbox" class = "custom-control-input" id = "8" value = "1" th:field = "*{k2}"></td>
+                            <td class = "tag-label" for = "8">K2 - Appropriate methods for reaching learning and assessing in the subject area and at the level of the academic programme.</td>
+                        </tr>
+                        <tr class = "md-1 custom-control custom-checkbox">
+                            <td><input type = "checkbox" class = "custom-control-input" id = "9" value = "1" th:field = "*{k3}"></td>
+                            <td class = "tag-label" for = "9">K3 - How students learn, both generally and within their subject/disciplinary area(s) </td>
+                        </tr>
+                        <tr class = "md-1 custom-control custom-checkbox">
+                            <td><input type = "checkbox" class = "custom-control-input" id = "10" value = "1" th:field = "*{k4}"></td>
+                            <td class = "tag-label" for = "10">K4 - The use and value of appropriate learning technologies. </td>
+                        </tr>
+                        <tr class = "md-1 custom-control custom-checkbox">
+                            <td><input type = "checkbox" class = "custom-control-input" id = "11" value = "1" th:field = "*{k5}"></td>
+                            <td class = "tag-label" for = "11">K5 - Methods for evaluating the effectiveness of teaching. </td>
+                        </tr>
+                        <tr class = "md-1 custom-control custom-checkbox">
+                            <td><input type = "checkbox" class = "custom-control-input" id = "12" value = "1" th:field = "*{k6}"></td>
+                            <td class = "tag-label" for = "12">K6 - The implications of quality assurance and quality enhancement for academic and professional practice with a particular focus on teaching. </td>
+                        </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <table class = "table table-responsive">
+                        <tr class = "card-header border-bottom">
+                            <h4>Professional Values</h4>
+                        </tr>
+                        <tr class = "md-1 custom-control custom-checkbox">
+                            <td><input type = "checkbox" class = "custom-control-input" id = "13" value = "1" th:field = "*{v1}"></td>
+                            <td class = "custom-control-label" for = "13">V1 - Respect individual learners and diverse learning communities. </td>
+                        </tr>
+                        <tr class = "md-1 custom-control custom-checkbox">
+                            <td><input type = "checkbox" class = "custom-control-input" id = "14" value = "1" th:field = "*{v2}"></td>
+                            <td class = "custom-control-label" for = "14">V2 - Promote participation in higher education and equality of opportunity for learners. </td>
+                        </tr>
+                        <tr class = "md-1 custom-control custom-checkbox" >
+                            <td><input type = "checkbox" class = "custom-control-input" id = "15" value = "1" th:field = "*{v3}"></td>
+                            <td class = "custom-control-label" for = "15">V3 - Use evidence-informed approaches and the outcomes from research, scholarship and continuing professional development.</td>
+                        </tr>
+                        <tr class = "md-1 custom-control custom-checkbox">
+                            <td><input type = "checkbox" class = "custom-control-input" id = "16" value = "1" th:field = "*{v4}"></td>
+                            <td class = "custom-control-label" for = "16">V4 - Acknowledge the wider context in which higher education operates recognising the implications for professional practice </td>
+                        </tr>
+                        </table>
+                    </div>
+<!--&lt;!&ndash;                    <div class = "center-block" th:field = "*{allTags}">&ndash;&gt;-->
+<!--                        <fieldset th:field = "*{allTags}" id = "tags">-->
+<!--                            <label for = "tags">Activity UKPSF tags</label>-->
+<!--                            <ul th:each = "tag: ${tags}" for = "tags">-->
+<!--                                <li>-->
+<!--                                    <input type = "radio" th:value = "${tag.tagID}">-->
+<!--                                    <label for = "tags" th:text = "${tag.tagName}"></label>-->
+<!--                                </li>-->
+<!--                        </fieldset>-->
+
+
+<!--                        </ul>-->
+
+
+<!--                    <select th:field = "*{allOfficialTags}" class = "form-control" id = "tags" name = "tags" multiple = "multiple">-->
+<!--                        <option th:each = "tag : ${tags}"-->
+<!--                        th:value = "${tag.tagID}"-->
+<!--                        th:Text = "${tag.tagName}">-->
+<!--                        </option>-->
+<!--                    </select>-->
+
                     <button type="submit" id="submit" class="btn btn-default">Submit</button>
                 </form>
             </div>

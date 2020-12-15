@@ -32,7 +32,7 @@
 </head>
 <!--<body>-->
 <!--<div th:replace="navbar.html :: header"></div>-->
-<!--<div th:replace="snackbar.html :: body"></div>-->
+<!--<div id="snackbar" th:text="${message}"></div>-->
 <!--<main>-->
 <!--    <div id = "editUser" th:if = "${siteuser}" style="margin-top:3%">-->
 
@@ -82,7 +82,7 @@
 
 <body>
 <div th:replace="navbar.html :: header"></div>
-<div th:replace="snackbar.html :: body"></div>
+<div id="snackbar" th:text="${message}"></div>
 <main>
     <div class="content-pane">
         <div class="row">

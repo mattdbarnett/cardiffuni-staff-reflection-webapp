@@ -12,16 +12,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.sql.SQLException;
 
 @Controller
-public class UserRegistrationController {
+public class RegistrationController {
 
 
     private SiteUserService accountService;
     private PasswordEncoder encoder;
 
     @Autowired
-    public UserRegistrationController(SiteUserService aService, PasswordEncoder theEncoder) {
+    public RegistrationController(SiteUserService aService, PasswordEncoder theEncoder) {
         encoder = theEncoder;
         accountService = aService;
 
@@ -42,23 +43,34 @@ public class UserRegistrationController {
 
         if(!result.hasErrors()) {
 
-            if(accountForm.getPassword().equals(accountForm.getMatchingPassword())) {
+            try {
 
-                SiteUser newUser;
 
-                newUser = createAccount(accountForm, result);
+                if (accountForm.getPassword().equals(accountForm.getMatchingPassword())) {
 
-                accountService.createAUser(newUser);
+                    SiteUser newUser;
 
-                return "login";
-            } else {
+                    newUser = createAccount(accountForm, result);
+
+                    accountService.createAUser(newUser);
+
+                    return "login";
+
+                } else {
+                    return "redirect:register";
+                }
+                /**
+                 * Catches any errors made via JPA addition.
+                 */
+            } catch (Exception e) {
+                System.out.println("That username is taken; please try again");
+
                 return "redirect:register";
             }
         } else {
             System.out.println("Result has errors");
 
             return "redirect:register";
-
         }
     }
 

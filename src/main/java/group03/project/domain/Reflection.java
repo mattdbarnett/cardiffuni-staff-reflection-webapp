@@ -15,11 +15,11 @@ public class Reflection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="reflectionID")
-    private Integer reflectionID;
+    private Long reflectionID;
     @Column(name="Participation_participationID")
-    private Integer participationID;
+    private Long participationID;
     @Column(name="Tag_tagID")
-    private Integer tagID;
+    private Long tagID;
     @Column(name="Reflect_what")
     private String reflect_what;
     @Column(name="Reflect_prompt")
@@ -32,5 +32,7 @@ public class Reflection {
     private String reflect_diff;
     @Column(name="Reflect_lp")
     private String reflect_lp;
+    @Column(name="isPublic")
+    private Boolean isPublic;
 
 }

@@ -11,10 +11,8 @@ import group03.project.web.forms.UserCreationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ReactiveAdapterRegistry;
 import org.springframework.security.core.Authentication;
-
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-
 import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -42,6 +40,7 @@ public class HomeController {
 
     @Autowired
     private SiteUserService siteUserService;
+
 
     @Autowired
     private TagService tagService;
@@ -71,19 +70,20 @@ public class HomeController {
           String parsed onto page as attribute for Thymeleaf
          */
         model.addAttribute("user", theUser);
-        List<Participation> participations = participationService.findAllParticipations();
-        List<Participation> myParticipations = new ArrayList<>();
-        Integer currentID = getCurrentID(authentication);
+            List<Participation> participations = participationService.findAllParticipations();
+            List<Participation> myParticipations = new ArrayList<>();
+            Long currentID = getCurrentID(authentication);
 
-        //Make a list of all the participations unique to the current user
-        for (int z = 0; z < participationService.getParticipationListSize(); z++) {
-            Participation participation = participations.get(z);
-            if(participation.getUserID() == currentID) {
-                myParticipations.add(participation);
+            //Make a list of all the participations unique to the current user
+            for (int z = 0; z < participationService.getParticipationListSize(); z++) {
+                Participation participation = participations.get(z);
+                if(participation.getUserID() == currentID) {
+                    myParticipations.add(participation);
+                }
             }
-        }
 
-        model.addAttribute("participations", myParticipations);
+            model.addAttribute("participations", myParticipations);
+
 
         List<Tag> allTags = tagService.findAllTags();
 
@@ -109,7 +109,6 @@ public class HomeController {
      */
     @GetMapping("/logout")
     public String HandleLogout(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("logging out from system.");
         /*
           Collects current authentication found in session.
          */
@@ -133,7 +132,7 @@ public class HomeController {
     public String handleFailedLogin(HttpServletRequest request) {
 
 //        if(request.getHeader("referer") != null) {
-        return "redirect:" + request.getHeader("referer");
+            return "redirect:" + request.getHeader("referer");
 //        }
 //        /**
 //         * returns user back to initial localhost:8080
@@ -141,13 +140,12 @@ public class HomeController {
 //
 //        return "redirect:";
     }
-    Integer getCurrentID(Authentication authentication) {
+    Long getCurrentID(Authentication authentication) {
         String currentUserName = ControllerSupport.getAuthenticatedUserName(authentication);
         Optional<SiteUser> currentUserOptional = siteUserService.findUserByUserName(currentUserName);
         SiteUser currentUser = currentUserOptional.get();
         Long currentUserID = currentUser.getUserID();
-        Integer currentUserIDInt = currentUserID.intValue();
 
-        return currentUserIDInt;
+        return currentUserID;
     }
 }

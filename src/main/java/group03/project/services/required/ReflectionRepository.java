@@ -11,6 +11,6 @@ public interface ReflectionRepository {
 
     Reflection save(Reflection theReflection);
 
-    Optional<Reflection> findById(Integer id);
+    Optional<Reflection> findByReflectionID(Long id);
 
 }

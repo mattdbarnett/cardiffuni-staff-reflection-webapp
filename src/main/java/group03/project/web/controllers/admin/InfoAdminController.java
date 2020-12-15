@@ -1,4 +1,4 @@
-package group03.project.web.controllers;
+package group03.project.web.controllers.admin;
 
 import group03.project.domain.SiteUser;
 import group03.project.services.offered.SiteUserService;
@@ -10,6 +10,7 @@ import org.springframework.transaction.TransactionSystemException;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -21,24 +22,24 @@ public class InfoAdminController {
 
 //    private final SiteUserUpdateService userUpdateService;
 //    private final SiteUserAuditor userAuditor;
-private final SiteUserService userUpdateService;
+private final SiteUserService userService;
     private final PasswordEncoder encoder;
 
     @Autowired
     public InfoAdminController(SiteUserService aService, PasswordEncoder theEncoder) {
         encoder = theEncoder;
-        userUpdateService = aService;
+        userService = aService;
 
     }
 
     @GetMapping("all-accounts")
     public String allUsers( Model model) {
 
-        List<SiteUser> users = userUpdateService.findAllUsers();
+        List<SiteUser> users = userService.findAllUsers();
+        EditForm editForm = new EditForm();
 
         model.addAttribute("users", users);
-
-
+        model.addAttribute("editForm", editForm);
 
         return "all-accounts";
 //
@@ -49,7 +50,7 @@ private final SiteUserService userUpdateService;
 
 //        String name = ControllerSupport.getAuthenticatedUserName(authentication);
 
-        Optional<SiteUser> aSiteUser = userUpdateService.findUserByUserName(username);
+        Optional<SiteUser> aSiteUser = userService.findUserByUserName(username);
         if (aSiteUser.isPresent()) {
             EditForm editForm = new EditForm();
 
@@ -67,9 +68,9 @@ private final SiteUserService userUpdateService;
                                     BindingResult result) {
 
         if(!result.hasErrors()) {
-            SiteUser selectedUser = userUpdateService.findUserById(Long.parseLong(nameForm.getId())).get();
+            SiteUser selectedUser = userService.findUserById(Long.parseLong(nameForm.getId())).get();
             selectedUser.setUserName(nameForm.getEdit());
-            userUpdateService.updateUser(selectedUser);
+            userService.updateUser(selectedUser);
             return "redirect:/admin/account/" + selectedUser.getUserName();
         } else {
             return "all-accounts";
@@ -83,9 +84,9 @@ private final SiteUserService userUpdateService;
 
         if(!result.hasErrors()) {
             try {
-                SiteUser selectedUser = userUpdateService.findUserById(Long.parseLong(nameForm.getId())).get();
+                SiteUser selectedUser = userService.findUserById(Long.parseLong(nameForm.getId())).get();
                 selectedUser.setEmailAddress(nameForm.getEdit());
-                userUpdateService.updateUser(selectedUser);
+                userService.updateUser(selectedUser);
                 return "redirect:/admin/account/" + selectedUser.getUserName();
 
                 /*
@@ -106,14 +107,30 @@ private final SiteUserService userUpdateService;
 
         if(!result.hasErrors()) {
 
-            SiteUser selectedUser = userUpdateService.findUserById(Long.parseLong(nameForm.getId())).get();
+            SiteUser selectedUser = userService.findUserById(Long.parseLong(nameForm.getId())).get();
             selectedUser.setPassword(encoder.encode("p"));
-            userUpdateService.updateUser(selectedUser);
+            userService.updateUser(selectedUser);
 
             return "redirect:/admin/account/" + selectedUser.getUserName();
          } else {
             return "all-accounts";
         }
 
+    }
+
+    @PostMapping("deleteAccount")
+    public String deleteAccount(RedirectAttributes redirectAttributes, @ModelAttribute("editForm") @Valid EditForm userForm,
+                                BindingResult result) {
+        if(!result.hasErrors()) {
+
+            SiteUser selectedUser = userService.findUserById(Long.parseLong(userForm.getId())).get();
+
+            userService.deleteSelectedUser(selectedUser.getUserID());
+
+        }
+
+        redirectAttributes.addFlashAttribute("success",true);
+        redirectAttributes.addFlashAttribute("type","admindeluser");
+        return "redirect:/admin/all-accounts";
     }
 }

@@ -42,3 +42,9 @@
     from {bottom: 30px; opacity: 1;}
     to {bottom: 0; opacity: 0;}
 }
+
+#snackbar-icon{
+            margin:0;
+            margin-left:10px;
+            padding:0;
+        }
