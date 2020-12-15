@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -108,16 +109,24 @@ public class HomeController {
                 for (Activity myact : t_myActivities){
                         for (Objective obj : objService.getAllObjectives()) {
                             if (objService.getAssociatedActivity(obj) == myact) {
-                                System.out.println("Objective " + obj.getObjectiveID() + " matches " + myact.getActivityID()
-                                 + ", objective tag " + obj.getTag().getTagName() + " being added to list of tags.");
+                                //System.out.println("Objective " + obj.getObjectiveID() + " matches " + myact.getActivityID()
+                                // + ", objective tag " + obj.getTag().getTagName() + " being added to list of tags.");
                                 t_tagList.add(tagService.findATagByID(obj.getTag().getTagID()).get().getTagID());
-                                System.out.println("Current tag list by id: " + t_tagList);
+                                //System.out.println("Current tag list by id: " + t_tagList);
                             }
                         }
                     }
 
         List<Tag> allTags = tagService.findAllTags();
+        System.out.println("taglist: "+ t_tagList);
 
+        List<String> tagNames = new ArrayList<>();
+        for (Long tagID : t_tagList)
+        {
+            tagNames.add(tagService.findATagByID(tagID).get().getTagName());
+        }
+
+        model.addAttribute("userstags",tagNames);
         model.addAttribute("tags", allTags);
 
                 /*
