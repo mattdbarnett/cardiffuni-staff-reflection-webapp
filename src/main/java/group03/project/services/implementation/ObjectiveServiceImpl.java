@@ -81,6 +81,7 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         return Optional.empty();
     }
 
+    //gets list size of objectives list
     @Override
     public Integer getObjectiveListSize() {
         List<Objective> objective = new ArrayList<>();
@@ -88,9 +89,25 @@ public class ObjectiveServiceImpl implements ObjectiveService {
         return objective.size();
     }
 
+    //gets all objectives
+    @Override
     public List<Objective> getAllObjectives() {
         List<Objective> objectives = new ArrayList<>();
         objectiveRepository.findAll().forEach(objectives::add);
         return objectives;
+    }
+
+    //gets associated activity
+    @Override
+    public Activity getAssociatedActivity(Objective objective) {
+        Activity foundActivity = new Activity();
+        List<Activity> activities = activityRepository.findAll();
+        for(int x = 0; x < activities.size(); x++) {
+            Activity currentActivity = (activities.get(x));
+            if(currentActivity.getActivityID() == objective.getActivityID()) {
+                foundActivity = currentActivity;
+            }
+        }
+        return foundActivity;
     }
 }
