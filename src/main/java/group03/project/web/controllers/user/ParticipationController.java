@@ -58,6 +58,7 @@ public class ParticipationController {
         List<Participation> myParticipations = new ArrayList<>();
         List<Activity> relatedActivities =  new ArrayList<>();
         List<Tag[]> allTags = new ArrayList<>();
+        List<Tag[]> allThoughts = new ArrayList<>();
         Long currentID = getCurrentID(authentication);
 
         //Make a list of all the participations unique to the current user
@@ -71,27 +72,16 @@ public class ParticipationController {
                 //Finds all objectives that link to activity, sources the tag relating to each activity, and passes that
                 //into list for adding onto page.
                 List<Objective> objectives = objectiveService.findObjectivesByActivityID(participation.getActivityID());
-                Tag[] tags = objectives.stream().map(Objective::getTag).toArray(size -> new Tag[objectives.size()]);
+                Tag[] tags = objectives.stream().filter(x -> x.getTag().getIsOfficial()).map(Objective::getTag).toArray(size -> new Tag[objectives.size()]);
+                Tag[] thoughts = objectives.stream().filter(x -> !x.getTag().getIsOfficial()).map(Objective::getTag).toArray(size -> new Tag[objectives.size()]);
                 allTags.add(tags);
+                allThoughts.add(thoughts);
 
             }
         }
 
-        for ( Participation part:
-            myParticipations) {
-            System.out.println(part);
-        }
-        for ( Activity part:
-                relatedActivities) {
-            System.out.println(part);
-        }
-        for ( Tag[] part:
-                allTags) {
-            for (Tag tag : part)
-                System.out.println(tag);
-        }
-
         model.addAttribute("tags", allTags);
+        model.addAttribute("thoughts", allThoughts);
         model.addAttribute("activities", relatedActivities);
         model.addAttribute("participations", myParticipations);
         return "all-participations";

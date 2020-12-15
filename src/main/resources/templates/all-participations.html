@@ -19,13 +19,33 @@
     <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500&display=swap" rel="stylesheet">
     <link th:rel="stylesheet" th:href="@{/css/contentMargin.css}">
 
-    <script th:src="@{/js/bootstrap.js}" th:inline = "javascript">
-
-        // function showMouseOverTest(ts) {
-        //     return escape
-        // }
+    <script th:src="@{/js/bootstrap.js}">
 
     </script>
+    <style>
+        .tagToolTip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tagToolTip .description {
+            visibility: hidden;
+            width: 120px;
+            background-color: #e6e6e6;
+            text-align: center;
+            border-radius: 10px;
+            padding: 5px 0;
+            border: 1px solid black;
+
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 15;
+        }
+
+        .tagToolTip:hover .description {
+            visibility: visible;
+        }
+    </style>
     <link th:rel="stylesheet" th:href="@{/css/bootstrap.css}">
 </head>
 <body>
@@ -40,17 +60,32 @@
                         <form action="#" th:action="@{all-my-participations/}" enctype="multipart/form-data" method="post" th:object="${editForm}">
                             <p th:text = "'Activity Name: '+ ${activities[iterStat.index].name}"></p>
 <!--                            <span class="badge" th:text="${participation.activityID}"></span>-->
-                            <p class = "tag_list">Activity tags: </p>
+                            <p class = "tag_list">Activity UKPSF tags: </p>
 
                             <ul class = "tag_list">
-                                <li id = "tag-colour" th:each = "listOfTags: ${tags[iterStat.index]}">
-                                    <ul class = "tag_list">
+                                <li  th:each = "listOfTags: ${tags[iterStat.index]}">
+                                    <ul class = "tagToolTip">
                                         <li   th:each = "tag : ${listOfTags}">
-                                            <span class = "tags" th:text = "${tag.tagName}" th:onmouseover="showMouseOverText(/*[[${tag.description}]]*/)"></span>
+                                            <span class = "badge" th:text = "${tag.tagName}" th:onmouseover="showMouseOverText(/*[[${tag.description}]]*/)"></span>
+                                            <span class = "description" th:text = "${tag.description}"></span>
                                         </li>
                                     </ul>
                                 </li>
                             </ul>
+                            <br>
+                            <p class = "tag_list">Activity Thoughts: </p>
+
+                            <ul class = "tag_list">
+                                <li th:each = "listOfThoughts: ${thoughts[iterStat.index]}">
+                                    <ul class = "tagToolTip">
+                                        <li   th:each = "thought : ${listOfThoughts}">
+                                            <span class = "badge" th:text = "${thought.tagName}" th:onmouseover="showMouseOverText(/*[[${thought.description}]]*/)"></span>
+                                            <span class = "description" th:text = "${thought.description}"></span>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+
 
                             <p th:text = "'Description: '+ ${activities[iterStat.index].description}"></p>
                             <p th:text = "'Participation Date: '+ ${participation.date}"></p>
@@ -85,7 +120,7 @@
             '#ccd9ff', '#ccccff', '#d9ccff', '#e6ccff', '#f2ccff',
             '#ffccff', '#ffccf2', '#ffcce6', '#ffccd9', '#ffcccc'];
 
-        $('.tags').each(function() {
+        $('.badge').each(function() {
             var random_colour = colours[Math.floor(Math.random() * colours.length)]
             $(this).css('background-color', random_colour)
         })
