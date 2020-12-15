@@ -19,6 +19,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -57,10 +58,10 @@ public class ObjectiveServiceImpl implements ObjectiveService {
     }
 
     @Override
-    public Optional<Objective> findObjectivesByTagID(Long theID) { return objectiveRepository.findByTag_tagID(theID); }
+    public List<Objective> findObjectivesByTagID(Long theID) { return objectiveRepository.findByTag_tagID(theID); }
 
     @Override
-    public Optional<Objective> findObjectivesByActivityID(Long theID) { return objectiveRepository.findByActivity_activityID(theID);
+    public List<Objective> findObjectivesByActivityID(Long theID) { return objectiveRepository.findByActivity_activityID(theID);
     }
 
 }

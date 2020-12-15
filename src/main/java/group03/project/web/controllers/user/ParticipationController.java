@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("user")
@@ -64,9 +66,17 @@ public class ParticipationController {
             if(participation.getUserID() == currentID) {
                 myParticipations.add(participation);
                 relatedActivities.add(activityService.findActivitiesByID(participation.getActivityID()).get());
+
+                List<Objective> objectives = objectiveService.findObjectivesByActivityID(participation.getActivityID());
+
+                Tag[] tags = objectives.stream().map(Objective::getTag).toArray(size -> new Tag[objectives.size()]);
+
+                allTags.add(tags);
+
             }
         }
 
+        model.addAttribute("tags", allTags);
         model.addAttribute("activities", relatedActivities);
         model.addAttribute("participations", myParticipations);
         return "all-participations";

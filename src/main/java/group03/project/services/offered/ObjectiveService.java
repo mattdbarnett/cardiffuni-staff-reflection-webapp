@@ -19,8 +19,8 @@ public interface ObjectiveService {
 
     public Optional<Objective> findObjectivesByActivity(Activity theActivity);
 
-    public Optional<Objective> findObjectivesByTagID(Long theID);
+    public List<Objective> findObjectivesByTagID(Long theID);
 
-    public Optional<Objective> findObjectivesByActivityID(Long theID);
+    public List<Objective> findObjectivesByActivityID(Long theID);
 
 }

@@ -10,11 +10,11 @@ public interface ObjectiveRepository {
 
     List<Objective> findAll();
 
-    Optional<Objective> findByActivity_activityID(Long ActivityID);
+    List<Objective> findByActivity_activityID(Long ActivityID);
 
-    Optional<Objective> findByTag_tagID(Long ActivityID);
+    List<Objective> findByTag_tagID(Long ActivityID);
 
-    Optional<Objective> Tag_tagID(Long ActivityID);
+//    Optional<Objective> Tag_tagID(Long ActivityID);
 
     Objective save(Objective theObjective);
 }
