@@ -1,5 +1,6 @@
 package group03.project.design;
 
+import com.structurizr.api.StructurizrClient;
 import org.junit.jupiter.api.Test;
 
 import com.structurizr.Workspace;
@@ -14,6 +15,23 @@ public class GenerateModel {
     @Test
     public void generateModel() throws Exception {
 
+
+        final int WORKSPACE_ID = 61767;
+
+        final String API_KEY = "b578d34d-9b64-4c66-9fdd-5aa209d6cf51";
+
+        final String API_SECRET = "dc29c3b5-7292-4230-90ab-a7e41c701a8d";
+
+//
+//        public static void main(String[] args) {
+//            GenerateModel structurizr = new GenerateModel();
+//            try {
+//                structurizr.generateModel();
+//            } catch (Exception e) {
+//
+//            }
+//        }
+
         // Workspace set up and attached to base model.
         Workspace workspace = new Workspace("Development Reflection Toolkit",
                 "Spring Boot project for Group 3's implementation of the Development Reflection Toolkit");
@@ -21,22 +39,26 @@ public class GenerateModel {
 
         // Basic model creation
         SoftwareSystem reflectionToolkit = model.addSoftwareSystem("ReflectionToolkit", "Activity reflection system for lecturers");
+        SoftwareSystem cesi = model.addSoftwareSystem("Centre for Education Support and Innovation", "home for learning and teaching at Cardiff University");
         // Categories of people that use model.
         Person siteUser = model.addPerson("Site User", "A person who adds reflections onto provided & custom activities of their learning journey");
         Person admin = model.addPerson("Administrator", "A person who can add official activities onto system, along with view of average datasets");
         siteUser.uses(reflectionToolkit, "Uses");
         admin.uses(reflectionToolkit, "Uses");
+        reflectionToolkit.uses(cesi, "Uses");
 
         // Broad containers to cover the base levels of Model.
         Container webApp = reflectionToolkit.addContainer
-                ("Spring Boot Application", "Toolkit web application", "Embedded web container. Tomcat 7.0");
+                ("Spring Boot Application", "Toolkit web application", "Embedded web container. Tomcat 8.0");
         Container toolKitRDatabase = reflectionToolkit.addContainer
                 ("toolKitDatabase", "Relational database that stores data relating to users, activities and participation records", "MySQL");
 
         //Confirmation of usage by both categories, along with webApp container.
         siteUser.uses(webApp, "Uses", "HTTP");
         admin.uses(webApp, "Uses", "HTTP");
-        webApp.uses(toolKitRDatabase, "Reads and writes data to Relational database", "JPA, port 3306");
+        webApp.uses(cesi, "Uses", "JSON");
+        webApp.uses(toolKitRDatabase, "Reads and writes data to Relational database", "JDBC/JPA, port 3306");
+
 
         ComponentFinder componentFinder = new ComponentFinder(
                 webApp,
@@ -66,24 +88,11 @@ public class GenerateModel {
         }
 
 
-        Component siteUserService = webApp.getComponentOfType("group03.project.services.SiteUserService");
+        Component siteUserService = webApp.getComponentOfType("group03.project.services.offered.SiteUserService");
         Component siteUserRepo = webApp.getComponentOfType("group03.project.repositories.SiteUserRepoJPA");
         siteUserService.uses(siteUserRepo, "uses");
 
-        ViewSet viewSet = workspace.getViews();
-        SystemContextView contextView = viewSet.createSystemContextView(reflectionToolkit, "context", "System context diagram for the Reflection Toolkit system.");
-        contextView.addAllSoftwareSystems();
-        contextView.addAllPeople();
 
-        ContainerView containerView = viewSet.createContainerView(reflectionToolkit, "containers", "Containers diagram for the Reflection Toolkit system.");
-        containerView.addAllSoftwareSystems();
-        containerView.addAllPeople();
-        containerView.addAllContainers();
-
-        ComponentView componentView = viewSet.createComponentView(webApp, "components", "The Components diagram for the Reflection Toolkit web application.");
-        componentView.addAllComponents();
-        componentView.addAllPeople();
-        componentView.add(toolKitRDatabase);
 
         // Link model with the code within gitlab.
         for (Component component : webApp.getComponents()) {
@@ -105,6 +114,22 @@ public class GenerateModel {
         webApp.getComponents().stream().filter(tech -> tech.getTechnology().equals(SpringComponentFinderStrategy.SPRING_REPOSITORY)).forEach(component -> component.addTags("Spring Repository"));
         toolKitRDatabase.addTags("Database");
 
+        ViewSet viewSet = workspace.getViews();
+        // Create top level context diagram
+        SystemContextView contextView = viewSet.createSystemContextView(reflectionToolkit, "context", "System context diagram for the Reflection Toolkit system.");
+        contextView.addAllSoftwareSystems();
+        contextView.addAllPeople();
+        // Create mid-level container diagram
+        ContainerView containerView = viewSet.createContainerView(reflectionToolkit, "containers", "Containers diagram for the Reflection Toolkit system.");
+        containerView.addAllSoftwareSystems();
+        containerView.addAllPeople();
+        containerView.addAllContainers();
+        // Create mid-level container diagram
+        ComponentView componentView = viewSet.createComponentView(webApp, "components", "The Components diagram for the Reflection Toolkit web application.");
+        componentView.addAllComponents();
+        componentView.addAllPeople();
+        componentView.add(toolKitRDatabase);
+
         Styles styles = viewSet.getConfiguration().getStyles();
         styles.addElementStyle("Reflection Toolkit").background("#6CB33E").color("#ffffff");
         styles.addElementStyle(Tags.PERSON).background("#519823").color("#ffffff").shape(Shape.Person);
@@ -115,6 +140,11 @@ public class GenerateModel {
         styles.addElementStyle("Spring REST Controller").background("#D4FFC0").color("#000000");
         styles.addElementStyle("Spring Service").background("#6CB33E").color("#000000");
         styles.addElementStyle("Spring Repository").background("#95D46C").color("#000000");
-        
+
+
+        StructurizrClient client = new StructurizrClient(API_KEY, API_SECRET);
+
+        client.putWorkspace(WORKSPACE_ID, workspace);
+
     }
 }
