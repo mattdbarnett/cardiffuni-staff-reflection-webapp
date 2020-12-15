@@ -164,10 +164,9 @@
             </div>
             <div class="well profile" id="container-box-completed-tags" style="margin-top:40px;">
                 <div>
-                    <h3>Completed UKPSF Tags</h3>
-                    <br>
-                    <div th:each="tag : ${tags}">
-                        <h1 th:text="${tag.tagName}"></h1>
+                    <h3>Uncompleted UKPSF Tags</h3>
+                    <div th:each="tag : ${uncompletedtags}">
+                        <h1 th:text="${tag}"></h1>
                     </div>
                 </div>
                 <br clear="all">
