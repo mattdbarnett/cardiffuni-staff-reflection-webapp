@@ -141,8 +141,8 @@ CREATE TABLE IF NOT EXISTS participation(
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE USER IF NOT EXISTS 'siteUser'@'localhost' IDENTIFIED BY '99Reflections!' PASSWORD INTERVAL 120 DAY;
-GRANT INSERT, UPDATE, DELETE, SELECT (userID, permissions) ON developmentToolkit.siteUser TO 'siteUser'@'localhost';
+CREATE USER IF NOT EXISTS 'siteUser'@'localhost' IDENTIFIED BY '99Reflections!' PASSWORD EXPIRE INTERVAL 120 DAY;
+GRANT INSERT, UPDATE, DELETE, SELECT ON developmentToolkit.siteUser TO 'siteUser'@'localhost';
 GRANT INSERT, UPDATE, DELETE, SELECT ON developmentToolkit.activity TO 'siteUser'@'localhost';
 GRANT INSERT, UPDATE, DELETE, SELECT ON developmentToolkit.tag TO 'siteUser'@'localhost';
 GRANT INSERT, UPDATE, SELECT ON developmentToolkit.objective TO 'siteUser'@'localhost';
