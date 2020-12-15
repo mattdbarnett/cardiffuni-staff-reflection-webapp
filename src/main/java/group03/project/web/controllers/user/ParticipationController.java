@@ -7,7 +7,6 @@ import group03.project.services.implementation.ActivityServiceImpl;
 import group03.project.services.implementation.ParticipationServiceImpl;
 import group03.project.services.offered.SiteUserService;
 import group03.project.web.controllers.ControllerSupport;
-import group03.project.web.forms.ActivityJoinForm;
 import group03.project.web.forms.ReflectionButtonForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -71,7 +70,7 @@ public class ParticipationController {
         Reflection reflection = new Reflection();
         reflection.setParticipationID(Long.parseLong(editForm.getParticipationReflectID()));
         model.addAttribute("reflection", reflection);
-        return "add-reflection-button";
+        return "add-reflection-direct";
     }
 
     //Get the current user's ID

@@ -61,12 +61,12 @@ public class ReflectController {
         List<Activity> possibleActivities = reflectionSetup(authentication);
 
         model.addAttribute("activities", possibleActivities);
-        return "add-reflection";
+        return "add-reflection-direct";
     }
 
     //Submit the entry to the database
     @PostMapping("/add-reflection")
-    public String submitParticipation(RedirectAttributes redirectAttributes, @ModelAttribute("reflection") Reflection reflection, Authentication authentication) {
+    public String submitReflection(RedirectAttributes redirectAttributes, @ModelAttribute("reflection") Reflection reflection, Authentication authentication) {
 
         Long activityID = reflection.getParticipationID();
         Activity chosenActivity = new Activity();
@@ -93,7 +93,16 @@ public class ReflectController {
 
         reflection.setParticipationID(chosenParticipation.getParticipationID());
         reflection.setTagID(1L); //Placeholder until we assign tags to activities
+        reflectionServiceImpl.saveReflection(reflection);
+        redirectAttributes.addFlashAttribute("success",true);
+        redirectAttributes.addFlashAttribute("type","addreflection");
+        return "redirect:/dashboard";
+    }
 
+    @PostMapping("/add-reflection-direct")
+    public String submitReflectionDirect(RedirectAttributes redirectAttributes, @ModelAttribute("reflection") Reflection reflection, Authentication authentication) {
+
+        reflection.setTagID(1L);
         reflectionServiceImpl.saveReflection(reflection);
         redirectAttributes.addFlashAttribute("success",true);
         redirectAttributes.addFlashAttribute("type","addreflection");
