@@ -21,4 +21,5 @@ public interface ObjectiveService {
 
     public Optional<Objective> findObjectivesByTag(Tag theTag);
 
+    public Integer getObjectiveListSize();
 }
