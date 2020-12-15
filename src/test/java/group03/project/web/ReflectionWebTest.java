@@ -32,4 +32,15 @@ public class ReflectionWebTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("All Public Reflections")));
     }
+
+    @Test
+    @WithMockUser(username="user", password="password1", roles="USER")
+    public void loadUserMyReflections() throws Exception {
+
+        this.mvc
+                .perform(get("/user/all-my-reflections"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("My Reflections")));
+    }
 }
