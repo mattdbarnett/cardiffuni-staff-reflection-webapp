@@ -13,7 +13,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/d312da903a.js" crossorigin="anonymous"></script>
     <script th:src="@{/js/snackbar.js}"></script>
-    <script th:src="@{/js/daysUntil.js}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
     <style>
         #container-box-completed-tags,#container-box-upcoming,#container-box-graph{
@@ -70,7 +69,6 @@
         }
     </style>
     <script th:src="@{/js/snackbar.js}"></script>
-    <script th:src="@{/js/daysUntil.js}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
     <style>
         #container-box-completed-tags,#container-box-upcoming,#container-box-graph{
@@ -323,22 +321,35 @@
 
 </script>
 <script th:inline="javascript">
-    var tagList = []
-    var thTagList = /*[[${tags}]]*/ [];
+    var tagList = [];
+    var thTagList = /*[[${userstags}]]*/ [];
+
+    var tagListUnique = [];
+
+
 
     for (i=0;i<thTagList.length;i++){
-        tagList.push(thTagList[i].tagName);
+        tagList.push(thTagList[i]);
     }
+
+    $.each(tagList, function(i, el){
+        if($.inArray(el, tagListUnique) === -1) tagListUnique.push(el);
+    });
+
+    const aCount = new Map([...new Set(tagList)].map(
+        x => [x, tagList.filter(y => y === x).length]
+    ));
+
 
     var doughnutChartCanvas = document.getElementById("doughnutChart").getContext("2d");
     var doughnutData = [];
 
-    tagList.forEach(function(tagg) {
+    tagListUnique.forEach(function(tagg) {
             var random_color = "hsla(" + ~~(360 * Math.random()) + "," +
                     "70%,"+
                     "80%,1)";
         doughnutData.push({
-            value: 1,
+            value: aCount.get(tagg),
             color: random_color,
             highlight: random_color,
             label: tagg
