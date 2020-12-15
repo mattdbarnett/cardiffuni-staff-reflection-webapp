@@ -29,14 +29,13 @@
             <div class="well profile" id="container-box">
                 <h1 align="center">My Activities</h1><hr style="background-color:#333;height:0.5px;">
                 <ul class="list-group">
-                    <li class = "list-group-item" th:each="participation : ${participations}">
+                    <li class = "list-group-item" th:each="participation,iterStat : ${participations}">
                         <form action="#" th:action="@{all-my-participations/}" enctype="multipart/form-data" method="post" th:object="${editForm}">
-                            <p th:text = "'Participation ID: '+ ${participation.participationID}"></p>
                             <span class="badge" th:text="${participation.activityID}"></span>
+                            <p th:text = "'Activity Name: '+ ${activities[iterStat.index].name}"></p>
+                            <p th:text = "'Description: '+ ${activities[iterStat.index].description}"></p>
                             <p th:text = "'Participation Date: '+ ${participation.date}"></p>
-                            <p th:text = "'Activity ID: '+ ${participation.activityID}"></p>
-                            <p th:text = "'Current User: '+ ${participation.userID}"></p>
-                            <p th:text = "'User role: '+ ${participation.roleID}"></p>
+                            <p th:text = "'Your role: '+ ${participation.roleID}"></p>
                             <input type = "hidden" th:name="participationReflectID" th:value = "${participation.activityID}"/>
                             <button type="submit">Reflect</button>
                         </form>
