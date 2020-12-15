@@ -76,7 +76,6 @@ public class ParticipationController {
                 Tag[] thoughts = objectives.stream().filter(x -> !x.getTag().getIsOfficial()).map(Objective::getTag).toArray(size -> new Tag[objectives.size()]);
                 allTags.add(tags);
                 allThoughts.add(thoughts);
-
             }
         }
 

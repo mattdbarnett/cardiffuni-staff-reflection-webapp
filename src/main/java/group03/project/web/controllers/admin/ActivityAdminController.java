@@ -46,8 +46,10 @@ public class ActivityAdminController {
     public String addOfficialActivity(Model model) {
         ActivityCreationForm activity = new ActivityCreationForm();
         List<Tag> allTags = tagService.findTagsIfOfficial();
+        List<Tag> allThoughts = tagService.findTagsIfCustom();
         model.addAttribute("activity", activity);
         model.addAttribute("tags", allTags);
+        model.addAttribute("thoughts", allThoughts);
         return "add-oactivity";
     }
     //Submit the activity to the database
@@ -61,6 +63,8 @@ public class ActivityAdminController {
 
             Activity latestActivity = createActivity(activity, result);
 
+            String[] customTags = activity.getCustomTags().split(",");
+
 
 
             for (Map.Entry<String, Boolean> tag : activity.allOfficialTags().entrySet()) {
@@ -71,16 +75,15 @@ public class ActivityAdminController {
                     objService.createObjective(newObj);
 
                 }
-//             }
-//            if (customTags.length > 0) {
-//                for (String customTag : customTags) {
-//                    Tag theTag = tagService.findATagByID(Long.valueOf(customTag)).get();
-//                    Objective newObj = new Objective(latestActivity, theTag);
-//                    objService.createObjective(newObj);
-//
-//                }
-//            }
-        }
+             }
+            if (customTags.length > 0) {
+                for (String customTag : customTags) {
+                    Tag theTag = tagService.findATagByID(Long.valueOf(customTag)).get();
+                    Objective newObj = new Objective(latestActivity, theTag);
+                    objService.createObjective(newObj);
+
+                }
+            }
         return "dashboard_a";
     }
 

@@ -117,6 +117,16 @@
                             <td class = "custom-control-label" for = "16">V4 - Acknowledge the wider context in which higher education operates recognising the implications for professional practice </td>
                         </tr>
                     </table>
+                    <table class = "table table-responsive">
+                        <tr class = "card-header border-bottom">
+                            <h4>Custom Thoughts</h4>
+                        </tr>
+                        <tr th:each = "thought : ${thoughts}" th:multiple = "multiple" >
+                            <td><input type = "checkbox" th:value = "${thought.tagID}" th:field = "*{customTags}"></td>
+                            <td class = "tag-label" th:text = "${thought.tagName}"></td>
+                            <td class = "tag-label" th:text = "${thought.description}"></td>
+                        </tr>
+                    </table>
 
 <!--&lt;!&ndash;                    <div class = "center-block" th:field = "*{allTags}">&ndash;&gt;-->
 <!--                        <fieldset th:field = "*{allTags}" id = "tags">-->
