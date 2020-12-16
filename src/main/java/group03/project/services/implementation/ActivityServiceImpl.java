@@ -30,7 +30,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public Optional<Activity> findActivityByName(String name) {
-        return Optional.empty();
+        return activityRepo.findByName(name);
     }
 
     //Adds an activity
