@@ -1,31 +1,23 @@
 package group03.project.web.controllers;
 
-import group03.project.config.SiteUserPrincipal;
+
 import group03.project.domain.*;
 import group03.project.services.implementation.ParticipationServiceImpl;
 import group03.project.services.offered.ObjectiveService;
 import group03.project.services.offered.SiteUserService;
 import group03.project.services.offered.TagService;
-import group03.project.web.forms.UserCreationForm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ReactiveAdapterRegistry;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.NoHandlerFoundException;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import java.security.Principal;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -104,8 +96,10 @@ public class HomeController {
                 for (Activity myact : t_myActivities){
                         for (Objective obj : objService.getAllObjectives()) {
                             if (objService.getAssociatedActivity(obj) == myact) {
-
+                                //System.out.println("Objective " + obj.getObjectiveID() + " matches " + myact.getActivityID()
+                                // + ", objective tag " + obj.getTag().getTagName() + " being added to list of tags.");
                                 t_tagList.add(tagService.findATagByID(obj.getTag().getTagID()).get().getTagID());
+                                //System.out.println("Current tag list by id: " + t_tagList);
                             }
                         }
                     }
@@ -122,17 +116,17 @@ public class HomeController {
             tagNames.add(tagService.findATagByID(tagID).get().getTagName());
         }
 
-        List<String> uncompletedTagNames = new ArrayList<>();
+        List<String> incompleteTagNames = new ArrayList<>();
         for (Tag thetag : allTags){
             if (!tagNames.contains(thetag.getTagName())){
                 if(thetag.getIsOfficial()) {
-                    uncompletedTagNames.add(thetag.getTagName());
+                    incompleteTagNames.add(thetag.getTagName());
                 }
             }
         }
 
         model.addAttribute("userstags",tagNames);
-        model.addAttribute("incompleteTags",uncompletedTagNames);
+        model.addAttribute("incompleteTags",incompleteTagNames);
         model.addAttribute("tags", allTags);
         model.addAttribute("totaltagsamt",amountOfOfficialTags);
                 /*
