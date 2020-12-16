@@ -127,15 +127,19 @@ public class HomeController {
         }
 
 
-        List<String> a_tagNames = new ArrayList<>();
+        List<String> a_tagNames_A = new ArrayList<>();
+        List<String> a_tagNames_D = new ArrayList<>();
+        List<String> a_tagNames_K = new ArrayList<>();
+        List<String> a_tagNames_V = new ArrayList<>();
+
         for (Long tagID : a_tagList)
         {
             if (tagService.findATagByID(tagID).get().getIsOfficial()) {
-                a_tagNames.add(tagService.findATagByID(tagID).get().getTagName());
+                a_tagNames_A.add(tagService.findATagByID(tagID).get().getTagName());
             }
         }
 
-        System.out.println(a_tagNames);
+        System.out.println(a_tagNames_A);
 
         List<Tag> allTags = tagService.findAllTags();
 
