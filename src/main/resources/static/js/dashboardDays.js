@@ -1,6 +1,6 @@
 var all = $(".date-field").map(function() {
     var start = moment();
-    var end = moment(this.innerHTML, "YYYY-MM-DD");
+    var end = moment(this.innerHTML, "YYYY-DD-MM");
     var amountofDays = moment().diff(end,'days',false);
-    this.innerHTML = amountofDays + " days since added"
+    this.innerHTML = amountofDays + " days since participation"
 }).get();
