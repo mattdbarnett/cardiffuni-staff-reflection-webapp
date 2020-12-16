@@ -129,13 +129,6 @@ public class ActivityController {
             }
         }
 
-        for (Activity activity : officialActivities) {
-            System.out.println("official activity: " +  activity.getName());
-        }
-
-        for (Activity activity : customActivities) {
-            System.out.println("official activity: " +  activity.getName());
-        }
         ActivityJoinForm editForm = new ActivityJoinForm();
         model.addAttribute("editForm", editForm);
         model.addAttribute("officialActivities", officialActivities);
