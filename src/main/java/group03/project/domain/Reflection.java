@@ -34,5 +34,7 @@ public class Reflection {
     private String reflect_lp;
     @Column(name="isPublic")
     private Boolean isPublic;
+    @Column(name="rating")
+    private Long rating;
 
 }

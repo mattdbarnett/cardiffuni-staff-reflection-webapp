@@ -101,7 +101,7 @@ public class ReflectController {
 
     @PostMapping("/add-reflection-direct")
     public String submitReflectionDirect(RedirectAttributes redirectAttributes, @ModelAttribute("reflection") Reflection reflection, Authentication authentication) {
-
+        System.out.println(reflection);
         reflection.setTagID(1L);
         reflectionServiceImpl.saveReflection(reflection);
         redirectAttributes.addFlashAttribute("success",true);
