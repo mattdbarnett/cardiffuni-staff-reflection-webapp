@@ -1,0 +1,68 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<footer th:fragment="donutScript2" xmlns:th="http://www.w3.org/1999/xhtml">
+<script th:inline="javascript">
+    $(document).ready(function() {
+        var tagList = []
+        var amountoftags = /*[[${totaltagsamt}]]*/ 'default';
+        var thTagList = /*[[${uncompletedtags}]]*/ [];
+
+        var thTagList = /*[[${userstags}]]*/ [];
+
+        var tagListUnique = [];
+
+        for (i=0;i<thTagList.length;i++){
+            tagList.push(thTagList[i]);
+        }
+
+        $.each(tagList, function(i, el){
+            if($.inArray(el, tagListUnique) === -1) tagListUnique.push(el);
+        });
+
+        var doughnutChartCanvas2 = document.getElementById("totalProgressChart").getContext("2d");
+        var data = [{
+            value: amountoftags,
+            color: "#F7464A",
+            highlight: "#FF5A5E",
+            label: "Uncompleted UKPSF Tags"
+        }, {
+            value: tagListUnique.length,
+            color: "#46BFBD",
+            highlight: "#5AD3D1",
+            label: "Completed UKPSF Tags"
+        }];
+        var doughnutOptions = {
+            responsive:true,
+            maintainAspectRatio:true,
+            tooltipEvents: [],
+            showTooltips: true,
+            onAnimationComplete: function () {
+                this.showTooltip(this.segments, true);
+            },
+            tooltipTemplate: "<%= label %> - <%= value %>",
+            tooltip: {
+                caretPadding: 50,
+                yAlign: 'bottom'
+            },
+
+            labels: tagList,
+            type: 'doughnut',
+            segmentShowStroke: true,
+            segmentStrokeColor: "#fff",
+            segmentStrokeWidth: 2,
+            percentageInnerCutout: 50,
+
+            animationSteps: 100,
+            animationEasing: "easeOutBounce",
+            animateRotate: true,
+            animateScale: false,
+            legend: {
+                display: true,
+                labels: {
+                    fontColor: 'rgb(255, 99, 132)'
+                }
+            }
+        };
+        var myDoughnut2 = new Chart(doughnutChartCanvas2).Doughnut(data,doughnutOptions);
+    });
+</script>
+</footer>
