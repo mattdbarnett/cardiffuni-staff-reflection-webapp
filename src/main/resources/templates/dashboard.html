@@ -191,10 +191,10 @@
                 <br clear="all">
             </div>
             <div class="well profile" id="container-box-completed-tags" style="margin-top:40px;display:inline-block;padding-right:200px;">
-            <h3 th:text="${'Uncompleted UKPSF Tags - ('+#lists.size(uncompletedtags)+' remaining)'}"></h3><br>
+            <h3 th:text="${' UKPSF Tags incomplete - ('+#lists.size(incompleteTags)+' remaining)'}"></h3><br>
                 <div style="margin-left:100px;">
                 <ul class="list-group list-group-horizontal">
-                    <li th:each="tag : ${uncompletedtags}" th:text="${tag}" class="list-group-item" style="background-color:rgb(87, 154, 211);"></li>
+                    <li th:each="tag : ${incompleteTags}" th:text="${tag}" class="list-group-item" style="background-color:rgb(87, 154, 211);"></li>
                 </ul>
 
             </div>
