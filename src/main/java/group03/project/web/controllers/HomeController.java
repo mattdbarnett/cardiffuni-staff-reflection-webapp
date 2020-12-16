@@ -126,8 +126,16 @@ public class HomeController {
             }
         }
 
-        System.out.println("admin: "+a_tagList);
 
+        List<String> a_tagNames = new ArrayList<>();
+        for (Long tagID : a_tagList)
+        {
+            if (tagService.findATagByID(tagID).get().getIsOfficial()) {
+                a_tagNames.add(tagService.findATagByID(tagID).get().getTagName());
+            }
+        }
+
+        System.out.println(a_tagNames);
 
         List<Tag> allTags = tagService.findAllTags();
 
