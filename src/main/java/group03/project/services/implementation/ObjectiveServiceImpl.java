@@ -3,25 +3,16 @@ package group03.project.services.implementation;
 import group03.project.domain.Activity;
 import group03.project.domain.Objective;
 import group03.project.domain.Participation;
-import group03.project.domain.Tag;
 import group03.project.services.offered.ObjectiveService;
 import group03.project.services.required.ActivityRepository;
 import group03.project.services.required.ObjectiveRepository;
-import group03.project.services.required.SiteUserRepository;
 import group03.project.services.required.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Service;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -48,25 +39,8 @@ public class ObjectiveServiceImpl implements ObjectiveService {
     @Override
     public void createObjective(Objective theObjective) {
 
-//        Optional<Tag> thetag = tagRepository.findByTagID(theObjective.getTag().getTagID());
-//        Optional<Activity> theActivity = activityRepository.findByActivityID(theObjective.getActivity().getActivityID());
-//
-//
 
         objectiveRepository.save(theObjective);
-
-//
-//        template.update(
-//                con -> {
-//                    PreparedStatement statement =
-//                            con.prepareStatement(newObjectiveSQL, Statement.RETURN_GENERATED_KEYS);
-//
-//                    statement.setLong(1, theActivity.get().getActivityID());
-//                    statement.setLong(2, thetag.get().getTagID());
-//                    return statement;
-//                },
-//                keyHolder);
-
 
 
     }
@@ -77,10 +51,10 @@ public class ObjectiveServiceImpl implements ObjectiveService {
     }
 
     @Override
-    public Optional<Objective> findObjectivesByTagID(Long theID) { return objectiveRepository.findByTag_tagID(theID); }
+    public List<Objective> findObjectivesByTagID(Long theID) { return objectiveRepository.findByTag_tagID(theID); }
 
     @Override
-    public Optional<Objective> findObjectivesByActivityID(Long theID) { return objectiveRepository.findByActivity_activityID(theID);
+    public List<Objective> findObjectivesByActivityID(Long theID) { return objectiveRepository.findByActivity_activityID(theID);
     }
 
     //gets list size of objectives list

@@ -28,57 +28,7 @@
         }
 
     </style>
-    <!--    <title th:text = "${siteuser.name} +  's account"></title>-->
 </head>
-<!--<body>-->
-<!--<div th:replace="navbar.html :: header"></div>-->
-<!--<div id="snackbar" th:text="${message}"></div>-->
-<!--<main>-->
-<!--    <div id = "editUser" th:if = "${siteuser}" style="margin-top:3%">-->
-
-<!--        <h2 th:text = "'current user: '+ ${siteuser.userName}"></h2>-->
-
-<!--        <button type = button id = "nameButton" th:text = "'change name: ' + ${siteuser.userName}"></button>-->
-<!--        <br>-->
-<!--        <form id = "nameForm" th:action="@{/user/change-name}" enctype="multipart/form-data" method=post th:object="${editForm}">-->
-<!--            <input type = "hidden" th:name="id" th:value = "${siteuser.userID}">-->
-<!--            <label for = "name">new name: </label>-->
-<!--            <input minlength=4 maxlength=32 th:field = "*{edit}">-->
-<!--            <button type = "submit">submit new name</button>-->
-<!--        </form>-->
-<!--        <br>-->
-<!--        <button type = button id = "emailButton" th:text = "'change email address: ' + ${siteuser.emailAddress}"></button>-->
-<!--        <br>-->
-<!--        <form id = "emailForm" th:action="@{/user/change-email}" enctype="multipart/form-data" method="post" th:object="${editForm}">-->
-<!--            <input type = "hidden" th:name="id" th:value = "${siteuser.userID}">-->
-<!--            <label for = "email">new email address: </label>-->
-<!--            <input id = "nameFormID" type = "email" th:field = "*{edit}">-->
-<!--            <button type = "submit"> submit new email address</button>-->
-<!--        </form>-->
-<!--        <br>-->
-<!--        <button type = button id = "passwordButton" th:text = "'change password'"></button>-->
-<!--        <br>-->
-<!--        <form id = "passwordForm" th:action="@{/user/change-password}" enctype="multipart/form-data" method="post" th:object="${editForm}">-->
-<!--            <input type = "hidden" th:name="id" th:value = "${siteuser.userID}">-->
-<!--            <label for = "password">new password: </label>-->
-<!--            <input minlength=4 maxlength=32 type = "password" th:field = "*{edit}">-->
-<!--            <br>-->
-<!--            <button type = "submit">submit new password</button>-->
-<!--        </form>-->
-<!--        <br>-->
-
-
-<!--&lt;!&ndash;        <h2 th:text = "'current user: ' + ${siteUser.name}"></h2>&ndash;&gt;-->
-
-<!--    </div>-->
-<!--</main>-->
-<!--</body>-->
-
-
-<!--</html>-->
-
-<!--<!DOCTYPE html>-->
-
 
 <body>
 <div th:replace="navbar.html :: header"></div>

@@ -1,0 +1,38 @@
+.tags
+{
+    /*background: #f5d442;*/
+    /*border-radius: 100px;*/
+    /*color: #f5f5f5;*/
+    font-weight: bold;
+    /*padding: 2px 4px;*/
+    cursor: pointer;
+
+
+
+}
+.tag_list {
+    list-style-type: none;
+    display: inline-block;
+
+}
+
+.tag_list li{
+    display: inline;
+
+
+    height: 50px;
+    width: 50px;
+}
+
+.badge {
+    color: black !important;
+}
+
+ul {
+    padding: 5px;
+    padding-inline-start: 0px;
+}
+
+/*.tag_list {}*/
+
+
