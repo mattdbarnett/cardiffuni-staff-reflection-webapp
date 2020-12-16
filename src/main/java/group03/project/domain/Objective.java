@@ -3,8 +3,11 @@ package group03.project.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
@@ -15,11 +18,15 @@ public class Objective {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "objectiveID")
+    @NonNull
+    @Length(min = 1)
+    @Column(name = "objectiveID", nullable = false)
     private Long objectiveID;
 
     @ManyToOne
-    @JoinColumn(name = "Activity_activityID")
+    @NotNull
+    @Length(min = 1)
+    @JoinColumn(name = "Activity_activityID", nullable = false)
     private Activity activity;
 
     @ManyToOne
