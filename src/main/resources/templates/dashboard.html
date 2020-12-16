@@ -67,6 +67,10 @@
           border: 1px solid black;
           padding: 2px;
         }
+
+        #totalProgressChart{
+            width:900px!important;
+        }
     </style>
     <script th:src="@{/js/snackbar.js}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
@@ -80,6 +84,30 @@
             margin:0;
             margin-left:10px;
             padding:0;
+        }
+    </style>
+    <style>
+        .list-group-horizontal .list-group-item
+        {
+            display: inline-block;
+        }
+        .list-group-horizontal .list-group-item
+        {
+            margin-bottom: 0;
+            margin-left:-4px;
+            margin-right: 0;
+            border-right-width: 0;
+        }
+        .list-group-horizontal .list-group-item:first-child
+        {
+            border-top-right-radius:0;
+            border-bottom-left-radius:4px;
+        }
+        .list-group-horizontal .list-group-item:last-child
+        {
+            border-top-right-radius:4px;
+            border-bottom-left-radius:0;
+            border-right-width: 1px;
         }
     </style>
 </head>
@@ -154,7 +182,7 @@
             </div>
             <div class="well profile" id="container-box-graph" style="margin-left:300px;">
                 <div>
-                    <h3>UKPSF Progression</h3>
+                    <h3>Progression - Your Completed UKPSF Tags</h3>
                     <br>
                     <!-- <div id="legend"></div> -->
                     <canvas id="doughnutChart"></canvas>
@@ -162,19 +190,17 @@
                 </div>
                 <br clear="all">
             </div>
-            <div class="well profile" id="container-box-completed-tags" style="margin-top:40px;">
-            <h3>Uncompleted UKPSF Tags</h3><br>
-                <div style="float:left;">
-                <ul class="list-group">
-                    <li th:each="tag : ${uncompletedtags}" th:text="${tag}" class="list-group-item"></li>
+            <div class="well profile" id="container-box-completed-tags" style="margin-top:40px;display:inline-block;padding-right:200px;">
+            <h3 th:text="${'Uncompleted UKPSF Tags - ('+#lists.size(uncompletedtags)+' remaining)'}"></h3><br>
+                <div style="margin-left:100px;">
+                <ul class="list-group list-group-horizontal">
+                    <li th:each="tag : ${uncompletedtags}" th:text="${tag}" class="list-group-item" style="background-color:rgb(87, 154, 211);"></li>
                 </ul>
 
             </div>
-            <div>
+            <div style="display:inline-block;">
                 <canvas id="totalProgressChart"></canvas>
             </div>
-
-
                 <br clear="all">
             </div>
             <br clear="all">
@@ -182,50 +208,15 @@
     </div>
     </div>
 </main>
-<script>
-    const pathname = window.location.pathname,
-        pages = ['about','dashboard', 'login'];
-    $('.nav-item').each(function(i) {
-        if (pathname.includes(pages[i]))
-            $(this).addClass('active');
-        else if (this.className.includes('active'))
-            $(this).removeClass('active');
-    });
-</script>
-<script>
-    var all = $(".date-field").map(function() {
-
-            var start = moment();
-            var end = moment(this.innerHTML, "YYYY-MM-DD");
-            var amountofDays = Math.floor(moment.duration(start.diff(end)).asDays());
-            this.innerHTML = amountofDays + " days left"
-
-    }).get();
-
-
-
-</script>
-<script>
-    var all = $(".date-field").map(function() {
-
-            var start = moment();
-            var end = moment(this.innerHTML, "YYYY-MM-DD");
-            var amountofDays = moment().diff(end,'days',false);
-            this.innerHTML = amountofDays + " days since added"
-
-    }).get();
-
-
-
-</script>
-</script>
-
 </body>
 <footer>
     <div th:replace="dashDonut.html :: footer"></div>
-    <script th:src="@{/js/dashboardListColorizer.js}"></script>
+    <div th:replace="dashDonut2.html :: footer"></div>
 
-        <script th:inline="javascript">
+    <script th:src="@{/js/dashboardListColorizer.js}"></script>
+    <script th:src="@{/js/dashboardDays.js}"></script>
+
+    <script th:inline="javascript">
             var message = [[${success}]];
             var msg_type = [[${type}]];
             if (message == true){
@@ -240,6 +231,16 @@
                 }
                 showSnackbar();
             }
+    </script>
+    <script>
+        const pathname = window.location.pathname,
+            pages = ['about','dashboard', 'login'];
+        $('.nav-item').each(function(i) {
+            if (pathname.includes(pages[i]))
+                $(this).addClass('active');
+            else if (this.className.includes('active'))
+                $(this).removeClass('active');
+        });
     </script>
 </footer>
 </html>
