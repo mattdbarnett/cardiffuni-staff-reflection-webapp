@@ -218,35 +218,28 @@
 
 
 </script>
-<script>
-    var listitems = Array.from(document.getElementsByClassName("list-group-item"));
-    listitems_divided = listitems.filter(function(value, index, Arr) {
-        return index % 2 == 0;
-    });
-
-    listitems_divided.forEach(function(listitem) {
-        listitem.style.backgroundColor = "#4d90c9";
-    });
-</script>
-<script th:inline="javascript">
-    var message = [[${success}]];
-    var msg_type = [[${type}]];
-    if (message == true){
-        switch(msg_type){
-            case "cactivity":
-                document.getElementById("snackbar-text").innerHTML="Added custom activity";
-            case "addreflection":
-                document.getElementById("snackbar-text").innerHTML="Added reflection";
-            case "thoughtcloud":
-                document.getElementById("snackbar-text").innerHTML="Added thought cloud";
-
-        }
-        showSnackbar();
-    }
 </script>
 
 </body>
 <footer>
     <div th:replace="dashDonut.html :: footer"></div>
+    <script th:src="@{/js/dashboardListColorizer.js}"></script>
+
+        <script th:inline="javascript">
+            var message = [[${success}]];
+            var msg_type = [[${type}]];
+            if (message == true){
+                switch(msg_type){
+                case "cactivity":
+                document.getElementById("snackbar-text").innerHTML="Added custom activity";
+                case "addreflection":
+                document.getElementById("snackbar-text").innerHTML="Added reflection";
+                case "thoughtcloud":
+                document.getElementById("snackbar-text").innerHTML="Added thought cloud";
+
+                }
+                showSnackbar();
+            }
+    </script>
 </footer>
 </html>
