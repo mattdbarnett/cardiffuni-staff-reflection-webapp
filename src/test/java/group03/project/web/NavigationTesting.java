@@ -66,6 +66,16 @@ public class NavigationTesting {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "password1", roles = "USER")
+    public void shouldLoadAllPublicReflections() throws Exception {
+        this.mvc
+                .perform(get("/user/all-public-reflections"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("All Public Reflections")));
+    }
+
+    @Test
     @WithMockUser(username = "admin", password = "password1", roles = "ADMIN")
     public void shouldLoadAdminPages() throws Exception {
         this.mvc
