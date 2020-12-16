@@ -126,7 +126,7 @@ public class HomeController {
             }
         }
 
-
+        List<String> a_tagNames_all = new ArrayList<>();
         List<String> a_tagNames_A = new ArrayList<>();
         List<String> a_tagNames_D = new ArrayList<>();
         List<String> a_tagNames_K = new ArrayList<>();
@@ -137,26 +137,40 @@ public class HomeController {
             if (tagService.findATagByID(tagID).get().getIsOfficial()) {
                 if (tagService.findATagByID(tagID).get().getTagName().contains("A")){
                     a_tagNames_A.add(tagService.findATagByID(tagID).get().getTagName());
+                    a_tagNames_all.add(tagService.findATagByID(tagID).get().getTagName());
+
                 }
                 else if (tagService.findATagByID(tagID).get().getTagName().contains("D")){
                     a_tagNames_D.add(tagService.findATagByID(tagID).get().getTagName());
+                    a_tagNames_all.add(tagService.findATagByID(tagID).get().getTagName());
+
                 }
                 else if (tagService.findATagByID(tagID).get().getTagName().contains("K")){
                     a_tagNames_K.add(tagService.findATagByID(tagID).get().getTagName());
+                    a_tagNames_all.add(tagService.findATagByID(tagID).get().getTagName());
+
                 }
                 else if (tagService.findATagByID(tagID).get().getTagName().contains("V")){
                     a_tagNames_V.add(tagService.findATagByID(tagID).get().getTagName());
+                    a_tagNames_all.add(tagService.findATagByID(tagID).get().getTagName());
+
                 }
                 else{
                     System.out.println("Official tag did not match criteria. Tag name: "+tagService.findATagByID(tagID).get().getTagName());
+
                 }
             }
         }
 
+        /* THIS IS FOR USE WITH SEPARATE CHARTS, DATA IS GOING TO BE COLLATED INTO SINGLE
+           CHART SO NO NEED FOR THEM RIGHT NOW.
         model.addAttribute("otagNamesA", a_tagNames_A);
         model.addAttribute("otagNamesV", a_tagNames_V);
         model.addAttribute("otagNamesK", a_tagNames_K);
         model.addAttribute("otagNamesD", a_tagNames_D);
+         */
+
+        model.addAttribute("otagNamesAll",a_tagNames_all);
 
         /* These print statements are to test that the tag names are added to list
         System.out.println("a" + a_tagNames_A);
