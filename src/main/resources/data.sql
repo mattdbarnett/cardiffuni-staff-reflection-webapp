@@ -47,7 +47,7 @@ INSERT INTO tag (tagName, description, isOfficial) VALUES('Depressed', 'I felt D
 INSERT INTO tag (tagName, description, isOfficial) VALUES('Frustrated', 'I was Frustrated with the Activity contents.', false);
 
 
--- Dummy data for database --
+-- Dummy Users for database --
 
 
 INSERT INTO `developmenttoolkit`.`siteUser`( emailAddress, password, userName, permissions, isActive)
@@ -61,6 +61,32 @@ VALUES('admin@emailexample.com', '$2a$10$0MPUyNqDfnnqegokguyWwehXGQwfEot8GV5TWB7
 
 INSERT INTO `developmenttoolkit`.`siteUser`(emailAddress, password, userName, permissions, isActive)
 VALUES('user@name', '$2a$10$rnXtXnpvlvTKX8IBR7nBpupJRHGu37TLE5ICBisSH.XY26MN3s7rC', 'user', 'ROLE_USER', 1);
+
+INSERT INTO `developmenttoolkit`.`siteUser`(emailAddress, password, userName, permissions, isActive)
+VALUES('user@name2', '$2a$10$5aH9gZ0pjoTa7FZSMiD88OF.RtvYiVdBxCu49v8gmNwVY9JWixZgC', 'usernew', 'ROLE_USER', 1);
+
+INSERT INTO `developmenttoolkit`.`siteUser`(emailAddress, password, userName, permissions, isActive)
+VALUES('user@name3', '$2a$10$5aH9gZ0pjoTa7FZSMiD88OF.RtvYiVdBxCu49v8gmNwVY9JWixZgC', 'usernewer', 'ROLE_USER', 1);
+
+INSERT INTO `developmenttoolkit`.`siteUser`(emailAddress, password, userName, permissions, isActive)
+VALUES('user@name4', '$2a$10$5aH9gZ0pjoTa7FZSMiD88OF.RtvYiVdBxCu49v8gmNwVY9JWixZgC', 'usernewish', 'ROLE_USER', 1);
+
+INSERT INTO `developmenttoolkit`.`siteUser`(emailAddress, password, userName, permissions, isActive)
+VALUES('user@name5', '$2a$10$5aH9gZ0pjoTa7FZSMiD88OF.RtvYiVdBxCu49v8gmNwVY9JWixZgC', 'usernewing', 'ROLE_USER', 1);
+
+INSERT INTO `developmenttoolkit`.`siteUser`(emailAddress, password, userName, permissions, isActive)
+VALUES('user@name6', '$2a$10$5aH9gZ0pjoTa7FZSMiD88OF.RtvYiVdBxCu49v8gmNwVY9JWixZgC', 'usernework', 'ROLE_USER', 1);
+
+INSERT INTO `developmenttoolkit`.`siteUser`(emailAddress, password, userName, permissions, isActive)
+VALUES('user@name7', '$2a$10$5aH9gZ0pjoTa7FZSMiD88OF.RtvYiVdBxCu49v8gmNwVY9JWixZgC', 'usernewton', 'ROLE_USER', 1);
+
+INSERT INTO `developmenttoolkit`.`siteUser`(emailAddress, password, userName, permissions, isActive)
+VALUES('user@name8', '$2a$10$5aH9gZ0pjoTa7FZSMiD88OF.RtvYiVdBxCu49v8gmNwVY9JWixZgC', 'usernewbab', 'ROLE_USER', 1);
+
+INSERT INTO `developmenttoolkit`.`siteUser`(emailAddress, password, userName, permissions, isActive)
+VALUES('user@name9', '$2a$10$5aH9gZ0pjoTa7FZSMiD88OF.RtvYiVdBxCu49v8gmNwVY9JWixZgC', 'usernewsi', 'ROLE_USER', 1);
+
+-- Dummy Activities with assigned objectives for database --
 
 INSERT INTO `developmenttoolkit`.`activity` (name, description, isOfficial) VALUES ('Student Document Reflection Webinar', 'A short webinar regarding how to reflect on student submissions', true);
 INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (1, 3);
@@ -129,4 +155,71 @@ INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VA
 INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (15, 26);
 INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (15, 31);
 
-INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201012',2, 1, 'Participant');
+-- Add david112 to 8 official activities--
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201210',2, 1, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201210',2, 2, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201211',2, 3, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201211',2, 4, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201213',2, 5, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201215',2, 6, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201215',2, 7, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201216',2, 8, 'Participant');
+
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201215',2, 11, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201216',2, 12, 'Participant');
+
+-- add random users to activity 1 --
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201211',5, 1, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201211',6, 1, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201211',7, 1, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201211',8, 1, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201211',9, 1, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201211',10, 1, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201211',11, 1, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201211',12, 1, 'Participant');
+
+-- add user to 3 activities and 2 unofficial activities--
+
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201211',4, 2, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201211',4, 5, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201211',4, 9, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201211',4, 14, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201211',4, 15, 'Participant');
+
+-- Add karen to a few activities --
+
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201211',1, 1, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201211',1, 7, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201211',1, 8, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201211',1, 9, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201211',1, 10, 'Participant');
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201211',1, 13, 'Participant');
+
+-- Add some reflections that David has made --
+
+INSERT INTO `developmenttoolkit`.`reflection`(Participation_participationID, Tag_tagID, Reflect_what, Reflect_prompt, Reflect_happen, Reflect_eval,Reflect_diff, Reflect_lp,isPublic, rating )
+VALUES (1, 3, 'Attended a webinar regarding how to reflect on student submissions',
+'I was pondering about my lack of knowledge in this skill, and activity attempted to find an activity that bettered my improvement',
+'The lecture happened, the speaker was amazing in their delivery and gave really helpful points. A powerpoint breakdown was also sent afterwards containing details',
+'I can use the pointers given to take a step back on my reflection skills and think "what comments actually benefit student learning journeys?"',
+'Nothing, this lecture was incredibly good!',
+'1: take a step back. 2: read thoroughly through criteria 3: provide constructive comments that directly link to criteria, rather than pick holes in writing.',
+true, 5);
+
+INSERT INTO `developmenttoolkit`.`reflection`(Participation_participationID, Tag_tagID, Reflect_what, Reflect_prompt, Reflect_happen, Reflect_eval,Reflect_diff, Reflect_lp,isPublic, rating )
+VALUES (24, 3, 'Attended a webinar regarding how to reflect on student submissions',
+'My colleague asked me to attend since he saw I was struggling at this',
+'prompt lecture, delivered fast and done within a 1/2 hour timeframe!',
+'A few good points here and there, but a lot of generalised knowledge that I had already. Still, was nice to hear some confirmation of my methods being used are in the right ballpark.',
+'Maybe some more specific material that I could use?',
+'That i should just keep doing what I already am doing.',
+true, 3);
+
+INSERT INTO `developmenttoolkit`.`reflection`(Participation_participationID, Tag_tagID, Reflect_what, Reflect_prompt, Reflect_happen, Reflect_eval,Reflect_diff, Reflect_lp,isPublic, rating )
+VALUES (11, 3, 'Attended a webinar regarding how to reflect on student submissions',
+'Sounded interesting',
+'Lecturer went a bit fast, I was struggling to keep up',
+'Tons of information to take away, and I am happy we were provided the powerpoint notes after so I will not need to write up',
+'Listen rather than write notes!',
+'Lots of things, too many to list here...',
+true, 4);
