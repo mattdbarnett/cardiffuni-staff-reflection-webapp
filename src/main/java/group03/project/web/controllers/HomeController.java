@@ -147,10 +147,24 @@ public class HomeController {
                 else if (tagService.findATagByID(tagID).get().getTagName().contains("V")){
                     a_tagNames_V.add(tagService.findATagByID(tagID).get().getTagName());
                 }
+                else{
+                    System.out.println("Official tag did not match criteria. Tag name: "+tagService.findATagByID(tagID).get().getTagName());
+                }
             }
         }
 
-        System.out.println(a_tagNames_A);
+        model.addAttribute("otagNamesA", a_tagNames_A);
+        model.addAttribute("otagNamesV", a_tagNames_V);
+        model.addAttribute("otagNamesK", a_tagNames_K);
+        model.addAttribute("otagNamesD", a_tagNames_D);
+
+        /* These print statements are to test that the tag names are added to list
+        System.out.println("a" + a_tagNames_A);
+        System.out.println("v" + a_tagNames_V);
+        System.out.println("k" + a_tagNames_K);
+        System.out.println("d" + a_tagNames_D);
+        */
+
 
         List<Tag> allTags = tagService.findAllTags();
 
