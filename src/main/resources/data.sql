@@ -10,38 +10,42 @@ INSERT INTO tag (tagName, description, isOfficial) VALUES ('A1', 'Design and pla
 INSERT INTO tag (tagName, description, isOfficial) VALUES('A2', 'Teach and/or support learning.', true);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('A3', 'Assess and give feedback to learners.', true);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('A4', 'Develop effective learning environments and approaches to student support and guidance.', true);
-4
+
 INSERT INTO tag (tagName, description, isOfficial) VALUES('A5', 'Engage in continuing professional development in subjects/disciples and their pedagogy, incorporating research, scholarship and the evaluation of professional practices.', true);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('D3.7', 'Supporting colleagues.', true);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('K1', 'The subject material', true);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('K2', 'Appropriate methods for reaching learning and assessing in the subject area and at the level of the academic programme.', true);
-8
+
 INSERT INTO tag (tagName, description, isOfficial) VALUES('K3', 'How students learn, both generally and within their subject/disciplinary area(s)', true);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('K4', 'The use and value of appropriate learning technologies.', true);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('K5', 'Methods for evaluating the effectiveness of teaching.', true);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('K6', 'The implications of quality assurance and quality enhancement for academic and professional practice with a particular focus on teaching.', true);
-12
+
 INSERT INTO tag (tagName, description, isOfficial) VALUES('V1', 'Respect individual learners and diverse learning communities.', true);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('V2', 'Promote participation in higher education and equality of opportunity for learners.', true);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('V3', 'Use evidence-informed approaches and the outcomes from research, scholarship and continuing professional development.', true);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('V4', 'Acknowledge the wider context in which higher education operates recognising the implications for professional practice.', true);
-16
+
 INSERT INTO tag (tagName, description, isOfficial) VALUES('worked well', 'I felt the activity''s content worked well.' , false);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('Motivational', 'I felt Motivated from participating.', false);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('Context', 'I felt this activity gave me more context.', false);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('Something new', 'I learnt something new on this activity.', false);
+
 INSERT INTO tag (tagName, description, isOfficial) VALUES('Out of my comfort zone', 'I was out of my comfort zone during activity.', false);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('Had a go', 'I actively participated', false);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('Good response', 'I garned a good response from all involved.', false);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('Needs more work', 'I feel this activity could use improvement.', false);
+
 INSERT INTO tag (tagName, description, isOfficial) VALUES('Back to the drawing board', 'I feel this activity was a failure and needs a rethink.', false);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('Phone a friend', 'I feel I need to speak to a friend after this activity.', false);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('Apprehensive', 'I was apprehensive about the Activity contents.', false);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('Cautious', 'I was Cautious about the Activity contents.', false);
+
 INSERT INTO tag (tagName, description, isOfficial) VALUES('Confident', 'I was Confident in my knowledge of the Activity contents.', false);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('Excited', 'I was Excited about the Activity contents.', false);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('Depressed', 'I felt Depressed regarding the Activity contents.', false);
 INSERT INTO tag (tagName, description, isOfficial) VALUES('Frustrated', 'I was Frustrated with the Activity contents.', false);
+
 
 -- Dummy data for database --
 
@@ -96,9 +100,33 @@ INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VA
 INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (8, 9);
 
 INSERT INTO `developmenttoolkit`.`activity` (name, description, isOfficial) VALUES ('How to use GIT remotely', 'Basic lecturer tutorial in applying git with remote work.', true);
-INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (9, 15);
-INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (9, 16);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (9, 2);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (9, 14);
 
-INSERT INTO `developmenttoolkit`.`activity` (name, description, isOfficial) VALUES ('Agile Development Best practice', 'PDF download on following best practice on participating in an Agile project', true);
+INSERT INTO `developmenttoolkit`.`activity` (name, description, isOfficial) VALUES ('Agile Development Best Practice #2', 'PDF download on additional practices on participating in an Agile project', true);
 INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (10, 15);
 INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (10, 16);
+
+INSERT INTO `developmenttoolkit`.`activity` (name, description, isOfficial) VALUES ('Scrum Master Meeting', 'A meeting between like-minded group members about our project', false );
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (11, 18);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (11, 29);
+
+INSERT INTO `developmenttoolkit`.`activity` (name, description, isOfficial) VALUES ('Lecturer Coffee Group', 'Meeting of all lecturers about how we find training is going', false );
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (12, 19);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (12, 20);
+
+INSERT INTO `developmenttoolkit`.`activity` (name, description, isOfficial) VALUES ('How to teach for Dummies', 'A book I found in the Library about teaching basics', false );
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (13, 25);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (13, 32);
+
+INSERT INTO `developmenttoolkit`.`activity` (name, description, isOfficial) VALUES ('Spoke to Dave', 'Conversation with dave about our work ethics', false );
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (14, 20);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (14, 22);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (14, 29);
+
+INSERT INTO `developmenttoolkit`.`activity` (name, description, isOfficial) VALUES ('Spoke to upper management', 'Meeting my boss to discuss where I went wrong in latest lecture', false );
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (15, 21);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (15, 26);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (15, 31);
+
+INSERT INTO `developmenttoolkit`.`participation`
