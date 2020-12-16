@@ -101,7 +101,7 @@ public class ReflectController {
 
     @PostMapping("/add-reflection-direct")
     public String submitReflectionDirect(RedirectAttributes redirectAttributes, @ModelAttribute("reflection") Reflection reflection, Authentication authentication) {
-
+        System.out.println(reflection);
         reflection.setTagID(1L);
         reflectionServiceImpl.saveReflection(reflection);
         redirectAttributes.addFlashAttribute("success",true);
@@ -156,6 +156,13 @@ public class ReflectController {
             } else{
                 privacy = "Private";
             }
+
+            String rating;
+            if(currentReflection.getRating() == null){
+                rating = "No Rating";
+            } else{
+                rating = currentReflection.getRating().toString();
+            }
             ReflectList currentReflectList = new ReflectList(
                     currentActivity.getName(),
                     currentParticipation.getDate(),
@@ -166,7 +173,8 @@ public class ReflectController {
                     currentReflection.getReflect_eval(),
                     currentReflection.getReflect_diff(),
                     currentReflection.getReflect_lp(),
-                    privacy
+                    privacy,
+                    rating
             );
 
             reflectLists.add(currentReflectList);
@@ -209,5 +217,65 @@ public class ReflectController {
         }
 
         return possibleActivities;
+    }
+
+    //Lists all reflections
+    @GetMapping("/all-public-reflections")
+    public String listParticipations(Model model) {
+
+        List<Reflection> reflections = reflectionServiceImpl.findAllReflections();
+
+        List<Participation> participations = participationService.findAllParticipations();
+
+        //Return all reflections with activity and participation data in a user friendly format
+        List<ReflectList> reflectLists = new ArrayList<>();
+        for (int x = 0; x < reflections.size(); x++) {
+
+            Reflection currentReflection = reflections.get(x);
+            Participation currentParticipation = new Participation();
+
+            if(currentReflection.getIsPublic()) {
+
+                for (int z = 0; z < participations.size(); z++) {
+                    Participation participation = participations.get(z);
+                    if (currentReflection.getParticipationID() == participation.getParticipationID()) {
+                        currentParticipation = participation;
+                    }
+                }
+                Activity currentActivity = participationService.getRelatedActivity(currentParticipation);
+
+                String privacy;
+                if (currentReflection.getIsPublic()) {
+                    privacy = "Public";
+                } else {
+                    privacy = "Private";
+                }
+
+                String rating;
+                if(currentReflection.getRating() == null){
+                    rating = "No Rating";
+                } else{
+                    rating = currentReflection.getRating().toString();
+                }
+                ReflectList currentReflectList = new ReflectList(
+                        currentActivity.getName(),
+                        currentParticipation.getDate(),
+                        currentActivity.getIsOfficial(),
+                        currentReflection.getReflect_what(),
+                        currentReflection.getReflect_prompt(),
+                        currentReflection.getReflect_happen(),
+                        currentReflection.getReflect_eval(),
+                        currentReflection.getReflect_diff(),
+                        currentReflection.getReflect_lp(),
+                        privacy,
+                        rating
+                );
+
+                reflectLists.add(currentReflectList);
+            }
+        }
+
+        model.addAttribute("reflections", reflectLists);
+        return "all-reflections-user";
     }
 }

@@ -10,13 +10,13 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 
+import javax.management.relation.Relation;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @DataJpaTest
 @ContextConfiguration
@@ -47,7 +47,7 @@ public class ReflectionTest {
 
         String reflect_what = "Test Reflect_What";
 
-        Reflection testReflection = new Reflection(null, testParticipation.getParticipationID(), 1L, reflect_what, "Test", "Test", "Test", "Test", "Test", false);
+        Reflection testReflection = new Reflection(null, testParticipation.getParticipationID(), 1L, reflect_what, "Test", "Test", "Test", "Test", "Test", false, null);
 
         reflectionRepository.save(testReflection);
         System.out.println(testParticipation.getParticipationID().getClass());
@@ -80,9 +80,9 @@ public class ReflectionTest {
         participationRepository.save(testParticipation3);
 
 
-        Reflection testReflection1 = new Reflection(null, testParticipation1.getParticipationID(), 1L, "Test", "Test", "Test", "Test", "Test", "Test", false);
-        Reflection testReflection2 = new Reflection(null, testParticipation1.getParticipationID(), 1L, "Test", "Test", "Test", "Test", "Test", "Test", true);
-        Reflection testReflection3 = new Reflection(null, testParticipation1.getParticipationID(), 1L, "Test", "Test", "Test", "Test", "Test", "Test", true);
+        Reflection testReflection1 = new Reflection(null, testParticipation1.getParticipationID(), 1L, "Test", "Test", "Test", "Test", "Test", "Test", false, null);
+        Reflection testReflection2 = new Reflection(null, testParticipation1.getParticipationID(), 1L, "Test", "Test", "Test", "Test", "Test", "Test", true, null);
+        Reflection testReflection3 = new Reflection(null, testParticipation1.getParticipationID(), 1L, "Test", "Test", "Test", "Test", "Test", "Test", true, null);
 
 
         reflectionRepository.save(testReflection1);
@@ -102,5 +102,55 @@ public class ReflectionTest {
 
         assertEquals(2, publicReflections.size());
 
+    }
+
+    @Test
+    @WithMockUser(username="admin", password="pass", roles = "ADMIN")
+    public void returnReflectionRating() {
+
+        Long rating = 3L;
+
+        Activity testActivity = new Activity(null, "Test Activity", "Test Url", "Test Desc", true);
+        activityRepository.save(testActivity);
+        Date date = new Date();
+        Participation testParticipation = new Participation(null, testActivity.getActivityID(), date, "Participant",  1L );
+        participationRepository.save(testParticipation);
+        Reflection testReflection = new Reflection(null, testParticipation.getParticipationID(), 1L, "Test", "Test", "Test", "Test", "Test", "Test", true, rating);
+        reflectionRepository.save(testReflection);
+
+        Reflection reflection = reflectionRepository.findAll().get(0);
+
+        assertEquals(rating, reflection.getRating());
+    }
+
+    @Test
+    @WithMockUser(username="user",password="pass",roles="admin")
+    public void privacyTest() {
+
+        Activity testActivity = new Activity(null, "Test Activity", "Test Url", "Test Desc", true);
+        activityRepository.save(testActivity);
+        Date date = new Date();
+        Participation testParticipation1 = new Participation(null, testActivity.getActivityID(), date, "Participant",  1L );
+        Participation testParticipation2 = new Participation(null, testActivity.getActivityID(), date, "Participant",  2L );
+        participationRepository.save(testParticipation1);
+        participationRepository.save(testParticipation2);
+        Reflection testReflection1 = new Reflection(null, testParticipation1.getParticipationID(), 1L, "Test", "Test", "Test", "Test", "Test", "Test", true, 3L);
+        Reflection testReflection2 = new Reflection(null, testParticipation2.getParticipationID(), 1L, "Test", "Test", "Test", "Test", "Test", "Test", false, 3L);
+        reflectionRepository.save(testReflection1);
+        reflectionRepository.save(testReflection2);
+
+        List<Reflection> publicReflections = new ArrayList<>();
+
+        //When reflections are sorted in the ReflectionController, they undergo exact the following process:
+        List<Reflection> reflections = reflectionRepository.findAll();
+        for (int x = 0; x < reflections.size(); x++) {
+            Reflection currentReflection = reflections.get(x);
+            if (currentReflection.getIsPublic()) {
+                publicReflections.add(currentReflection);
+            }
+        }
+
+        //If only the public reflection is added, it asserts that private reflections will not be returned by the controller for anyone else to use otherwise.
+        assertEquals(1, publicReflections.size());
     }
 }

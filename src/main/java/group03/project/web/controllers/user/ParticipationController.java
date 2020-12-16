@@ -68,8 +68,10 @@ public class ParticipationController {
     @PostMapping("/all-my-participations")
     public String addReflectionButton(@ModelAttribute("participation") @Valid ReflectionButtonForm editForm, Model model) {
         Reflection reflection = new Reflection();
+        System.out.println(editForm.getParticipationReflectID());
         reflection.setParticipationID(Long.parseLong(editForm.getParticipationReflectID()));
         model.addAttribute("reflection", reflection);
+        System.out.println(reflection);
         return "add-reflection-direct";
     }
 
