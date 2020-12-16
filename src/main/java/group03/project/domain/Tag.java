@@ -3,6 +3,7 @@ package group03.project.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.persistence.*;
 
@@ -15,7 +16,8 @@ public class Tag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "tagID")
+    @NonNull
+    @Column(name = "tagID", nullable = false, unique = true)
     private Long tagID;
 
     @Column(name = "tagName")

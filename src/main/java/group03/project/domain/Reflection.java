@@ -18,7 +18,7 @@ public class Reflection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NonNull
-    @Column(name="reflectionID", nullable = false)
+    @Column(name="reflectionID", nullable = false, unique = true)
     private Long reflectionID;
 
     @NonNull

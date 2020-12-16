@@ -3,6 +3,7 @@ package group03.project.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -16,18 +17,24 @@ public class SiteUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="userID")
+    @NonNull
+    @Column(name="userID", nullable = false, unique = true)
     private Long userID;
 
     @Column(name="emailAddress")
-    @Email
+
+    @Email(message = "Email should be valid")
     private String emailAddress;
+
     @Column(name="password")
     private String password;
+
     @Column(name="userName")
     private String userName;
+
     @Column(name = "isActive")
     private Boolean isActive;
+
     @Column(name = "permissions")
     private String permissions;
 
