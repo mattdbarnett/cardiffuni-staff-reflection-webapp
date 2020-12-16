@@ -113,7 +113,9 @@ public class HomeController {
         List<String> tagNames = new ArrayList<>();
         for (Long tagID : t_tagList)
         {
-            tagNames.add(tagService.findATagByID(tagID).get().getTagName());
+            if (tagService.findATagByID(tagID).get().getIsOfficial()) {
+                tagNames.add(tagService.findATagByID(tagID).get().getTagName());
+            }
         }
 
         List<String> incompleteTagNames = new ArrayList<>();
