@@ -52,12 +52,13 @@
                     </div>
                     <div class="ratingdiv">
                         <label for="rating">Rating (1 - 5):</label>
-                        <input th:field="*{rating}" type="number" id="rating" name="rating" min="1" max="5">
+                        <input th:field="*{rating}" type="range" id="rating" name="rating" min="1" max="5">
+                        <p>Value of Rating: <span id="ratinglabel"></span></p>
                     </div>
                     <br>
                     <div class="publicdiv">
                         <label for="ifpublic"> Do you want your reflection to be public? (Private by default)</label><br>
-                        <input th:field="*{isPublic}" type="checkbox" id="ifpublic" name="ifpublic" value="Public">
+                        <input th:field="*{isPublic}" type="range" id="ifpublic" name="ifpublic" value="Public" min="1" max="5">
                     </div>
                     <br>
                     <button type="submit" id="submit" class="btn btn-default">Submit</button>
@@ -67,4 +68,17 @@
     </div>
 </div>
 </body>
+
+<footer>
+    <script>
+        var slider = document.getElementById("rating");
+        var output = document.getElementById("ratinglabel");
+        output.innerHTML = slider.value;
+
+        slider.oninput = function() {
+            output.innerHTML = this.value;
+        }
+    </script>
+</footer>
+
 </html>

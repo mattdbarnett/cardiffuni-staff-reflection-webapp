@@ -63,9 +63,11 @@ public class ActivityAdminController {
 
             Activity latestActivity = createActivity(activity, result);
 
-            String[] customTags = activity.getCustomTags().split(",");
+            String[] customTags = new String[0];
 
-
+            if(activity.getCustomTags() != null) {
+                customTags = activity.getCustomTags().split(",");
+            }
 
             for (Map.Entry<String, Boolean> tag : activity.allOfficialTags().entrySet()) {
                 if (tag.getValue()) {
@@ -75,7 +77,7 @@ public class ActivityAdminController {
 
                 }
              }
-            if (customTags.length > 0) {
+            if (customTags != null) {
                 for (String customTag : customTags) {
                     Tag theTag = tagService.findATagByID(Long.valueOf(customTag)).get();
                     Objective newObj = new Objective(latestActivity, theTag);

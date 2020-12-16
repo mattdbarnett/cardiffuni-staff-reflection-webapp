@@ -62,7 +62,12 @@ public class ActivityController {
          */
         Activity newCustomActivity = createActivity(activity, result);
 
-        String[] customTags = activity.getCustomTags().split(",");
+
+        String[] customTags = new String[0];
+
+        if(activity.getCustomTags() != null) {
+            customTags = activity.getCustomTags().split(",");
+        }
 
             if (customTags.length > 0) {
                 for (String customTag : customTags) {
