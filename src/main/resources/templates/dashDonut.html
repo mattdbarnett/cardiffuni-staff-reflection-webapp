@@ -2,25 +2,39 @@
 <footer th:fragment="donutScript" xmlns:th="http://www.w3.org/1999/xhtml">
 <script th:inline="javascript">
     $(document).ready(function() {
-        var tagList = []
-        var thTagList = /*[[${tags}]]*/ [];
+            var tagList = [];
+            var thTagList = /*[[${userstags}]]*/ [];
 
-        for (i = 0; i < thTagList.length; i++) {
-            tagList.push(thTagList[i].tagName);
-        }
+            var tagListUnique = [];
 
-        var doughnutChartCanvas = document.getElementById("doughnutChart").getContext("2d");
-        var doughnutData = [];
 
-        tagList.forEach(function (tagg) {
-            var random_color = "hsla(" + ~~(360 * Math.random()) + "," +
-                "70%," +
-                "80%,1)";
-            doughnutData.push({
-                value: 1,
-                color: random_color,
-                highlight: random_color,
-                label: tagg
+
+            for (i=0;i<thTagList.length;i++){
+                tagList.push(thTagList[i]);
+            }
+
+            $.each(tagList, function(i, el){
+                if($.inArray(el, tagListUnique) === -1) tagListUnique.push(el);
+            });
+
+            const aCount = new Map([...new Set(tagList)].map(
+                x => [x, tagList.filter(y => y === x).length]
+            ));
+
+
+            var doughnutChartCanvas = document.getElementById("doughnutChart").getContext("2d");
+            var doughnutData = [];
+
+            tagListUnique.forEach(function(tagg) {
+                    var random_color = "hsla(" + ~~(360 * Math.random()) + "," +
+                            "70%,"+
+                            "80%,1)";
+                doughnutData.push({
+                    value: aCount.get(tagg),
+                    color: random_color,
+                    highlight: random_color,
+                    label: tagg
+
             });
         });
 
@@ -60,3 +74,4 @@
         var myDoughnut = new Chart(doughnutChartCanvas).Doughnut(doughnutData, doughnutOptions);
     });
 </script>
+</footer>
