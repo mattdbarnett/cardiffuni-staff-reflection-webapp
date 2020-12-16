@@ -104,6 +104,82 @@ public class HomeController {
                         }
                     }
 
+
+                //new
+
+        List<Participation> a_myParticipations = new ArrayList<>();
+        List<Activity> a_myActivities = new ArrayList<>();
+        List<Long> a_tagList = new ArrayList<>();
+        //Make a list of all the tags that the current user has
+        for (int partlist = 0; partlist < allParticipations.size(); partlist++) {
+            Participation participation = allParticipations.get(partlist);
+            a_myParticipations.add(participation);
+        }
+        for (Participation mypart : a_myParticipations) {
+            a_myActivities.add(participationService.getRelatedActivity(mypart));
+        }
+        for (Activity myact : a_myActivities){
+            for (Objective obj : objService.getAllObjectives()) {
+                if (objService.getAssociatedActivity(obj) == myact) {
+                    a_tagList.add(tagService.findATagByID(obj.getTag().getTagID()).get().getTagID());
+                }
+            }
+        }
+
+        List<String> a_tagNames_all = new ArrayList<>();
+        List<String> a_tagNames_A = new ArrayList<>();
+        List<String> a_tagNames_D = new ArrayList<>();
+        List<String> a_tagNames_K = new ArrayList<>();
+        List<String> a_tagNames_V = new ArrayList<>();
+
+        for (Long tagID : a_tagList)
+        {
+            if (tagService.findATagByID(tagID).get().getIsOfficial()) {
+                if (tagService.findATagByID(tagID).get().getTagName().contains("A")){
+                    a_tagNames_A.add(tagService.findATagByID(tagID).get().getTagName());
+                    a_tagNames_all.add(tagService.findATagByID(tagID).get().getTagName());
+
+                }
+                else if (tagService.findATagByID(tagID).get().getTagName().contains("D")){
+                    a_tagNames_D.add(tagService.findATagByID(tagID).get().getTagName());
+                    a_tagNames_all.add(tagService.findATagByID(tagID).get().getTagName());
+
+                }
+                else if (tagService.findATagByID(tagID).get().getTagName().contains("K")){
+                    a_tagNames_K.add(tagService.findATagByID(tagID).get().getTagName());
+                    a_tagNames_all.add(tagService.findATagByID(tagID).get().getTagName());
+
+                }
+                else if (tagService.findATagByID(tagID).get().getTagName().contains("V")){
+                    a_tagNames_V.add(tagService.findATagByID(tagID).get().getTagName());
+                    a_tagNames_all.add(tagService.findATagByID(tagID).get().getTagName());
+
+                }
+                else{
+                    System.out.println("Official tag did not match criteria. Tag name: "+tagService.findATagByID(tagID).get().getTagName());
+
+                }
+            }
+        }
+
+        /* THIS IS FOR USE WITH SEPARATE CHARTS, DATA IS GOING TO BE COLLATED INTO SINGLE
+           CHART SO NO NEED FOR THEM RIGHT NOW.
+        model.addAttribute("otagNamesA", a_tagNames_A);
+        model.addAttribute("otagNamesV", a_tagNames_V);
+        model.addAttribute("otagNamesK", a_tagNames_K);
+        model.addAttribute("otagNamesD", a_tagNames_D);
+         */
+
+        model.addAttribute("otagNamesAll",a_tagNames_all);
+
+        /* These print statements are to test that the tag names are added to list
+        System.out.println("a" + a_tagNames_A);
+        System.out.println("v" + a_tagNames_V);
+        System.out.println("k" + a_tagNames_K);
+        System.out.println("d" + a_tagNames_D);
+        */
+
+
         List<Tag> allTags = tagService.findAllTags();
 
         Integer amountOfOfficialTags = tagService.findTagsIfOfficial().size();
@@ -126,6 +202,8 @@ public class HomeController {
                 }
             }
         }
+
+
 
         model.addAttribute("userstags",tagNames);
         model.addAttribute("incompleteTags",incompleteTagNames);

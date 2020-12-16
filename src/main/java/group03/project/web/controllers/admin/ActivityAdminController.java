@@ -1,14 +1,12 @@
 package group03.project.web.controllers.admin;
 
 import group03.project.domain.*;
-import group03.project.services.implementation.ParticipationServiceImpl;
-import group03.project.services.implementation.ReflectionServiceImpl;
-import group03.project.services.offered.ActivityService;
-import group03.project.services.offered.ObjectiveService;
-import group03.project.services.offered.TagService;
+import group03.project.services.offered.*;
 import group03.project.web.forms.ActivityCreationForm;
+import group03.project.web.forms.ActivityJoinForm;
 import group03.project.web.lists.ReflectList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,20 +25,31 @@ import java.util.Map;
 @RequestMapping("admin")
 public class ActivityAdminController {
 
-    @Autowired
     private ActivityService activityService;
 
-    @Autowired
     private TagService tagService;
 
-    @Autowired
     private ObjectiveService objService;
 
-    @Autowired
-    private ParticipationServiceImpl participationService;
+    private ParticipationService participationService;
+
+    private ReflectionService reflectionService;
+
+    private SiteUserService siteUserService;
 
     @Autowired
-    private ReflectionServiceImpl reflectionServiceImpl;
+    public ActivityAdminController(ActivityService aService, TagService tService, ObjectiveService oService,
+                                   ParticipationService pService, ReflectionService rService,
+                                   SiteUserService sService) {
+        activityService = aService;
+        tagService = tService;
+        objService = oService;
+        participationService = pService;
+        reflectionService = rService;
+        siteUserService = sService;
+    }
+
+
 
     //Page for adding an official activity as an administrator
     @GetMapping("/add-official-activity")
@@ -88,12 +98,79 @@ public class ActivityAdminController {
         return "dashboard_a";
     }
 
+    //List all activities the user can add themselves too
+    @GetMapping("/activities-signup-list")
+    public String listActivities(Model model, Authentication authentication) {
+        List<Activity> activities = activityService.findAllActivities();
+        List<Participation> allParticipations = participationService.findAllParticipations();
+        List<SiteUser> allUsers = siteUserService.findAllUsers();
+
+        List<Double> tempPartCount = new ArrayList<>();
+        List<Double> participationPercentage = new ArrayList<>();
+        List<Integer> participationCount = new ArrayList<>();
+
+
+        for (Activity activity : activities) {
+            Double partCounter = 0.0;
+            DecimalFormat df = new DecimalFormat("0");
+
+            for (Participation participation : allParticipations) {
+                System.out.println("id: " + participation.getParticipationID());
+                if (participation.getActivityID().equals(activity.getActivityID())) {
+                    partCounter++;
+
+                }
+
+            }
+            tempPartCount.add(partCounter);
+        }
+
+        System.out.println(allUsers.size());
+
+        for (Double  part : tempPartCount) {
+            Double percentage = (part / allUsers.size()) * 100;
+            participationPercentage.add(percentage);
+        }
+
+        List<Activity> officialActivities = new ArrayList<>();
+        List<Activity> customActivities = new ArrayList<>();
+        //Make sure the user can only sign up for official activities they are not already doing
+        for (int x = 0; x < activityService.getActivityListSize(); x++) {
+            Activity currentActivity = activities.get(x);
+            if(currentActivity.getIsOfficial()) {
+                    officialActivities.add(currentActivity);
+
+            }
+        }
+
+        //Make sure the user can only sign up for custom activities they are not already doing
+        for (int x = 0; x < activityService.getActivityListSize(); x++) {
+            Activity currentActivity = activities.get(x);
+            if(!currentActivity.getIsOfficial()) {
+                    customActivities.add(currentActivity
+                    );
+                }
+            }
+
+        for (Double value : tempPartCount) {
+            participationCount.add(value.intValue());
+        }
+
+        ActivityJoinForm editForm = new ActivityJoinForm();
+        model.addAttribute("officialActivities", officialActivities);
+        model.addAttribute("customActivities", customActivities);
+        model.addAttribute("totalParticipants", participationCount);
+        model.addAttribute("partPercentages", participationPercentage);
+        model.addAttribute("allActivities", activities);
+        return "admin-all-activities";
+    }
+
 
     //Lists all reflections
     @GetMapping("/all-public-reflections")
     public String listParticipations(Model model) {
 
-        List<Reflection> reflections = reflectionServiceImpl.findAllReflections();
+        List<Reflection> reflections = reflectionService.findAllReflections();
 
         List<Participation> participations = participationService.findAllParticipations();
 
