@@ -163,12 +163,18 @@
                 <br clear="all">
             </div>
             <div class="well profile" id="container-box-completed-tags" style="margin-top:40px;">
-                <div>
-                    <h3>Uncompleted UKPSF Tags</h3>
-                    <div th:each="tag : ${uncompletedtags}">
-                        <h1 th:text="${tag}"></h1>
-                    </div>
-                </div>
+            <h3>Uncompleted UKPSF Tags</h3><br>
+                <div style="float:left;">
+                <ul class="list-group">
+                    <li th:each="tag : ${uncompletedtags}" th:text="${tag}" class="list-group-item"></li>
+                </ul>
+
+            </div>
+            <div>
+                <canvas id="totalProgressChart"></canvas>
+            </div>
+
+
                 <br clear="all">
             </div>
             <br clear="all">
@@ -199,69 +205,6 @@
 
 
 </script>
-<script th:inline="javascript">
-    var tagList = []
-    var thTagList = /*[[${tags}]]*/ [];
-
-    for (i=0;i<thTagList.length;i++){
-        tagList.push(thTagList[i].tagName);
-    }
-
-    var doughnutChartCanvas = document.getElementById("doughnutChart").getContext("2d");
-    var doughnutData = [];
-
-    tagList.forEach(function(tagg) {
-            var random_color = "hsla(" + ~~(360 * Math.random()) + "," +
-                    "70%,"+
-                    "80%,1)";
-        doughnutData.push({
-            value: 1,
-            color: random_color,
-            highlight: random_color,
-            label: tagg
-        });
-    });
-
-    var doughnutOptions = {
-        tooltipEvents: [],
-        showTooltips: true,
-        onAnimationComplete: function() {
-            this.showTooltip(this.segments, true);
-        },
-        tooltipTemplate: "<%= label %> - <%= value %>",
-        tooltip: {
-               caretPadding: 50,
-               yAlign: 'bottom'
-           },
-
-        labels: tagList,
-        type: 'doughnut',
-        segmentShowStroke: true,
-        segmentStrokeColor: "#fff",
-        segmentStrokeWidth: 2,
-        percentageInnerCutout: 50,
-
-        animationSteps: 100,
-        animationEasing: "easeOutBounce",
-        animateRotate: true,
-        animateScale: false,
-        responsive: true,
-        maintainAspectRatio: true,
-        legend: {
-            display: true,
-            labels: {
-                fontColor: 'rgb(255, 99, 132)'
-            }
-        }
-    };
-
-    var myDoughnut = new Chart(doughnutChartCanvas).Doughnut(doughnutData,doughnutOptions);
-    /*
-    var legendHolder = document.createElement('div');
-    legendHolder.innerHTML = myDoughnut.generateLegend();
-    document.getElementById('legend').appendChild(legendHolder.firstChild);
-    */
-</script>
 <script>
     var all = $(".date-field").map(function() {
 
@@ -274,82 +217,6 @@
 
 
 
-</script>
-<script th:inline="javascript">
-    var tagList = [];
-    var thTagList = /*[[${userstags}]]*/ [];
-
-    var tagListUnique = [];
-
-
-
-    for (i=0;i<thTagList.length;i++){
-        tagList.push(thTagList[i]);
-    }
-
-    $.each(tagList, function(i, el){
-        if($.inArray(el, tagListUnique) === -1) tagListUnique.push(el);
-    });
-
-    const aCount = new Map([...new Set(tagList)].map(
-        x => [x, tagList.filter(y => y === x).length]
-    ));
-
-
-    var doughnutChartCanvas = document.getElementById("doughnutChart").getContext("2d");
-    var doughnutData = [];
-
-    tagListUnique.forEach(function(tagg) {
-            var random_color = "hsla(" + ~~(360 * Math.random()) + "," +
-                    "70%,"+
-                    "80%,1)";
-        doughnutData.push({
-            value: aCount.get(tagg),
-            color: random_color,
-            highlight: random_color,
-            label: tagg
-        });
-    });
-
-    var doughnutOptions = {
-        tooltipEvents: [],
-        showTooltips: true,
-        onAnimationComplete: function() {
-            this.showTooltip(this.segments, true);
-        },
-        tooltipTemplate: "<%= label %> - <%= value %>",
-        tooltip: {
-               caretPadding: 50,
-               yAlign: 'bottom'
-           },
-
-        labels: tagList,
-        type: 'doughnut',
-        segmentShowStroke: true,
-        segmentStrokeColor: "#fff",
-        segmentStrokeWidth: 2,
-        percentageInnerCutout: 50,
-
-        animationSteps: 100,
-        animationEasing: "easeOutBounce",
-        animateRotate: true,
-        animateScale: false,
-        responsive: true,
-        maintainAspectRatio: true,
-        legend: {
-            display: true,
-            labels: {
-                fontColor: 'rgb(255, 99, 132)'
-            }
-        }
-    };
-
-    var myDoughnut = new Chart(doughnutChartCanvas).Doughnut(doughnutData,doughnutOptions);
-    /*
-    var legendHolder = document.createElement('div');
-    legendHolder.innerHTML = myDoughnut.generateLegend();
-    document.getElementById('legend').appendChild(legendHolder.firstChild);
-    */
 </script>
 <script>
     var listitems = Array.from(document.getElementsByClassName("list-group-item"));
@@ -377,5 +244,9 @@
         showSnackbar();
     }
 </script>
+
 </body>
+<footer>
+    <div th:replace="dashDonut.html :: footer"></div>
+</footer>
 </html>
