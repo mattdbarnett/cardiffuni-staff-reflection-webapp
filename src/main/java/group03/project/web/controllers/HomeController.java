@@ -94,31 +94,27 @@ public class HomeController {
             //Make a list of all the tags that the current user has
             for (int partlist = 0; partlist < allParticipations.size(); partlist++) {
                 Participation participation = allParticipations.get(partlist);
-                System.out.println("current participation: " + participation);
                 if(participation.getUserID() == currentID) {
                     t_myParticipations.add(participation);
-                    System.out.println("All participations: "+ t_myParticipations);
                 }
             }
-            Integer counter =0;
-            Integer innerCounter = 0;
-            Integer deepcounter =0;
                 for (Participation mypart : t_myParticipations) {
                     t_myActivities.add(participationService.getRelatedActivity(mypart));
                 }
                 for (Activity myact : t_myActivities){
                         for (Objective obj : objService.getAllObjectives()) {
                             if (objService.getAssociatedActivity(obj) == myact) {
-                                //System.out.println("Objective " + obj.getObjectiveID() + " matches " + myact.getActivityID()
-                                // + ", objective tag " + obj.getTag().getTagName() + " being added to list of tags.");
+
                                 t_tagList.add(tagService.findATagByID(obj.getTag().getTagID()).get().getTagID());
-                                //System.out.println("Current tag list by id: " + t_tagList);
                             }
                         }
                     }
 
         List<Tag> allTags = tagService.findAllTags();
-        System.out.println("taglist: "+ t_tagList);
+
+        Integer amountOfOfficialTags = tagService.findTagsIfOfficial().size();
+
+
 
         List<String> tagNames = new ArrayList<>();
         for (Long tagID : t_tagList)
@@ -126,9 +122,19 @@ public class HomeController {
             tagNames.add(tagService.findATagByID(tagID).get().getTagName());
         }
 
-        model.addAttribute("userstags",tagNames);
-        model.addAttribute("tags", allTags);
+        List<String> uncompletedTagNames = new ArrayList<>();
+        for (Tag thetag : allTags){
+            if (!tagNames.contains(thetag.getTagName())){
+                if(thetag.getIsOfficial()) {
+                    uncompletedTagNames.add(thetag.getTagName());
+                }
+            }
+        }
 
+        model.addAttribute("userstags",tagNames);
+        model.addAttribute("incompleteTags",uncompletedTagNames);
+        model.addAttribute("tags", allTags);
+        model.addAttribute("totaltagsamt",amountOfOfficialTags);
                 /*
           Redirects user object based upon authority set, streaming into 2 different dashboard pages.
          */

@@ -67,6 +67,10 @@
           border: 1px solid black;
           padding: 2px;
         }
+
+        #totalProgressChart{
+            width:900px!important;
+        }
     </style>
     <script th:src="@{/js/snackbar.js}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
@@ -80,6 +84,30 @@
             margin:0;
             margin-left:10px;
             padding:0;
+        }
+    </style>
+    <style>
+        .list-group-horizontal .list-group-item
+        {
+            display: inline-block;
+        }
+        .list-group-horizontal .list-group-item
+        {
+            margin-bottom: 0;
+            margin-left:-4px;
+            margin-right: 0;
+            border-right-width: 0;
+        }
+        .list-group-horizontal .list-group-item:first-child
+        {
+            border-top-right-radius:0;
+            border-bottom-left-radius:4px;
+        }
+        .list-group-horizontal .list-group-item:last-child
+        {
+            border-top-right-radius:4px;
+            border-bottom-left-radius:0;
+            border-right-width: 1px;
         }
     </style>
 </head>
@@ -158,7 +186,7 @@
             </div>
             <div class="well profile" id="container-box-graph" style="margin-left:300px;">
                 <div>
-                    <h3>UKPSF Progression</h3>
+                    <h3>Progression - Your Completed UKPSF Tags</h3>
                     <br>
                     <!-- <div id="legend"></div> -->
                     <canvas id="doughnutChart"></canvas>
@@ -166,14 +194,17 @@
                 </div>
                 <br clear="all">
             </div>
-            <div class="well profile" id="container-box-completed-tags" style="margin-top:40px;">
-                <div>
-                    <h3>Completed UKPSF Tags</h3>
-                    <br>
-                    <div th:each="tag : ${tags}">
-                        <h1 th:text="${tag.tagName}"></h1>
-                    </div>
-                </div>
+            <div class="well profile" id="container-box-completed-tags" style="margin-top:40px;display:inline-block;padding-right:200px;">
+            <h3 th:text="${' UKPSF Tags incomplete - ('+#lists.size(incompleteTags)+' remaining)'}"></h3><br>
+                <div style="margin-left:100px;">
+                <ul class="list-group list-group-horizontal">
+                    <li th:each="tag : ${incompleteTags}" th:text="${tag}" class="list-group-item" style="background-color:rgb(87, 154, 211);"></li>
+                </ul>
+
+            </div>
+            <div style="display:inline-block;">
+                <canvas id="totalProgressChart"></canvas>
+            </div>
                 <br clear="all">
             </div>
             <br clear="all">
@@ -181,206 +212,39 @@
     </div>
     </div>
 </main>
-<script>
-    const pathname = window.location.pathname,
-        pages = ['about','dashboard', 'login'];
-    $('.nav-item').each(function(i) {
-        if (pathname.includes(pages[i]))
-            $(this).addClass('active');
-        else if (this.className.includes('active'))
-            $(this).removeClass('active');
-    });
-</script>
-<script>
-    var all = $(".date-field").map(function() {
+</body>
+<footer>
+    <div th:replace="dashDonut.html :: footer"></div>
+    <div th:replace="dashDonut2.html :: footer"></div>
 
-            var start = moment();
-            var end = moment(this.innerHTML, "YYYY-MM-DD");
-            var amountofDays = Math.floor(moment.duration(start.diff(end)).asDays());
-            this.innerHTML = amountofDays + " days left"
+    <script th:src="@{/js/dashboardListColorizer.js}"></script>
+    <script th:src="@{/js/dashboardDays.js}"></script>
 
-    }).get();
-
-
-
-</script>
-<script th:inline="javascript">
-    var tagList = []
-    var thTagList = /*[[${tags}]]*/ [];
-
-    for (i=0;i<thTagList.length;i++){
-        tagList.push(thTagList[i].tagName);
-    }
-
-    var doughnutChartCanvas = document.getElementById("doughnutChart").getContext("2d");
-    var doughnutData = [];
-
-    tagList.forEach(function(tagg) {
-            var random_color = "hsla(" + ~~(360 * Math.random()) + "," +
-                    "70%,"+
-                    "80%,1)";
-        doughnutData.push({
-            value: 1,
-            color: random_color,
-            highlight: random_color,
-            label: tagg
-        });
-    });
-
-    var doughnutOptions = {
-        tooltipEvents: [],
-        showTooltips: true,
-        onAnimationComplete: function() {
-            this.showTooltip(this.segments, true);
-        },
-        tooltipTemplate: "<%= label %> - <%= value %>",
-        tooltip: {
-               caretPadding: 50,
-               yAlign: 'bottom'
-           },
-
-        labels: tagList,
-        type: 'doughnut',
-        segmentShowStroke: true,
-        segmentStrokeColor: "#fff",
-        segmentStrokeWidth: 2,
-        percentageInnerCutout: 50,
-
-        animationSteps: 100,
-        animationEasing: "easeOutBounce",
-        animateRotate: true,
-        animateScale: false,
-        responsive: true,
-        maintainAspectRatio: true,
-        legend: {
-            display: true,
-            labels: {
-                fontColor: 'rgb(255, 99, 132)'
-            }
-        }
-    };
-
-    var myDoughnut = new Chart(doughnutChartCanvas).Doughnut(doughnutData,doughnutOptions);
-    /*
-    var legendHolder = document.createElement('div');
-    legendHolder.innerHTML = myDoughnut.generateLegend();
-    document.getElementById('legend').appendChild(legendHolder.firstChild);
-    */
-</script>
-<script>
-    var all = $(".date-field").map(function() {
-
-            var start = moment();
-            var end = moment(this.innerHTML, "YYYY-MM-DD");
-            var amountofDays = moment().diff(end,'days',false);
-            this.innerHTML = amountofDays + " days since added"
-
-    }).get();
-
-
-
-</script>
-<script th:inline="javascript">
-    var tagList = [];
-    var thTagList = /*[[${userstags}]]*/ [];
-
-    var tagListUnique = [];
-
-
-
-    for (i=0;i<thTagList.length;i++){
-        tagList.push(thTagList[i]);
-    }
-
-    $.each(tagList, function(i, el){
-        if($.inArray(el, tagListUnique) === -1) tagListUnique.push(el);
-    });
-
-    const aCount = new Map([...new Set(tagList)].map(
-        x => [x, tagList.filter(y => y === x).length]
-    ));
-
-
-    var doughnutChartCanvas = document.getElementById("doughnutChart").getContext("2d");
-    var doughnutData = [];
-
-    tagListUnique.forEach(function(tagg) {
-            var random_color = "hsla(" + ~~(360 * Math.random()) + "," +
-                    "70%,"+
-                    "80%,1)";
-        doughnutData.push({
-            value: aCount.get(tagg),
-            color: random_color,
-            highlight: random_color,
-            label: tagg
-        });
-    });
-
-    var doughnutOptions = {
-        tooltipEvents: [],
-        showTooltips: true,
-        onAnimationComplete: function() {
-            this.showTooltip(this.segments, true);
-        },
-        tooltipTemplate: "<%= label %> - <%= value %>",
-        tooltip: {
-               caretPadding: 50,
-               yAlign: 'bottom'
-           },
-
-        labels: tagList,
-        type: 'doughnut',
-        segmentShowStroke: true,
-        segmentStrokeColor: "#fff",
-        segmentStrokeWidth: 2,
-        percentageInnerCutout: 50,
-
-        animationSteps: 100,
-        animationEasing: "easeOutBounce",
-        animateRotate: true,
-        animateScale: false,
-        responsive: true,
-        maintainAspectRatio: true,
-        legend: {
-            display: true,
-            labels: {
-                fontColor: 'rgb(255, 99, 132)'
-            }
-        }
-    };
-
-    var myDoughnut = new Chart(doughnutChartCanvas).Doughnut(doughnutData,doughnutOptions);
-    /*
-    var legendHolder = document.createElement('div');
-    legendHolder.innerHTML = myDoughnut.generateLegend();
-    document.getElementById('legend').appendChild(legendHolder.firstChild);
-    */
-</script>
-<script>
-    var listitems = Array.from(document.getElementsByClassName("list-group-item"));
-    listitems_divided = listitems.filter(function(value, index, Arr) {
-        return index % 2 == 0;
-    });
-
-    listitems_divided.forEach(function(listitem) {
-        listitem.style.backgroundColor = "#4d90c9";
-    });
-</script>
-<script th:inline="javascript">
-    var message = [[${success}]];
-    var msg_type = [[${type}]];
-    if (message == true){
-        switch(msg_type){
-            case "cactivity":
+    <script th:inline="javascript">
+            var message = [[${success}]];
+            var msg_type = [[${type}]];
+            if (message == true){
+                switch(msg_type){
+                case "cactivity":
                 document.getElementById("snackbar-text").innerHTML="Added custom activity";
-            case "addreflection":
+                case "addreflection":
                 document.getElementById("snackbar-text").innerHTML="Added reflection";
-            case "thoughtcloud":
+                case "thoughtcloud":
                 document.getElementById("snackbar-text").innerHTML="Added thought cloud";
 
-        }
-        showSnackbar();
-    }
-</script>
-</body>
+                }
+                showSnackbar();
+            }
+    </script>
+    <script>
+        const pathname = window.location.pathname,
+            pages = ['about','dashboard', 'login'];
+        $('.nav-item').each(function(i) {
+            if (pathname.includes(pages[i]))
+                $(this).addClass('active');
+            else if (this.className.includes('active'))
+                $(this).removeClass('active');
+        });
+    </script>
+</footer>
 </html>

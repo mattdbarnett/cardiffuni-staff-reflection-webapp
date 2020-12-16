@@ -137,4 +137,26 @@ public class UserAccountTest {
                 .andExpect(content().string(containsString("id=\"doughnutChart\"")));
 
     }
+
+    @Test
+    @DisplayName("User can see a chart of their uncompleted tags on dashboard")
+    @WithMockUser(username = "user", password = "password1", roles = "USER")
+    public void shouldSeeSecondChartOnDash() throws Exception {
+
+        mvc.perform(get("/dashboard"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("id=\"totalProgressChart\"")));
+
+    }
+
+    @Test
+    @DisplayName("User can see a list of their uncompleted tags on dashboard")
+    @WithMockUser(username = "user", password = "password1", roles = "USER")
+    public void shouldSeeUncompletedTagsListOnDash() throws Exception {
+
+        mvc.perform(get("/dashboard"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Uncompleted UKPSF Tags")));
+
+    }
 }
