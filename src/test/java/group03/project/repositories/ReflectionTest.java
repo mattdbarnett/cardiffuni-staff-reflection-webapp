@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @DataJpaTest
 @ContextConfiguration
@@ -47,7 +46,7 @@ public class ReflectionTest {
 
         String reflect_what = "Test Reflect_What";
 
-        Reflection testReflection = new Reflection(null, testParticipation.getParticipationID(), 1L, reflect_what, "Test", "Test", "Test", "Test", "Test", false);
+        Reflection testReflection = new Reflection(null, testParticipation.getParticipationID(), 1L, reflect_what, "Test", "Test", "Test", "Test", "Test", false, null);
 
         reflectionRepository.save(testReflection);
         System.out.println(testParticipation.getParticipationID().getClass());
@@ -80,9 +79,9 @@ public class ReflectionTest {
         participationRepository.save(testParticipation3);
 
 
-        Reflection testReflection1 = new Reflection(null, testParticipation1.getParticipationID(), 1L, "Test", "Test", "Test", "Test", "Test", "Test", false);
-        Reflection testReflection2 = new Reflection(null, testParticipation1.getParticipationID(), 1L, "Test", "Test", "Test", "Test", "Test", "Test", true);
-        Reflection testReflection3 = new Reflection(null, testParticipation1.getParticipationID(), 1L, "Test", "Test", "Test", "Test", "Test", "Test", true);
+        Reflection testReflection1 = new Reflection(null, testParticipation1.getParticipationID(), 1L, "Test", "Test", "Test", "Test", "Test", "Test", false, null);
+        Reflection testReflection2 = new Reflection(null, testParticipation1.getParticipationID(), 1L, "Test", "Test", "Test", "Test", "Test", "Test", true, null);
+        Reflection testReflection3 = new Reflection(null, testParticipation1.getParticipationID(), 1L, "Test", "Test", "Test", "Test", "Test", "Test", true, null);
 
 
         reflectionRepository.save(testReflection1);
@@ -102,5 +101,24 @@ public class ReflectionTest {
 
         assertEquals(2, publicReflections.size());
 
+    }
+
+    @Test
+    @WithMockUser(username="admin", password="pass", roles = "ADMIN")
+    public void returnReflectionRating() {
+
+        Long rating = 3L;
+
+        Activity testActivity = new Activity(null, "Test Activity", "Test Url", "Test Desc", true);
+        activityRepository.save(testActivity);
+        Date date = new Date();
+        Participation testParticipation = new Participation(null, testActivity.getActivityID(), date, "Participant",  1L );
+        participationRepository.save(testParticipation);
+        Reflection testReflection = new Reflection(null, testParticipation.getParticipationID(), 1L, "Test", "Test", "Test", "Test", "Test", "Test", true, rating);
+        reflectionRepository.save(testReflection);
+
+        Reflection reflection = reflectionRepository.findAll().get(0);
+
+        assertEquals(rating, reflection.getRating());
     }
 }
