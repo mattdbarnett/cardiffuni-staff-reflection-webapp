@@ -135,7 +135,18 @@ public class HomeController {
         for (Long tagID : a_tagList)
         {
             if (tagService.findATagByID(tagID).get().getIsOfficial()) {
-                a_tagNames_A.add(tagService.findATagByID(tagID).get().getTagName());
+                if (tagService.findATagByID(tagID).get().getTagName().contains("A")){
+                    a_tagNames_A.add(tagService.findATagByID(tagID).get().getTagName());
+                }
+                else if (tagService.findATagByID(tagID).get().getTagName().contains("D")){
+                    a_tagNames_D.add(tagService.findATagByID(tagID).get().getTagName());
+                }
+                else if (tagService.findATagByID(tagID).get().getTagName().contains("K")){
+                    a_tagNames_K.add(tagService.findATagByID(tagID).get().getTagName());
+                }
+                else if (tagService.findATagByID(tagID).get().getTagName().contains("V")){
+                    a_tagNames_V.add(tagService.findATagByID(tagID).get().getTagName());
+                }
             }
         }
 
