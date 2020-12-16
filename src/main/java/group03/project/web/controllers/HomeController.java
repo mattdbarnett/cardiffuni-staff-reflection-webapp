@@ -120,6 +120,8 @@ public class HomeController {
         List<Tag> allTags = tagService.findAllTags();
         System.out.println("taglist: "+ t_tagList);
 
+        Integer amountOfOfficialTags = tagService.findTagsIfOfficial().size();
+
 
 
         List<String> tagNames = new ArrayList<>();
@@ -131,14 +133,16 @@ public class HomeController {
         List<String> uncompletedTagNames = new ArrayList<>();
         for (Tag thetag : allTags){
             if (!tagNames.contains(thetag.getTagName())){
-                uncompletedTagNames.add(thetag.getTagName());
+                if(thetag.getIsOfficial()) {
+                    uncompletedTagNames.add(thetag.getTagName());
+                }
             }
         }
 
         model.addAttribute("userstags",tagNames);
         model.addAttribute("uncompletedtags",uncompletedTagNames);
         model.addAttribute("tags", allTags);
-
+        model.addAttribute("totaltagsamt",amountOfOfficialTags);
                 /*
           Redirects user object based upon authority set, streaming into 2 different dashboard pages.
          */
