@@ -47,7 +47,7 @@ INSERT INTO `developmenttoolkit`.`siteUser`( emailAddress, password, userName, p
 VALUES('k@aren.com', '$2a$10$YhSaTI2UkEJmGmNzR..pouFZlKAHoQR1uvTyAUv5ffGYHTum.BUHy', 'karen', 'ROLE_USER', 1);
 
 INSERT INTO `developmenttoolkit`.`siteUser`( emailAddress, password, userName, permissions,isActive)
-VALUES('big@ceo.org.uk', '$2a$10$Es0Jp14TEF2wGQ3xBb8/g.l9PGwH.yBXKBsy4XBcE7tUfFT9Ou6D.', 'dave', 'ROLE_USER', 1);
+VALUES('david112@outlook.com', '$2a$10$Es0Jp14TEF2wGQ3xBb8/g.l9PGwH.yBXKBsy4XBcE7tUfFT9Ou6D.', 'david112', 'ROLE_USER', 1);
 
 INSERT INTO `developmenttoolkit`.`siteUser`(emailAddress, password, userName, permissions,isActive)
 VALUES('admin@emailexample.com', '$2a$10$0MPUyNqDfnnqegokguyWwehXGQwfEot8GV5TWB7MDd8ztHHTuL4oG', 'admin', 'ROLE_ADMIN', 1);
@@ -55,4 +55,20 @@ VALUES('admin@emailexample.com', '$2a$10$0MPUyNqDfnnqegokguyWwehXGQwfEot8GV5TWB7
 INSERT INTO `developmenttoolkit`.`siteUser`(emailAddress, password, userName, permissions, isActive)
 VALUES('user@name', '$2a$10$rnXtXnpvlvTKX8IBR7nBpupJRHGu37TLE5ICBisSH.XY26MN3s7rC', 'user', 'ROLE_USER', 1);
 
+INSERT INTO `developmenttoolkit`.`activity` (name, description, isOfficial) VALUES ('Student Document Reflection Webinar', 'A short webinar regarding how to reflect on student submissions', true);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (1, 3);
 
+INSERT INTO `developmenttoolkit`.`activity` (name, description, isOfficial) VALUES ('Peer review workshop', 'A group workshop where you can meet up with fellow lecturers and learn how to provide difficult constructive criticism', true);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (2, 2);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (2, 6);
+
+INSERT INTO `developmenttoolkit`.`activity` (name, description, isOfficial) VALUES ('The Basics of Biology learning', 'An online group introduction to the process of instructing students on the basics of a Biology degree', true);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (3, 7);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (3, 8);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (3, 10);
+
+INSERT INTO `developmenttoolkit`.`activity` (name, description, isOfficial) VALUES ('Student Representative course feedback', 'A group feedback session between yourself and the assigned student reps', true);
+
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (4, 3);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (4, 9);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (4, 11);
