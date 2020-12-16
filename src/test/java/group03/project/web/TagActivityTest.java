@@ -76,7 +76,7 @@ public class TagActivityTest {
         Assertions confirms link in database by calling database for specific tag and matching related Tag's name against expected.
          */
         assertEquals("Motivational", tagService.findATagByName
-                (objectiveService.findObjectivesByTagID(tagService.findATagByName("Motivational").get().getTagID()).get().getTag().getTagName()).get().getTagName());
+                (objectiveService.findObjectivesByTagID(tagService.findATagByName("Motivational").get().getTagID()).get(0).getTag().getTagName()).get().getTagName());
 
                 /*
         Assertion confirms link in database to Activity object stored inside objective

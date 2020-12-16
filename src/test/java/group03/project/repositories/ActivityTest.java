@@ -15,6 +15,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.security.test.context.support.WithMockUser;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
@@ -42,14 +44,19 @@ public class ActivityTest {
         Objective newObj = new Objective(activityService.findByName("activityTest").get(), tagService.findByTagID(1L).get());
         objectiveRepository.save(newObj);
 
-        Long activityInObjective = objectiveRepository.findByActivity_activityID(
-                activityService.findByName("activityTest")
-                        .get()
-                        .getActivityID())
-                        .get()
-                        .getActivity().getActivityID();
+        Objective specifiedObjective = objectiveRepository
+                .findByActivity_activityID(activityService.findByName("activityTest")
+                .get()
+                .getActivityID()).get(0);
 
-        Activity savedActivity = activityService.findByActivityID(newObj.getActivity().getActivityID()).get();
+        Long activityInObjective = specifiedObjective.getActivity().getActivityID();
+
+//        Long activityInObjectives = objectiveRepository
+//                .findByActivity_activityID(activityService.findByName("activityTest")
+//                        .get()
+//                        .getActivityID());
+
+        Activity savedActivity = activityService.findByActivityID(activityInObjective).get();
 
         assertEquals("an activity test", savedActivity.getDescription());
     }
@@ -70,21 +77,19 @@ public class ActivityTest {
 
         objectiveRepository.save(newObj);
 
-        Long activityInObjective = objectiveRepository.findByActivity_activityID(
-                activityService.findByName("activityTest")
-                        .get() // Sources Activity Object
-                        .getActivityID())// sources Activity ID from within object
-                        .get() // Collects Objective object from result
-                        .getActivity() // Sources Activity object within result
-                        .getActivityID(); // Sources Activity id within object.
+        Objective specifiedActObjective = objectiveRepository
+                .findByActivity_activityID(activityService.findByName("activityTest")
+                        .get()
+                        .getActivityID()).get(0);
 
-        Long tagInObjective = objectiveRepository.findByTag_tagID(
-                tagService.findByTagName("Motivational")
-                        .get() // Sources Tag Object
-                        .getTagID())// sources Tag ID from within object
-                .get() // Collects Objective object from result
-                .getTag() // Sources Tag object within result
-                .getTagID(); // Sources Tag id within object.
+        Long activityInObjective = specifiedActObjective.getActivity().getActivityID();
+
+        Objective specifiedTagObjective = objectiveRepository
+                .findByTag_tagID(tagService.findByTagName("Motivational")
+                        .get()
+                        .getTagID()).get(0);
+
+        Long tagInObjective = specifiedTagObjective.getTag().getTagID();
 
         Activity finalActivity = activityService.findByActivityID(activityInObjective).get();
 
