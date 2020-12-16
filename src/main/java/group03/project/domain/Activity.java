@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @AllArgsConstructor
@@ -15,21 +17,26 @@ public class Activity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="activityID")
+    @NotNull
+    @Column(name="activityID", nullable = false)
     private Long activityID;
-//    private Integer userID;
-    @Column(name = "name")
+
+    @NotNull
+    @Column(name = "name", nullable = false)
     private String name;
+
     @Column(name="file")
     private String file;
+
     @Column(name="description")
     private String description;
-    @Column(name="isOfficial")
+
+    @NotNull
+    @Column(name="isOfficial", nullable = false)
     private Boolean isOfficial;
 
     public Activity(String name, String desc) {
         this(null, name, null, desc, false);
     }
-
 
 }
