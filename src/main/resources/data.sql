@@ -129,4 +129,4 @@ INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VA
 INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (15, 26);
 INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (15, 31);
 
-INSERT INTO `developmenttoolkit`.`participation`
+INSERT INTO `developmenttoolkit`.`participation` (date, siteUser_userID, Activity_activityID, Role_roleID) VALUES ('20201012',2, 1, 'Participant');
