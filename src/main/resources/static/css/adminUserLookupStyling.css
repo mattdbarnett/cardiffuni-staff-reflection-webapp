@@ -75,7 +75,7 @@ span.tags
     z-index: 10;
 }
 
-#container-box{
+#container-box, #container-box-off, #container-box-cust{
     -webkit-box-shadow: 0px 0px 27px 0px rgba(0,0,0,0.37);
     -moz-box-shadow: 0px 0px 27px 0px rgba(0,0,0,0.37);
     box-shadow: 0px 0px 27px 0px rgba(0,0,0,0.37);

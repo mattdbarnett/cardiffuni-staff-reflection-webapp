@@ -106,19 +106,40 @@ public class ActivityController {
                 currentActivitiesIDs.add(currentPart.getActivityID());
             }
         }
-        //Make sure the user can only sign up for official activities they are not already doing
+
         List<Activity> officialActivities = new ArrayList<>();
+        List<Activity> customActivities = new ArrayList<>();
+        //Make sure the user can only sign up for official activities they are not already doing
         for (int x = 0; x < activityService.getActivityListSize(); x++) {
             Activity currentActivity = activities.get(x);
-            if(currentActivity.getIsOfficial() == true) {
-                if(currentActivitiesIDs.contains(currentActivity.getActivityID()) == false) {
+            if(currentActivity.getIsOfficial()) {
+                if(!currentActivitiesIDs.contains(currentActivity.getActivityID())) {
                     officialActivities.add(currentActivity);
                 }
             }
         }
+
+        //Make sure the user can only sign up for custom activities they are not already doing
+        for (int x = 0; x < activityService.getActivityListSize(); x++) {
+            Activity currentActivity = activities.get(x);
+            if(!currentActivity.getIsOfficial()) {
+                if(!currentActivitiesIDs.contains(currentActivity.getActivityID())) {
+                    customActivities.add(currentActivity);
+                }
+            }
+        }
+
+        for (Activity activity : officialActivities) {
+            System.out.println("official activity: " +  activity.getName());
+        }
+
+        for (Activity activity : customActivities) {
+            System.out.println("official activity: " +  activity.getName());
+        }
         ActivityJoinForm editForm = new ActivityJoinForm();
         model.addAttribute("editForm", editForm);
-        model.addAttribute("activities", officialActivities);
+        model.addAttribute("officialActivities", officialActivities);
+        model.addAttribute("customActivities", customActivities);
         return "all-activities";
     }
     //Add a participation for the official activity the user has just signed up to
@@ -128,7 +149,7 @@ public class ActivityController {
         Long currentUserID = getCurrentID(authentication);
         Participation participation = new Participation(null,  Long.parseLong(editForm.getActivityJoinID()),date, "Participant", currentUserID);
         participationService.createParticipation(participation);
-        return "dashboard";
+        return "redirect:/dashboard";
     }
     //Get the current user's ID
     Long getCurrentID(Authentication authentication) {
