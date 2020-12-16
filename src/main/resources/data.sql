@@ -68,7 +68,33 @@ INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VA
 INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (3, 10);
 
 INSERT INTO `developmenttoolkit`.`activity` (name, description, isOfficial) VALUES ('Student Representative course feedback', 'A group feedback session between yourself and the assigned student reps', true);
-
 INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (4, 3);
 INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (4, 9);
 INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (4, 11);
+
+INSERT INTO `developmenttoolkit`.`activity` (name, description, isOfficial) VALUES ('Is your workspace just bad?', 'Public talk from show speaker "Ryan David" about the dangers of your working environment, along with improvements to make. ', true);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (5, 2);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (5, 4);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (5, 8);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (5, 10);
+
+INSERT INTO `developmenttoolkit`.`activity` (name, description, isOfficial) VALUES ('Agile Development Best practice', 'PDF download on following best practice on participating in an Agile project', true);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (6, 15);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (6, 16);
+
+INSERT INTO `developmenttoolkit`.`activity` (name, description, isOfficial) VALUES ('Fostering a better online classroom', 'Zoom meeting on how to make best of the tools available for assisting students during remote learning', true);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (7, 4);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (7, 10);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (7, 11);
+
+INSERT INTO `developmenttoolkit`.`activity` (name, description, isOfficial) VALUES ('Student - Master meet-up', 'Self-organised meeting where you c', true);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (8, 15);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (8, 16);
+
+INSERT INTO `developmenttoolkit`.`activity` (name, description, isOfficial) VALUES ('Agile Development Best practice', 'PDF download on following best practice on participating in an Agile project', true);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (9, 15);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (9, 16);
+
+INSERT INTO `developmenttoolkit`.`activity` (name, description, isOfficial) VALUES ('Agile Development Best practice', 'PDF download on following best practice on participating in an Agile project', true);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (10, 15);
+INSERT INTO `developmenttoolkit`.`objective` (Activity_activityID, Tag_tagID) VALUES (10, 16);
