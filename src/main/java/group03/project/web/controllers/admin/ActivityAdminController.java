@@ -65,7 +65,6 @@ public class ActivityAdminController {
 
             for (Map.Entry<String, Boolean> tag : activity.allOfficialTags().entrySet()) {
                 if (tag.getValue()) {
-                    System.out.println(tag.getKey());
                     Tag theTag = tagService.findATagByName(tag.getKey()).get();
                     Objective newObj = new Objective(latestActivity, theTag);
                     objService.createObjective(newObj);

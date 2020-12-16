@@ -94,15 +94,11 @@ public class HomeController {
             //Make a list of all the tags that the current user has
             for (int partlist = 0; partlist < allParticipations.size(); partlist++) {
                 Participation participation = allParticipations.get(partlist);
-                System.out.println("current participation: " + participation);
                 if(participation.getUserID() == currentID) {
                     t_myParticipations.add(participation);
-                    System.out.println("All participations: "+ t_myParticipations);
                 }
             }
-            Integer counter =0;
-            Integer innerCounter = 0;
-            Integer deepcounter =0;
+
                 for (Participation mypart : t_myParticipations) {
                     t_myActivities.add(participationService.getRelatedActivity(mypart));
                 }
@@ -118,7 +114,6 @@ public class HomeController {
                     }
 
         List<Tag> allTags = tagService.findAllTags();
-        System.out.println("taglist: "+ t_tagList);
 
         List<String> tagNames = new ArrayList<>();
         for (Long tagID : t_tagList)
