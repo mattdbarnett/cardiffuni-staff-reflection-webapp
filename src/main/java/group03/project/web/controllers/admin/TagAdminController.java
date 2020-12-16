@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.sql.SQLException;
 import java.util.List;
 
 @Controller
@@ -39,7 +40,7 @@ public class TagAdminController{
 
         model.addAttribute("tags", allTags);
 
-        return "all-tags";
+        return "admin-all-tags";
     }
 
     @GetMapping("/create-tag")
@@ -112,11 +113,20 @@ public class TagAdminController{
             System.out.println(tagToDelete.getTagID().getClass());
             System.out.println(tagToDelete.getTagID());
 
+
             tagService.deleteSelectedTag(tagToDelete.getTagID());
 
         }
         redirectAttributes.addFlashAttribute("success",true);
         redirectAttributes.addFlashAttribute("type","deletetagadmin");
         return "redirect:/admin/all-tags";
+    }
+    @ExceptionHandler(SQLException.class)
+    public String exceptionMessage(RedirectAttributes redirectAttributes) {
+        String message ="addition/deletion could not be run. Reverting change.";
+        System.out.println(message);
+        redirectAttributes.addFlashAttribute("failure",false);
+        redirectAttributes.addFlashAttribute("type","deletetagadmin");
+        return "redirect:/dashboard";
     }
 }
