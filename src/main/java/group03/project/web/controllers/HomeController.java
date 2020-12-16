@@ -104,6 +104,31 @@ public class HomeController {
                         }
                     }
 
+
+                //new
+
+        List<Participation> a_myParticipations = new ArrayList<>();
+        List<Activity> a_myActivities = new ArrayList<>();
+        List<Long> a_tagList = new ArrayList<>();
+        //Make a list of all the tags that the current user has
+        for (int partlist = 0; partlist < allParticipations.size(); partlist++) {
+            Participation participation = allParticipations.get(partlist);
+            a_myParticipations.add(participation);
+        }
+        for (Participation mypart : a_myParticipations) {
+            a_myActivities.add(participationService.getRelatedActivity(mypart));
+        }
+        for (Activity myact : a_myActivities){
+            for (Objective obj : objService.getAllObjectives()) {
+                if (objService.getAssociatedActivity(obj) == myact) {
+                    a_tagList.add(tagService.findATagByID(obj.getTag().getTagID()).get().getTagID());
+                }
+            }
+        }
+
+        System.out.println("admin: "+a_tagList);
+
+
         List<Tag> allTags = tagService.findAllTags();
 
         Integer amountOfOfficialTags = tagService.findTagsIfOfficial().size();
@@ -126,6 +151,8 @@ public class HomeController {
                 }
             }
         }
+
+
 
         model.addAttribute("userstags",tagNames);
         model.addAttribute("incompleteTags",incompleteTagNames);
