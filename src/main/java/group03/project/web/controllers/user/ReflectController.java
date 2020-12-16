@@ -173,8 +173,8 @@ public class ReflectController {
                     currentReflection.getReflect_eval(),
                     currentReflection.getReflect_diff(),
                     currentReflection.getReflect_lp(),
-                    rating,
-                    privacy
+                    privacy,
+                    rating
             );
 
             reflectLists.add(currentReflectList);
