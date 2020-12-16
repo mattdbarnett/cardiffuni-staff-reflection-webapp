@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <link rel = "stylesheet" type = "text/css" href = "/css/account-edit.css">
+    <meta charset="ISO-8859-1">
+
+    <title>All Reflections</title>
+    <link th:rel="stylesheet" th:href="@{/css/dashPageStyle.css}">
+    <link th:rel="stylesheet" th:href="@{/css/gradientBg.css}">
+    <link th:rel="stylesheet" th:href="@{/css/allActivitiesStyling.css}">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <script src="https://kit.fontawesome.com/d312da903a.js" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500&display=swap" rel="stylesheet">
+    <link th:rel="stylesheet" th:href="@{/css/contentMargin.css}">
+
+
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.css}">
+</head>
+<body>
+<div th:replace="navbar.html :: header"></div>
+<div class="content-pane">
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+            <div class="well profile" id="container-box">
+                <h1 align="center">All Public Reflections</h1><hr style="background-color:#333;height:0.5px;">
+                <ul class="list-group">
+                    <li class = "list-group-item" th:each="reflectlist : ${reflections}">
+                        <p th:text = "'Activity Name: '+ ${reflectlist.activityName}"></p>
+                        <p th:text = "'Sign-Up Date: '+ ${reflectlist.date}"></p>
+                        <p th:text = "'Is it Official?: '+ ${reflectlist.isOfficial}"></p>
+                        <p th:text = "'What did you do? '+ ${reflectlist.reflect_what}"></p>
+                        <p th:text = "'What prompted your approach? '+ ${reflectlist.reflect_prompt}"></p>
+                        <p th:text = "'What happened? '+ ${reflectlist.reflect_happen}"></p>
+                        <p th:text = "'How will you evaluate this activity later? What evidence do you need? '+ ${reflectlist.reflect_eval}"></p>
+                        <p th:text = "'What could you have done differently? '+ ${reflectlist.reflect_diff}"></p>
+                        <p th:text = "'What are your reflective learning points? '+ ${reflectlist.reflect_lp}"></p>
+                        <p th:text = "'Prviacy Setting: '+ ${reflectlist.privacy}"></p>
+                        <p th:text = "'Rating: '+ ${reflectlist.rating}"></p>
+                    </li>
+                </ul>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // Initialize tooltip component
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    // Initialize popover component
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    })
+</script>
+</body>
+</html>

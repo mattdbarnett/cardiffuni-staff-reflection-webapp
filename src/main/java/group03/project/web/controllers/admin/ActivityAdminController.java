@@ -85,7 +85,7 @@ public class ActivityAdminController {
     }
 
 
-    //Lists all participations
+    //Lists all reflections
     @GetMapping("/all-public-reflections")
     public String listParticipations(Model model) {
 
