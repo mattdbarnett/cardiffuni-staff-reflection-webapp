@@ -5,6 +5,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+
     <link th:rel="stylesheet" th:href="@{/css/dashboardStyling.css} "/>
     <link th:rel="stylesheet" th:href="@{/css/dashboardAStyling.css} "/>
     <link th:rel="stylesheet" th:href="@{/css/snackbarStyling.css} "/>
@@ -64,8 +66,75 @@
     </div>
 </main>
 <script th:inline="javascript">
-    var aTaglist = /*[[${otagNamesV}]]*/ [];
-    console.log(aTaglist);
+    var tagList = [];
+    var thTagList = /*[[${otagNamesAll}]]*/ [];
+
+    var tagListUnique = [];
+
+
+    for (i=0;i<thTagList.length;i++){
+        tagList.push(thTagList[i]);
+    }
+
+    $.each(tagList, function(i, el){
+        if($.inArray(el, tagListUnique) === -1) tagListUnique.push(el);
+    });
+
+    const aCount = new Map([...new Set(tagList)].map(
+        x => [x, tagList.filter(y => y === x).length]
+    ));
+
+
+    var doughnutChartCanvas = document.getElementById("barChart1").getContext("2d");
+    var doughnutData = [];
+
+    tagListUnique.forEach(function(tagg) {
+        var random_color = "hsla(" + ~~(360 * Math.random()) + "," +
+            "70%,"+
+            "80%,1)";
+        doughnutData.push({
+            value: aCount.get(tagg),
+            color: random_color,
+            highlight: random_color,
+            label: tagg
+
+        });
+    });
+
+    var doughnutOptions = {
+        tooltipEvents: [],
+        showTooltips: true,
+        onAnimationComplete: function () {
+            this.showTooltip(this.segments, true);
+        },
+        tooltipTemplate: "<%= label %> - <%= value %>",
+        tooltip: {
+            caretPadding: 50,
+            yAlign: 'bottom'
+        },
+
+        labels: tagList,
+        type: 'doughnut',
+        segmentShowStroke: true,
+        segmentStrokeColor: "#fff",
+        segmentStrokeWidth: 2,
+        percentageInnerCutout: 50,
+
+        animationSteps: 100,
+        animationEasing: "easeOutBounce",
+        animateRotate: true,
+        animateScale: false,
+        responsive: true,
+        maintainAspectRatio: true,
+        legend: {
+            display: true,
+            labels: {
+                fontColor: 'rgb(255, 99, 132)'
+            }
+        }
+    };
+
+    var myDoughnut = new Chart(doughnutChartCanvas).Doughnut(doughnutData, doughnutOptions);
 </script>
 <script>
     const pathname = window.location.pathname,
