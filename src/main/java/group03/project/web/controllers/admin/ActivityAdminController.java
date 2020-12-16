@@ -117,6 +117,12 @@ public class ActivityAdminController {
                     privacy = "Private";
                 }
 
+                String rating;
+                if(currentReflection.getRating() == null){
+                    rating = "No Rating";
+                } else{
+                    rating = currentReflection.getRating().toString();
+                }
                 ReflectList currentReflectList = new ReflectList(
                         currentActivity.getName(),
                         currentParticipation.getDate(),
@@ -127,6 +133,7 @@ public class ActivityAdminController {
                         currentReflection.getReflect_eval(),
                         currentReflection.getReflect_diff(),
                         currentReflection.getReflect_lp(),
+                        rating,
                         privacy
                 );
 

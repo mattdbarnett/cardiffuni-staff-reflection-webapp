@@ -24,4 +24,5 @@ public class ReflectList {
     private String reflect_diff;
     private String reflect_lp;
     private String privacy;
+    private String rating;
 }

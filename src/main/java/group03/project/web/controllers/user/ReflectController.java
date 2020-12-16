@@ -156,6 +156,13 @@ public class ReflectController {
             } else{
                 privacy = "Private";
             }
+
+            String rating;
+            if(currentReflection.getRating() == null){
+                rating = "No Rating";
+            } else{
+                rating = currentReflection.getRating().toString();
+            }
             ReflectList currentReflectList = new ReflectList(
                     currentActivity.getName(),
                     currentParticipation.getDate(),
@@ -166,6 +173,7 @@ public class ReflectController {
                     currentReflection.getReflect_eval(),
                     currentReflection.getReflect_diff(),
                     currentReflection.getReflect_lp(),
+                    rating,
                     privacy
             );
 
