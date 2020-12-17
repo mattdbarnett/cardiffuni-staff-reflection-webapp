@@ -8,7 +8,7 @@ Before running the application, seperately run the schema-sql.sql and the data.s
 <br/>password: bigboss
 <br/>roles: User
 
-## use case: ##
+** use case: **
 <br/>viewing dummy data of finished user
 <br/>creation of custom activities 
 <br/>Participating on an activity via provided list
@@ -18,7 +18,7 @@ Before running the application, seperately run the schema-sql.sql and the data.s
 <br/>password: passw
 <br/>roles: User
 
-## use case: ##
+** use case: **
 <br/>viewing dummy data of finished user
 <br/>creation of custom activities 
 <br/>Participating on an activity via provided list
