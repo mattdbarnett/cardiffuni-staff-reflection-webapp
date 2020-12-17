@@ -4,7 +4,7 @@
 Before running the application, seperately run the schema-sql.sql and the data.sql externally on MySQL workbench.
 
 ## LOGGING INTO APPLICATION ##
-## username ##: david112
+## username: david112
 password: bigboss
 roles: User
 
@@ -14,7 +14,17 @@ creation of custom activities
 Participating on an activity via provided list
 reflecting on a participated activity
 
-## username ##: admin
+## username: user
+password: passw
+roles: User
+
+## use case: ##
+viewing dummy data of finished user
+creation of custom activities 
+Participating on an activity via provided list
+reflecting on a participated activity
+
+## username: admin
 password: pass
 roles: Admin
 
