@@ -5,7 +5,7 @@ Before running the application, seperately run the schema-sql.sql and the data.s
 
 ## LOGGING INTO APPLICATION ##
 ## username: david112
-password: bigboss
+<br/>password: bigboss
 roles: User
 
 ## use case: ##
