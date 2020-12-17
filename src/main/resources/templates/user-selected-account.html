@@ -180,6 +180,54 @@
         }
 
     </style>
+
+    <script>
+        $('#nameForm').on('submit', function(e) {
+            var fieldForm = [];
+            fieldForm.push($('#nameFormID').val());
+            function containsEmpty(a) {
+                return [].concat(a).sort().reverse().pop() === "";
+            }
+
+            if (containsEmpty(fieldForm)){
+                alert("Please fill in a new name.");
+                e.preventDefault();
+            }
+            else{
+                return true;
+            }
+        });
+        $('#emailForm').on('submit', function(e) {
+            var fieldForm = [];
+            fieldForm.push($('#emailFormID').val());
+            function containsEmpty(a) {
+                return [].concat(a).sort().reverse().pop() === "";
+            }
+
+            if (containsEmpty(fieldForm)){
+                alert("Please fill in a new email.");
+                e.preventDefault();
+            }
+            else{
+                return true;
+            }
+        });
+        $('#passwordForm').on('submit', function(e) {
+            var fieldForm = [];
+            fieldForm.push($('#passwordFormID').val());
+            function containsEmpty(a) {
+                return [].concat(a).sort().reverse().pop() === "";
+            }
+
+            if (containsEmpty(fieldForm)){
+                alert("Please fill in a new password.");
+                e.preventDefault();
+            }
+            else{
+                return true;
+            }
+        });
+    </script>
 </footer>
 </html>
 
