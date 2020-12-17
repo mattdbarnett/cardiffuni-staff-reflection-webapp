@@ -73,17 +73,9 @@ public class ReflectController {
             throw new ValidationException("No valid assigned activity - cannot retrieve related activity and participation if no activity is present");
         }
 
+        System.out.println(reflection.getParticipationID());
         Long activityID = reflection.getParticipationID();
         Activity chosenActivity = new Activity();
-        reflection.setParticipationID(null);
-        List<Activity> activities = activityService.findAllActivities();
-        for (int y = 0; y < activityService.getActivityListSize(); y++) {
-            Activity currentActivity = activities.get(y);
-            if(currentActivity.getActivityID() == activityID) {
-                chosenActivity = currentActivity;
-            }
-        }
-
         Long currentID = getCurrentID(authentication);
         List<Participation> participations = participationService.findAllParticipations();
         Participation chosenParticipation = new Participation();
@@ -108,9 +100,24 @@ public class ReflectController {
     public String submitReflectionDirect(RedirectAttributes redirectAttributes, @ModelAttribute("reflection") Reflection reflection, Authentication authentication) {
 
         if(reflection.getParticipationID() == null) {
-            throw new ValidationException("No valid corresponding participation found - ParticipationID cannot be null");
+            throw new ValidationException("No valid assigned activity - cannot retrieve related activity and participation if no activity is present");
         }
 
+        Long activityID = reflection.getParticipationID();
+        Activity chosenActivity = new Activity();
+        Long currentID = getCurrentID(authentication);
+        List<Participation> participations = participationService.findAllParticipations();
+        Participation chosenParticipation = new Participation();
+        for (int x = 0; x < participationService.getParticipationListSize(); x++) {
+            Participation currentPart = participations.get(x);
+            if (currentPart.getUserID() == currentID) {
+                if (currentPart.getActivityID() == activityID) {
+                    chosenParticipation = currentPart;
+                }
+            }
+        }
+
+        reflection.setParticipationID(chosenParticipation.getParticipationID());
         reflection.setTagID(1L);
         reflectionServiceImpl.saveReflection(reflection);
         redirectAttributes.addFlashAttribute("success",true);
