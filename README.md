@@ -6,29 +6,30 @@ Before running the application, seperately run the schema-sql.sql and the data.s
 ## LOGGING INTO APPLICATION ##
 ## username: david112
 <br/>password: bigboss
-roles: User
+<br/>roles: User
 
 ## use case: ##
-viewing dummy data of finished user
-creation of custom activities 
-Participating on an activity via provided list
-reflecting on a participated activity
+<br/>viewing dummy data of finished user
+<br/>creation of custom activities 
+<br/>Participating on an activity via provided list
+<br/>reflecting on a participated activity
 
 ## username: user
-password: passw
-roles: User
+<br/>password: passw
+<br/>roles: User
 
 ## use case: ##
-viewing dummy data of finished user
-creation of custom activities 
-Participating on an activity via provided list
-reflecting on a participated activity
+<br/>viewing dummy data of finished user
+<br/>creation of custom activities 
+<br/>Participating on an activity via provided list
+<br/>reflecting on a participated activity
 
 ## username: admin
-password: pass
-roles: Admin
+<br/>password: pass
+<br/>roles: Admin
 
 ## use case:  ##
-creating official activities, viewing averages of data provided by users, creating official tags.
-username: picard@cardiff.ac.uk
-password: earlgreyhot
+<br/>creating official activities
+<br/>viewing averages of data provided by users
+<br/>creating official tags.
+
