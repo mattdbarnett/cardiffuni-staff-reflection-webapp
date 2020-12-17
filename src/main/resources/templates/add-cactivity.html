@@ -6,8 +6,10 @@
     <link th:rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <link th:rel="stylesheet" th:href="@{/css/dashPageStyle.css}">
     <link th:rel="stylesheet" th:href="@{/css/contentMargin.css}">
+
     <link th:rel="stylesheet" th:href="@{/css/gradientBg.css}">
     <link th:rel="stylesheet" th:href="@{/css/snackbarStyling.css} "/>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500&display=swap" rel="stylesheet">
@@ -20,7 +22,7 @@
         <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
             <div class="well profile" id="container-box">
                 <h1 align="center">Custom Activity Registration</h1><hr style="background-color:#333;">
-                <form action="#" th:action="@{/user/add-custom-activity}" enctype="multipart/form-data" method="post" th:object="${activity}">
+                <form id = "customActivityForm" name="customActivityForm" action="#" th:action="@{/user/add-custom-activity}" enctype="multipart/form-data" method="post" th:object="${activity}">
                     <div class="form-group">
                         <h4>Activity Name</h4>
                         <input th:field = "*{name}" type="text" class="form-control" id="activity-name" name="activity-name">
@@ -52,4 +54,25 @@
     </div>
 </div>
 </body>
+<footer>
+    <script>
+        $('#customActivityForm').on('submit', function(e) {
+            if (($('#activity-name').val()=="")&&($('#description').val()=="")){
+                alert("Please enter an activity name and a description.");
+                e.preventDefault();
+            }
+            else if ($('#activity-name').val()==""){
+                alert("Please enter an activity name.");
+                e.preventDefault();
+            }
+            else if ($('#description').val()==""){
+                alert("Please enter a description name.");
+                e.preventDefault();
+            }
+            else{
+                return true;
+            }
+        });
+    </script>
+</footer>
 </html>
