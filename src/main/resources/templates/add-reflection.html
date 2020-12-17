@@ -81,22 +81,22 @@
         }
     </script>
 
-    <script>/*
+    <script>
         $('#reflectionForm').on('submit', function(e) {
             var fieldForm = [];
             fieldForm.push($('#activity-select').val(),$('#what').val(),$('#prompt').val(),$('#happen').val(),$('#eval').val(),$('#diff').val(),$('#lp').val());
-
             function containsEmpty(a) {
                 return [].concat(a).sort().reverse().pop() === "";
             }
-            if (containsEmpty(fieldForm)){
+
+            if ((containsEmpty(fieldForm)) || ($('#activity-select').val()==0) ){
                 alert("Please fill in all of the fields to submit.");
                 e.preventDefault();
             }
             else{
                 return true;
             }
-        });*/
+        });
     </script>
 </footer>
 
