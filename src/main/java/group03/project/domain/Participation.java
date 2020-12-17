@@ -17,7 +17,6 @@ public class Participation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NonNull
     @Column(name="participationID", nullable = false, unique = true)
     private Long participationID;
 

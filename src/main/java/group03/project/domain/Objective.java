@@ -18,7 +18,6 @@ public class Objective {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NonNull
     @Length(min = 1)
     @Column(name = "objectiveID", nullable = false)
     private Long objectiveID;

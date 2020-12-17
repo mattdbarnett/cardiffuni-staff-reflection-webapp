@@ -17,7 +17,6 @@ public class SiteUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NonNull
     @Column(name="userID", nullable = false, unique = true)
     private Long userID;
 

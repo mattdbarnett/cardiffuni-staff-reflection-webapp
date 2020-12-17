@@ -17,7 +17,6 @@ public class Activity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     @Column(name="activityID", nullable = false, unique = true)
     private Long activityID;
 

@@ -16,7 +16,6 @@ public class Tag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NonNull
     @Column(name = "tagID", nullable = false, unique = true)
     private Long tagID;
 
