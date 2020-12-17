@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -127,9 +128,12 @@ public class ActivityAdminController {
 
         System.out.println(allUsers.size());
 
+        DecimalFormat dformat = new DecimalFormat("#.##");
+        dformat.setRoundingMode(RoundingMode.UP);
+
         for (Double  part : tempPartCount) {
             Double percentage = (part / allUsers.size()) * 100;
-            participationPercentage.add(percentage);
+            participationPercentage.add(Double.valueOf(dformat.format(percentage)));
         }
 
         List<Activity> officialActivities = new ArrayList<>();
