@@ -195,3 +195,40 @@ FOR EACH ROW
 		END IF;
 	END$$
 DELIMITER ;
+
+
+-- -----------------------------------------------------
+-- PROCEDURES
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Add Activity Procedure
+-- -----------------------------------------------------
+DROP PROCEDURE IF EXISTS add_activity;
+DELIMITER //
+CREATE PROCEDURE add_activity(
+IN activityID INT,
+IN  name VARCHAR(45),
+IN  file VARCHAR(45),
+IN  description VARCHAR(250),
+IN  isOfficial BOOLEAN
+)
+	BEGIN
+		DECLARE EXIT HANDLER FOR SQLEXCEPTION
+		BEGIN
+			ROLLBACK;
+			SELECT "Transaction has been rolled back as table does not exist" as Message;
+		END;
+		
+		DECLARE EXIT HANDLER FOR 1062
+			BEGIN
+				ROLLBACK;
+				SELECT CONCAT('Duplicate key (',activityID,') occurred') AS message;
+			END;
+     
+		START TRANSACTION;
+            INSERT INTO activity (activityID, name, file, description, isOfficial)
+            VALUES (activityID, name, file, description, isOfficial);
+			COMMIT;
+    END //
+DELIMITER ;  
