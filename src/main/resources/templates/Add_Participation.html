@@ -25,11 +25,10 @@
             <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
                 <div class="well profile" id="container-box">
                     <h1 align="center">Participation Registration</h1><hr style="background-color:#333">
-
-                    <form th:action="@{/add_participation}" enctype="multipart/form-data" method="post" th:object="${participation}">
+                    <form name = "participationForm" th:action="@{/add_participation}" enctype="multipart/form-data" method="post" th:object="${participation}" onsubmit="return validateForm()">
                         <div class="form-group">
                             <label for="activity-select">Activity</label>
-                            <select th:field = "*{activityID}" class="form-control" id="activity-select">
+                            <select name = "activitySelectField" th:field = "*{activityID}" class="form-control" id="activity-select">
                                 <option value="0">Select Activity</option>
                                 <option th:each="activity : ${activities}" th:value="${activity.activityID}" th:text="${activity.name}"></option>
                             </select>
@@ -42,4 +41,15 @@
     </div>
 </main>
 </body>
+<footer>
+    <script>
+        function validateForm() {
+            var x = document.forms["participationForm"]["activitySelectField"].value;
+            if (x == "") {
+                alert("Activity selection must be filled out");
+                return false;
+            }
+        }
+    </script>
+</footer>
 </html>
