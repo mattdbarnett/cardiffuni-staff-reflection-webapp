@@ -71,7 +71,6 @@ public class ActivityAdminController {
         activity.allOfficialTags();
 
 
-
             Activity latestActivity = createActivity(activity, result);
 
             String[] customTags = new String[0];

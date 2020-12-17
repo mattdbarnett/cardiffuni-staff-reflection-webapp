@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -68,6 +69,10 @@ public class ReflectController {
     @PostMapping("/add-reflection")
     public String submitReflection(RedirectAttributes redirectAttributes, @ModelAttribute("reflection") Reflection reflection, Authentication authentication) {
 
+        if(reflection.getParticipationID() == null) {
+            throw new ValidationException("No valid assigned activity - cannot retrieve related activity and participation if no activity is present");
+        }
+
         Long activityID = reflection.getParticipationID();
         Activity chosenActivity = new Activity();
         reflection.setParticipationID(null);
@@ -101,7 +106,11 @@ public class ReflectController {
 
     @PostMapping("/add-reflection-direct")
     public String submitReflectionDirect(RedirectAttributes redirectAttributes, @ModelAttribute("reflection") Reflection reflection, Authentication authentication) {
-        System.out.println(reflection);
+
+        if(reflection.getParticipationID() == null) {
+            throw new ValidationException("No valid corresponding participation found - ParticipationID cannot be null");
+        }
+
         reflection.setTagID(1L);
         reflectionServiceImpl.saveReflection(reflection);
         redirectAttributes.addFlashAttribute("success",true);

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -91,6 +92,9 @@ public class ActivityController {
         /*
         Add participation to database.
          */
+        if(participation.getActivityID() == null) {
+            throw new ValidationException("Activity ID can't be null");
+        }
         participationService.createParticipation(participation);
         redirectAttributes.addFlashAttribute("success",true);
         redirectAttributes.addFlashAttribute("type","cactivity");
@@ -143,12 +147,16 @@ public class ActivityController {
     //Add a participation for the official activity the user has just signed up to
     @PostMapping("/activities-signup-list")
     public String joinActivity(@ModelAttribute("activity") @Valid ActivityJoinForm editForm, Authentication authentication) {
+        if(editForm.getActivityJoinID() == null) {
+            throw new ValidationException("Activity ID can't be null");
+        }
         java.util.Date date = new java.util.Date();
         Long currentUserID = getCurrentID(authentication);
         Participation participation = new Participation(null,  Long.parseLong(editForm.getActivityJoinID()),date, "Participant", currentUserID);
         participationService.createParticipation(participation);
         return "redirect:/dashboard";
     }
+
     //Get the current user's ID
     Long getCurrentID(Authentication authentication) {
         String currentUserName = ControllerSupport.getAuthenticatedUserName(authentication);
