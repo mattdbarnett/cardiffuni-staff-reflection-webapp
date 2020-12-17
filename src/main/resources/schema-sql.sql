@@ -158,21 +158,21 @@ GRANT INSERT, UPDATE, DELETE, SELECT ON developmentToolkit.participation TO 'sit
 -- -----------------------------------------------------
 -- Participation Insert
 -- -----------------------------------------------------
--- DROP TRIGGER IF EXISTS part_insert;
--- DELIMITER $$
--- CREATE TRIGGER part_insert BEFORE INSERT
--- ON participation
--- FOR EACH ROW
--- 	BEGIN
--- 		DECLARE partActID INT;
---         DECLARE checkActID INT;
--- 		SET partActID = NEW.Activity_activityID;
---         SET checkActID = (SELECT EXISTS(SELECT activityID FROM activity WHERE activityID = partActID));
---         IF (checkActID != partActID) THEN
--- 			INSERT INTO activity (activityID, name, file, description, isOfficial) VALUES (partActID, "Placeholder Activity", "Placeholder URL", "Placeholder Description", false);
--- 		END IF;
--- 	END$$
--- DELIMITER ;
+DROP TRIGGER IF EXISTS part_insert;
+ DELIMITER $$
+ CREATE TRIGGER part_insert BEFORE INSERT
+ ON participation
+ FOR EACH ROW
+ 	BEGIN
+ 		DECLARE partActID INT;
+        DECLARE checkActID INT;
+ 		SET partActID = NEW.Activity_activityID;
+        SET checkActID = (SELECT EXISTS(SELECT activityID FROM activity WHERE activityID = partActID));
+        IF (checkActID != partActID) THEN
+ 			INSERT INTO activity (activityID, name, file, description, isOfficial) VALUES (partActID, "Placeholder Activity", "Placeholder URL", "Placeholder Description", false);
+ 		END IF;
+ 	END$$
+DELIMITER ;
 
 -- -----------------------------------------------------
 -- Activity Insert
