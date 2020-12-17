@@ -27,7 +27,7 @@
                     <h1 align="center">Add a Thought Cloud</h1><hr style="background-color:#333">
                     <!--connects to newUserForm class and creates object based upon entries-->
 
-                    <form th:action="@{/user/tag-build}" enctype="multipart/form-data" method="post" th:object="${tag}">
+                    <form id = "thoughtCloudForm" th:action="@{/user/tag-build}" enctype="multipart/form-data" method="post" th:object="${tag}">
                     <div class="form-group">
                         <label for="name">Thought Cloud Name</label>
                         <input th:field = "*{tagName}" type="text" class="form-control" id="tag-identifier" name="tag-identifier">
@@ -50,4 +50,24 @@
     </div>
 </main>
 </body>
+<footer>
+    <script>
+
+        $('#thoughtCloudForm').on('submit', function(e) {
+            var fieldForm = [];
+            fieldForm.push($('#tag-identifier').val(),$('#tag-description').val());
+            function containsEmpty(a) {
+                return [].concat(a).sort().reverse().pop() === "";
+            }
+
+            if (containsEmpty(fieldForm)){
+                alert("Please fill in all of the fields to submit.");
+                e.preventDefault();
+            }
+            else{
+                return true;
+            }
+        });
+    </script>
+</footer>
 </html>
