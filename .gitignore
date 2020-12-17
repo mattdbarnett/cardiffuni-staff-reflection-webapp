@@ -29,6 +29,8 @@ build/
 !**/src/main/*.json
 !**/src/test/*.json
 out/
+*.json
+!**/src/.json
 !**/src/main/**/out/
 !**/src/test/**/out/
 
