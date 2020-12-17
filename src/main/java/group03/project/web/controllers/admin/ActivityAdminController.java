@@ -95,7 +95,7 @@ public class ActivityAdminController {
 
                 }
             }
-        return "dashboard_a";
+        return "redirect:/dashboard";
     }
 
     //List all activities the user can add themselves too

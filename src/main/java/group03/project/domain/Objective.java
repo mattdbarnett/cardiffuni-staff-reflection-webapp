@@ -18,13 +18,11 @@ public class Objective {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Length(min = 1)
     @Column(name = "objectiveID", nullable = false)
     private Long objectiveID;
 
     @ManyToOne
     @NotNull
-    @Length(min = 1)
     @JoinColumn(name = "Activity_activityID", nullable = false)
     private Activity activity;
 

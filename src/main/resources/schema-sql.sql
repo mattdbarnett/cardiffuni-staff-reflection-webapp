@@ -62,12 +62,12 @@ CREATE TABLE IF NOT EXISTS objective(
   PRIMARY KEY (objectiveID),
     FOREIGN KEY (Activity_activityID)
     REFERENCES activity (activityID)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
     FOREIGN KEY (`Tag_tagID`)
     REFERENCES tag (tagID)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -114,8 +114,8 @@ CREATE TABLE IF NOT EXISTS reflection(
    PRIMARY KEY (reflectionID),
    FOREIGN KEY (Tag_tagID)
        REFERENCES tag (tagID)
-       ON DELETE NO ACTION
-       ON UPDATE NO ACTION)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE)
     ENGINE = InnoDB;
 
 -- -----------------------------------------------------
@@ -130,12 +130,12 @@ CREATE TABLE IF NOT EXISTS participation(
   PRIMARY KEY (participationID),
     FOREIGN KEY (Activity_activityID)
     REFERENCES activity (activityID)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
     FOREIGN KEY (siteUser_userID)
     REFERENCES siteUser (userID)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
     FOREIGN KEY (Role_roleID)
     REFERENCES role (role)
     ON DELETE NO ACTION
@@ -158,28 +158,28 @@ GRANT INSERT, UPDATE, DELETE, SELECT ON developmentToolkit.participation TO 'sit
 -- -----------------------------------------------------
 -- Participation Insert
 -- -----------------------------------------------------
-DROP TRIGGER IF EXISTS part_insert;
-DELIMITER $$
-CREATE TRIGGER part_insert BEFORE INSERT 
-ON participation
-FOR EACH ROW
-	BEGIN
-		DECLARE partActID INT;
-        DECLARE checkActID INT;
-		SET partActID = NEW.Activity_activityID;
-        SET checkActID = (SELECT EXISTS(SELECT activityID FROM activity WHERE activityID = partActID));
-        IF (checkActID != partActID) THEN
-			INSERT INTO activity (activityID, name, file, description, isOfficial) VALUES (partActID, "Placeholder Activity", "Placeholder URL", "Placeholder Description", false);
-		END IF;
-	END$$
-DELIMITER ; 
+-- DROP TRIGGER IF EXISTS part_insert;
+-- DELIMITER $$
+-- CREATE TRIGGER part_insert BEFORE INSERT
+-- ON participation
+-- FOR EACH ROW
+-- 	BEGIN
+-- 		DECLARE partActID INT;
+--         DECLARE checkActID INT;
+-- 		SET partActID = NEW.Activity_activityID;
+--         SET checkActID = (SELECT EXISTS(SELECT activityID FROM activity WHERE activityID = partActID));
+--         IF (checkActID != partActID) THEN
+-- 			INSERT INTO activity (activityID, name, file, description, isOfficial) VALUES (partActID, "Placeholder Activity", "Placeholder URL", "Placeholder Description", false);
+-- 		END IF;
+-- 	END$$
+-- DELIMITER ;
 
 -- -----------------------------------------------------
 -- Activity Insert
 -- -----------------------------------------------------
 DROP TRIGGER IF EXISTS reflect_insert;
 DELIMITER $$
-CREATE TRIGGER reflect_insert BEFORE INSERT 
+CREATE TRIGGER reflect_insert BEFORE INSERT
 ON reflection
 FOR EACH ROW
 	BEGIN
@@ -194,4 +194,4 @@ FOR EACH ROW
             INSERT INTO participation (participationID, date, siteUser_activityID, Activity_activityID, Role_roleID) VALUES (null, null, 0, checkActID, "USER");
 		END IF;
 	END$$
-DELIMITER ;       
+DELIMITER ;
