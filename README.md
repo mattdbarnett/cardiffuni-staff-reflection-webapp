@@ -3,6 +3,10 @@
 ## INSTRUCTIONS ##
 Before running the application, seperately run the schema-sql.sql and the data.sql externally on MySQL workbench.
 
+Run the project using "java -jar".
+
+Ensure when the project is ran that you navigate to https://localhost:8080/.
+
 ## LOGGING INTO APPLICATION ##
 ## username: david112
 password: bigboss
