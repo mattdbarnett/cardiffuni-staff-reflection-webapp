@@ -28,7 +28,7 @@ public class UserCreationTest {
 
         List<SiteUser> allUsers = siteUserRepository.findAll();
 
-        assertEquals(6, allUsers.size());
+        assertEquals(14, allUsers.size());
     }
 
     @Test
@@ -38,9 +38,10 @@ public class UserCreationTest {
 
         siteUserRepository.save(andrew);
 
-        Optional<SiteUser> userId = siteUserRepository.findById(5L);
+        Optional<SiteUser> userId = siteUserRepository.findById(13L);
         SiteUser convertedAndrew = userId.get();
 
+        System.out.println(siteUserRepository.findAll());
         assertEquals("andrew@gmail.co.uk", convertedAndrew.getEmailAddress());
     }
 }

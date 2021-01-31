@@ -25,11 +25,11 @@ public class DatabaseTest {
     private RoleRepository roleRepository;
 
     @Test
-    public void shouldReturnThreeUsers() throws Exception {
+    public void shouldReturn12Users() throws Exception {
 
         List<SiteUser> siteUsers = userRepository.findAll();
 
-        assertEquals(4, siteUsers.size());
+        assertEquals(12, siteUsers.size());
     }
 
     @Test

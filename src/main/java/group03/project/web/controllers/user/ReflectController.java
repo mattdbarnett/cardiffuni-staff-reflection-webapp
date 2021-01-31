@@ -142,8 +142,6 @@ public class ReflectController {
             }
         }
 
-        List<ReflectList> formattedReflections = new ArrayList<>();
-
         //Make a list of all the participations unique to the current user
         for (int z = 0; z < reflectionServiceImpl.findAllReflections().size(); z++) {
             Reflection reflection = reflections.get(z);
@@ -152,20 +150,20 @@ public class ReflectController {
             }
         }
 
-
         //Return all reflections with activity and participation data in a user friendly format
         List<ReflectList> reflectLists = new ArrayList<>();
         for (int x = 0; x < myReflections.size(); x++) {
             Reflection currentReflection = myReflections.get(x);
             Participation currentParticipation = new Participation();
-            for (int y = 0; y < currentParticipations.size(); y++) {
+            System.out.println(currentReflection);
+            for (int y = 0; y < participations.size(); y++) {
                 Participation participation = participations.get(y);
+                System.out.println(participation);
                 if(currentReflection.getParticipationID() == participation.getParticipationID()) {
                     currentParticipation = participation;
                 }
             }
             Activity currentActivity = participationService.getRelatedActivity(currentParticipation);
-
             String privacy;
             if(currentReflection.getIsPublic() == true){
                 privacy = "Public";

@@ -80,8 +80,9 @@ public class TagActivityTest {
 
                 /*
         Assertion confirms link in database to Activity object stored inside objective
+        Assertion takes into account the existing activities already present within the dummy data.
          */
-        assertEquals(2L, actService.findActivitiesByID(relatedObjective.getActivity().getActivityID()).get().getActivityID());
+        assertEquals(17L, actService.findActivitiesByID(relatedObjective.getActivity().getActivityID()).get().getActivityID());
         /*
         Assertion confirms first activity saved does not have the created objective link.
          */

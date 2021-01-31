@@ -44,17 +44,6 @@ public class TagWebTest {
     }
 
     @Test
-    @DisplayName("User is presented custom tags from hardcoded datasource")
-    @WithMockUser(username="user", password = "password1", roles = "ADMIN")
-    public void shouldPresentUserWithCustomTags() throws Exception {
-
-        mvc.perform(get("/user/all-tags"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("worked well")))
-                .andExpect(content().string(containsString("I felt I worked well during this activity")));
-    }
-
-    @Test
     @DisplayName("User adds a custom tag, and can see it on page")
     @WithMockUser(username="user", password = "password1", roles = "USER")
     public void shouldSeeCustomTagOnPageWhenCreated() throws Exception {

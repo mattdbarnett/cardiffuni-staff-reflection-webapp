@@ -210,7 +210,7 @@ INSERT INTO `developmenttoolkit`.`reflection`(Participation_participationID, Tag
 VALUES (24, 3, 'Attended a webinar regarding how to reflect on student submissions',
 'My colleague asked me to attend since he saw I was struggling at this',
 'prompt lecture, delivered fast and done within a 1/2 hour timeframe!',
-'A few good points here and there, but a lot of generalised knowledge that I had already. Still, was nice to hear some confirmation of my methods being used are in the right ballpark.',
+'A few good points here and there, but a lot of generalised knowledge that I had already.',
 'Maybe some more specific material that I could use?',
 'That i should just keep doing what I already am doing.',
 true, 3);

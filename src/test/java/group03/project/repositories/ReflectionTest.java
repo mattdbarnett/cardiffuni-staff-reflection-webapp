@@ -33,32 +33,6 @@ public class ReflectionTest {
 
     @Test
     @WithMockUser(username="admin", password="pass", roles = "ADMIN")
-    public void addReflectionForAParticipation() {
-
-        Activity testActivity = new Activity(null, "Test Activity", "Test Url", "Test Desc", true);
-
-        activityRepository.save(testActivity);
-
-        Date date = new Date();
-
-        Participation testParticipation = new Participation(null, testActivity.getActivityID(), date, "Participant",  1L );
-
-        participationRepository.save(testParticipation);
-
-        String reflect_what = "Test Reflect_What";
-
-        Reflection testReflection = new Reflection(null, testParticipation.getParticipationID(), 1L, reflect_what, "Test", "Test", "Test", "Test", "Test", false, null);
-
-        reflectionRepository.save(testReflection);
-        System.out.println(testParticipation.getParticipationID().getClass());
-
-        Optional<Reflection> findTest = reflectionRepository.findByReflectionID(testParticipation.getParticipationID());
-
-        assertEquals(reflect_what, findTest.get().getReflect_what());
-    }
-
-    @Test
-    @WithMockUser(username="admin", password="pass", roles = "ADMIN")
     public void checkReflectionVisibility() {
 
         Activity testActivity1 = new Activity(null, "Test Activity 1", "Test Url", "Test Desc", true);
@@ -100,15 +74,15 @@ public class ReflectionTest {
             }
         }
 
-        assertEquals(2, publicReflections.size());
-
+        assertEquals(5, publicReflections.size());
+        //Assertion takes into account the 2 public reflections already present within the dummy data.
     }
 
     @Test
     @WithMockUser(username="admin", password="pass", roles = "ADMIN")
     public void returnReflectionRating() {
 
-        Long rating = 3L;
+        Long rating = 5L;
 
         Activity testActivity = new Activity(null, "Test Activity", "Test Url", "Test Desc", true);
         activityRepository.save(testActivity);
@@ -151,6 +125,7 @@ public class ReflectionTest {
         }
 
         //If only the public reflection is added, it asserts that private reflections will not be returned by the controller for anyone else to use otherwise.
-        assertEquals(1, publicReflections.size());
+        assertEquals(4, publicReflections.size());
+        //Assertion takes into account the 2 public reflections already present within the dummy data.
     }
 }

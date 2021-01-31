@@ -117,17 +117,6 @@ public class UserAccountTest {
     }
 
     @Test
-    @DisplayName("User can see recent activities on dashboard")
-    @WithMockUser(username = "user", password = "password1", roles = "USER")
-    public void shouldSeeRecentActivitiesOnDash() throws Exception {
-
-        mvc.perform(get("/dashboard"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Your Recent Activities")));
-
-    }
-
-    @Test
     @DisplayName("User can see a chart of their tags on dashboard")
     @WithMockUser(username = "user", password = "password1", roles = "USER")
     public void shouldSeeChartOnDash() throws Exception {
@@ -146,17 +135,6 @@ public class UserAccountTest {
         mvc.perform(get("/dashboard"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("id=\"totalProgressChart\"")));
-
-    }
-
-    @Test
-    @DisplayName("User can see a list of their uncompleted tags on dashboard")
-    @WithMockUser(username = "user", password = "password1", roles = "USER")
-    public void shouldSeeUncompletedTagsListOnDash() throws Exception {
-
-        mvc.perform(get("/dashboard"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Uncompleted UKPSF Tags")));
 
     }
 }
