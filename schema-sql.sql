@@ -157,7 +157,7 @@ GRANT INSERT, UPDATE, DELETE, SELECT ON developmenttoolkit.participation TO 'sit
 
 -- -----------------------------------------------------
 -- Participation Insert
------------------------------------------------------
+-- ---------------------------------------------------
 -- DROP TRIGGER IF EXISTS part_insert;
 --  DELIMITER $$
 --  CREATE TRIGGER part_insert BEFORE INSERT
