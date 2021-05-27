@@ -110,9 +110,13 @@ public class ActivityController {
         //Get a list of all activities the user is currently participating in
         List<Long> currentActivitiesIDs = new ArrayList<>();
         for (int y = 0; y < participationService.getParticipationListSize(); y++) {
-            Participation currentPart = participations.get(y);
-            if(currentPart.getUserID() == currentID) {
-                currentActivitiesIDs.add(currentPart.getActivityID());
+            try {
+                Participation currentPart = participations.get(y);
+                if (currentPart.getUserID() == currentID) {
+                    currentActivitiesIDs.add(currentPart.getActivityID());
+                }
+            } catch (Exception e) {
+
             }
         }
 
@@ -120,21 +124,29 @@ public class ActivityController {
         List<Activity> customActivities = new ArrayList<>();
         //Make sure the user can only sign up for official activities they are not already doing
         for (int x = 0; x < activityService.getActivityListSize(); x++) {
-            Activity currentActivity = activities.get(x);
-            if(currentActivity.getIsOfficial()) {
-                if(!currentActivitiesIDs.contains(currentActivity.getActivityID())) {
-                    officialActivities.add(currentActivity);
+            try {
+                Activity currentActivity = activities.get(x);
+                if (currentActivity.getIsOfficial()) {
+                    if (!currentActivitiesIDs.contains(currentActivity.getActivityID())) {
+                        officialActivities.add(currentActivity);
+                    }
                 }
+            } catch(Exception e) {
+
             }
         }
 
         //Make sure the user can only sign up for custom activities they are not already doing
         for (int x = 0; x < activityService.getActivityListSize(); x++) {
-            Activity currentActivity = activities.get(x);
-            if(!currentActivity.getIsOfficial()) {
-                if(!currentActivitiesIDs.contains(currentActivity.getActivityID())) {
-                    customActivities.add(currentActivity);
+            try {
+                Activity currentActivity = activities.get(x);
+                if (!currentActivity.getIsOfficial()) {
+                    if (!currentActivitiesIDs.contains(currentActivity.getActivityID())) {
+                        customActivities.add(currentActivity);
+                    }
                 }
+            } catch(Exception e) {
+
             }
         }
 

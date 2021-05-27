@@ -136,9 +136,13 @@ public class ReflectController {
         List<Participation> participations = participationService.findAllParticipations();
         List<Long> currentParticipations = new ArrayList<>();
         for (int y = 0; y < participationService.getParticipationListSize(); y++) {
-            Participation currentPart = participations.get(y);
-            if(currentPart.getUserID() == currentID) {
-                currentParticipations.add(currentPart.getParticipationID());
+            try{
+                Participation currentPart = participations.get(y);
+                if (currentPart.getUserID() == currentID) {
+                    currentParticipations.add(currentPart.getParticipationID());
+                }
+            } catch(Exception e) {
+
             }
         }
 

@@ -63,19 +63,23 @@ public class ParticipationController {
 
         //Make a list of all the participations unique to the current user
         for (int z = 0; z < participationService.getParticipationListSize(); z++) {
-            Participation participation = participations.get(z);
-            if(participation.getUserID() == currentID) {
-                myParticipations.add(participation);
-                //Adds the linked activity into list depending on participation.
-                relatedActivities.add(activityService.findActivitiesByID(participation.getActivityID()).get());
+            try {
+                Participation participation = participations.get(z);
+                if (participation.getUserID() == currentID) {
+                    myParticipations.add(participation);
+                    //Adds the linked activity into list depending on participation.
+                    relatedActivities.add(activityService.findActivitiesByID(participation.getActivityID()).get());
 
-                //Finds all objectives that link to activity, sources the tag relating to each activity, and passes that
-                //into list for adding onto page.
-                List<Objective> objectives = objectiveService.findObjectivesByActivityID(participation.getActivityID());
-                Tag[] tags = objectives.stream().filter(x -> x.getTag().getIsOfficial()).map(Objective::getTag).toArray(size -> new Tag[objectives.size()]);
-                Tag[] thoughts = objectives.stream().filter(x -> !x.getTag().getIsOfficial()).map(Objective::getTag).toArray(size -> new Tag[objectives.size()]);
-                allTags.add(tags);
-                allThoughts.add(thoughts);
+                    //Finds all objectives that link to activity, sources the tag relating to each activity, and passes that
+                    //into list for adding onto page.
+                    List<Objective> objectives = objectiveService.findObjectivesByActivityID(participation.getActivityID());
+                    Tag[] tags = objectives.stream().filter(x -> x.getTag().getIsOfficial()).map(Objective::getTag).toArray(size -> new Tag[objectives.size()]);
+                    Tag[] thoughts = objectives.stream().filter(x -> !x.getTag().getIsOfficial()).map(Objective::getTag).toArray(size -> new Tag[objectives.size()]);
+                    allTags.add(tags);
+                    allThoughts.add(thoughts);
+                }
+            } catch(Exception e) {
+
             }
         }
 

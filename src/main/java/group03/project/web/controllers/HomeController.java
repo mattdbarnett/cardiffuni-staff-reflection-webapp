@@ -71,9 +71,13 @@ public class HomeController {
 
             //Make a list of all the participations unique to the current user
             for (int z = 0; z < participationService.getParticipationListSize(); z++) {
-                Participation participation = participations.get(z);
-                if(participation.getUserID() == currentID) {
-                    myParticipations.add(participation);
+                try {
+                    Participation participation = participations.get(z);
+                    if (participation.getUserID() == currentID) {
+                        myParticipations.add(participation);
+                    }
+                } catch (Exception e) {
+
                 }
             }
 
