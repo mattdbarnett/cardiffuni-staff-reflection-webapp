@@ -96,6 +96,8 @@ CREATE TABLE IF NOT EXISTS siteUser(
   PRIMARY KEY (userID))
 ENGINE = InnoDB;
 
+create index siteUserIndex on siteUser(isActive);
+
 -- -----------------------------------------------------
 -- Table `developmenttoolkit`.`reflection`
 -- -----------------------------------------------------
